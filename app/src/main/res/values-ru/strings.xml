@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YMSProject</string>
+
+    <string name="expenses_label">Расходы</string>
+    <string name="incomes_label">Доходы</string>
+    <string name="account_label">Счет</string>
+    <string name="groups_label">Статьи</string>
+    <string name="settings_label">Настройки</string>
+
+    <string name="expenses_title">Расходы сегодня</string>
+    <string name="incomes_title">Доходы сегодня</string>
+    <string name="account_title">Мой счет</string>
+    <string name="groups_title">Мои статьи</string>
+    <string name="settings_title">Настройки</string>
+</resources>
