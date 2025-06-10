@@ -1,6 +1,6 @@
-package arcanegolem.yms.project.mock_data
+package arcanegolem.yms.data.mock
 
-import arcanegolem.yms.project.models.Category
+import arcanegolem.yms.data.models.Category
 
 val mockCategories = listOf(
   Category(

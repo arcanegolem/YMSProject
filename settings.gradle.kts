@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "YMSProject"
 include(":app")
- 
+include(":domain")
+include(":data")

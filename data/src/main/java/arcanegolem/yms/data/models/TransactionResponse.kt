@@ -1,4 +1,4 @@
-package arcanegolem.yms.project.models
+package arcanegolem.yms.data.models
 
 data class TransactionResponse(
   val id : Int,

@@ -1,4 +1,4 @@
-package arcanegolem.yms.project.models
+package arcanegolem.yms.data.models
 
 data class Category(
   val id : Int,
