@@ -13,4 +13,19 @@
     <string name="account_title">Мой счет</string>
     <string name="groups_title">Мои статьи</string>
     <string name="settings_title">Настройки</string>
+
+    <string name="total_text">Всего</string>
+    <string name="balance_text">Баланс</string>
+    <string name="currency_text">Валюта</string>
+
+    <string name="category_search_placeholder">Найти статью</string>
+
+    <string name="settings_theme_text">Светлая темная авто</string>
+    <string name="settings_p_color_text">Основной цвет</string>
+    <string name="settings_sounds_text">Звуки</string>
+    <string name="settings_haptics_text">Хаптики</string>
+    <string name="settings_passcode_text">Код пароль</string>
+    <string name="settings_synchronization_text">Синхронизация</string>
+    <string name="settings_language_text">Язык</string>
+    <string name="settings_about_text">О программе</string>
 </resources>

@@ -4,12 +4,27 @@
     <string name="expenses_label">Expenses</string>
     <string name="incomes_label">Incomes</string>
     <string name="account_label">Account</string>
-    <string name="groups_label">Expense groups</string>
+    <string name="groups_label">Categories</string>
     <string name="settings_label">Settings</string>
 
     <string name="expenses_title">Expenses today</string>
     <string name="incomes_title">Incomes today</string>
     <string name="account_title">My account</string>
-    <string name="groups_title">My expense groups</string>
+    <string name="groups_title">My categories</string>
     <string name="settings_title">Settings</string>
+
+    <string name="total_text">Total</string>
+    <string name="balance_text">Balance</string>
+    <string name="currency_text">Currency</string>
+
+    <string name="category_search_placeholder">Find category</string>
+    
+    <string name="settings_theme_text">Light dark auto</string>
+    <string name="settings_p_color_text">Primary color</string>
+    <string name="settings_sounds_text">Sounds</string>
+    <string name="settings_haptics_text">Haptics</string>
+    <string name="settings_passcode_text">Passcode</string>
+    <string name="settings_synchronization_text">Synchronization</string>
+    <string name="settings_language_text">Language</string>
+    <string name="settings_about_text">About</string>
 </resources>

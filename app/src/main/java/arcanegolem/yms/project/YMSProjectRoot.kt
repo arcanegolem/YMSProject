@@ -1,7 +1,5 @@
 package arcanegolem.yms.project
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -22,8 +20,6 @@ fun YMSProjectRoot() {
     bottomBar = { YMSNavBar(navController = navController) }
   ) { paddingValues ->
     NavHost(
-      enterTransition = { EnterTransition.None },
-      exitTransition = { ExitTransition.None },
       modifier = Modifier.padding(paddingValues),
       navController = navController,
       startDestination = Expenses
