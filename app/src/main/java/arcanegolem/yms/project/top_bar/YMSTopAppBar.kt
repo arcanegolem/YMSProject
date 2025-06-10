@@ -16,7 +16,7 @@ fun YMSTopAppBar(navController: NavController) {
 
   CenterAlignedTopAppBar(
     navigationIcon = {
-
+      YMSTopAppBarNavAction(backStackEntry)
     },
     title = {
       YMSTopAppBarTitle(backStackEntry)
