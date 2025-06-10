@@ -28,4 +28,6 @@
     <string name="settings_synchronization_text">Синхронизация</string>
     <string name="settings_language_text">Язык</string>
     <string name="settings_about_text">О программе</string>
+
+    <string name="error_state_msg">Ой! Что-то пошло не так… Описание ошибки:\n</string>
 </resources>

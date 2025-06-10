@@ -19,6 +19,10 @@ import androidx.compose.ui.unit.dp
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.common.YMSListItem
 
+
+/**
+ * Тут пока немного уродливо, просто сделал те же поля что и в Figma
+ */
 @Composable
 fun SettingsScreen() {
   LazyColumn {

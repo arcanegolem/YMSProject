@@ -57,4 +57,8 @@ dependencies {
 
   implementation(libs.androidx.navigation.compose)
   implementation(libs.kotlinx.serialization.json)
+  implementation(libs.koin.android)
+
+  implementation(project(":data"))
+  implementation(project(":domain"))
 }

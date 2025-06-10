@@ -27,4 +27,6 @@
     <string name="settings_synchronization_text">Synchronization</string>
     <string name="settings_language_text">Language</string>
     <string name="settings_about_text">About</string>
+
+    <string name="error_state_msg">Oops! Something went wrong… Error description:\n</string>
 </resources>

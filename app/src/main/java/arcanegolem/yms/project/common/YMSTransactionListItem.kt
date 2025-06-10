@@ -23,23 +23,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import arcanegolem.yms.project.R
-import arcanegolem.yms.project.models.TransactionResponse
-import arcanegolem.yms.project.util.formatCash
-import arcanegolem.yms.project.util.isAllowedText
+import arcanegolem.yms.domain.models.TransactionModel
+import arcanegolem.yms.project.util.isEmoji
 
 @Composable
-fun YMSTransactionResponseListItem(transactionResponse : TransactionResponse) {
+fun YMSTransactionListItem(transactionModel : TransactionModel) {
   YMSListItem(
     modifier = Modifier
       .fillMaxWidth()
       .height(70.dp),
     lead = {
-      if (transactionResponse.category.emoji.isNotEmpty()){
+      if (transactionModel.emoji.isNotEmpty()){
         Box(
           modifier = Modifier.size(24.dp)
         ) {
-          val isEmoji =
-            remember(transactionResponse.category.emoji) { !transactionResponse.category.emoji.isAllowedText() }
+          val isEmoji = remember(transactionModel.emoji) { transactionModel.emoji.isEmoji() }
           Box(
             modifier = Modifier
               .fillMaxSize()
@@ -48,7 +46,7 @@ fun YMSTransactionResponseListItem(transactionResponse : TransactionResponse) {
           )
           Text(
             modifier = Modifier.align(Alignment.Center),
-            text = transactionResponse.category.emoji,
+            text = transactionModel.emoji,
             fontSize = if (isEmoji) 18.sp else 10.sp,
             lineHeight = if (isEmoji) 24.sp else 22.sp
           )
@@ -62,12 +60,12 @@ fun YMSTransactionResponseListItem(transactionResponse : TransactionResponse) {
       ) {
         Column {
           Text(
-            text = transactionResponse.category.name,
+            text = transactionModel.label,
             style = MaterialTheme.typography.bodyLarge,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onSurface
           )
-          transactionResponse.comment?.let {
+          transactionModel.comment?.let {
             Text(
               text = it,
               fontSize = 14.sp,
@@ -77,11 +75,8 @@ fun YMSTransactionResponseListItem(transactionResponse : TransactionResponse) {
             )
           }
         }
-        val amountFormatted = remember(transactionResponse.amount + transactionResponse.account.currency) {
-          transactionResponse.amount.formatCash(transactionResponse.account.currency)
-        }
         Text(
-          text = amountFormatted,
+          text = transactionModel.amountFormatted,
           fontSize = 16.sp,
           lineHeight = 24.sp,
           overflow = TextOverflow.Ellipsis,
