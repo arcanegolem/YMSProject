@@ -19,7 +19,7 @@
 
     <string name="category_search_placeholder">Find category</string>
     
-    <string name="settings_theme_text">Light dark auto</string>
+    <string name="settings_theme_text">Dark theme</string>
     <string name="settings_p_color_text">Primary color</string>
     <string name="settings_sounds_text">Sounds</string>
     <string name="settings_haptics_text">Haptics</string>

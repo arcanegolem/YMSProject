@@ -20,7 +20,7 @@
 
     <string name="category_search_placeholder">Найти статью</string>
 
-    <string name="settings_theme_text">Светлая темная авто</string>
+    <string name="settings_theme_text">Темная тема</string>
     <string name="settings_p_color_text">Основной цвет</string>
     <string name="settings_sounds_text">Звуки</string>
     <string name="settings_haptics_text">Хаптики</string>

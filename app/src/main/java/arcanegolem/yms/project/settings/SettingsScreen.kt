@@ -31,7 +31,7 @@ fun SettingsScreen() {
       var checked by remember { mutableStateOf(false) }
 
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
+        modifier = Modifier.fillMaxWidth().height(56.dp),
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
