@@ -1,5 +1,6 @@
 package arcanegolem.yms.project.settings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,7 +31,7 @@ fun SettingsScreen() {
       var checked by remember { mutableStateOf(false) }
 
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -43,7 +44,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -56,7 +57,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -69,7 +70,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -82,7 +83,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -95,7 +96,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -108,7 +109,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),
@@ -121,7 +122,7 @@ fun SettingsScreen() {
     }
     item {
       YMSListItem(
-        modifier = Modifier.fillMaxWidth().height(56.dp),
+        modifier = Modifier.fillMaxWidth().height(56.dp).clickable {  },
         content = {
           Text(
             modifier = Modifier.fillMaxWidth(),

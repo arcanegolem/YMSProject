@@ -1,6 +1,7 @@
 package arcanegolem.yms.project.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +28,15 @@ import arcanegolem.yms.domain.models.TransactionModel
 import arcanegolem.yms.project.util.isEmoji
 
 @Composable
-fun YMSTransactionListItem(transactionModel : TransactionModel) {
+fun YMSTransactionListItem(
+  transactionModel : TransactionModel,
+  onClick : (TransactionModel) -> Unit = {}
+) {
   YMSListItem(
     modifier = Modifier
       .fillMaxWidth()
-      .height(70.dp),
+      .height(70.dp)
+      .clickable { onClick(transactionModel) },
     lead = {
       if (transactionModel.emoji.isNotEmpty()){
         Box(

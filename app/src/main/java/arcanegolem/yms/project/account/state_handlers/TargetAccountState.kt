@@ -1,6 +1,7 @@
 package arcanegolem.yms.project.account.state_handlers
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -39,7 +40,8 @@ fun TargetAccountState(state : AccountState.Target) {
           modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(MaterialTheme.colorScheme.secondary),
+            .background(MaterialTheme.colorScheme.secondary)
+            .clickable {  },
           lead = {
             Box(
               modifier = Modifier.size(24.dp)
@@ -88,7 +90,8 @@ fun TargetAccountState(state : AccountState.Target) {
           modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(MaterialTheme.colorScheme.secondary),
+            .background(MaterialTheme.colorScheme.secondary)
+            .clickable {  },
           content = {
             Row(
               modifier = Modifier.fillMaxWidth(),
