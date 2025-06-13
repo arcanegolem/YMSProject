@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".YMSProjectApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -11,12 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YMSProject"
-        android:screenOrientation="portrait"
         tools:targetApi="35">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
-            android:theme="@style/Theme.YMSProject">
+            android:theme="@style/Theme.YMSProject.Splash"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,5 +26,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
