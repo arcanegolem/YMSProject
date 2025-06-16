@@ -2,10 +2,8 @@ package arcanegolem.yms.project.incomes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arcanegolem.yms.data.mock.mockAccount
 import arcanegolem.yms.domain.usecases.LoadIncomesUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -28,8 +26,7 @@ class IncomesViewModel(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { IncomesState.Loading }
-        delay(600) // Для демонстрации стейта загрузки
-        val result = loadIncomesUseCase.execute(mockAccount.id, mockAccount.currency)
+        val result = loadIncomesUseCase.execute(32, "RUB")
         _state.update { IncomesState.Target(result) }
       }
     }
