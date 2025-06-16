@@ -6,7 +6,12 @@ import arcanegolem.yms.domain.repos.TransactionsRepository
 class LoadIncomesUseCase(
   private val transactionsRepository: TransactionsRepository
 ) {
-  suspend fun execute(accountId : Int, currency : String) : TransactionsTotaledModel {
-    return transactionsRepository.loadIncomes(accountId, currency)
+  suspend fun execute(
+    accountId : Int,
+    currency : String,
+    periodStartMillis : Long? = null,
+    periodEndMillis : Long? = periodStartMillis
+  ) : TransactionsTotaledModel {
+    return transactionsRepository.loadIncomes(accountId, currency, periodStartMillis, periodEndMillis)
   }
 }
