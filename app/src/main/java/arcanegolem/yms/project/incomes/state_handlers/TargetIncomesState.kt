@@ -3,6 +3,7 @@ package arcanegolem.yms.project.incomes.state_handlers
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,37 +31,37 @@ import arcanegolem.yms.project.incomes.IncomesState
 @Composable
 fun TargetIncomesState(state : IncomesState.Target) {
   Box(modifier = Modifier.fillMaxSize()) {
-    LazyColumn {
-      item {
-        YMSListItem(
-          modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(MaterialTheme.colorScheme.secondary),
-          content = {
-            Row(
-              modifier = Modifier.fillMaxWidth(),
-              horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-              Text(
-                text = stringResource(R.string.total_text),
-                style = MaterialTheme.typography.bodyLarge,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurface
-              )
+    Column {
+      YMSListItem(
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(56.dp)
+          .background(MaterialTheme.colorScheme.secondary),
+        content = {
+          Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+          ) {
+            Text(
+              text = stringResource(R.string.total_text),
+              style = MaterialTheme.typography.bodyLarge,
+              overflow = TextOverflow.Ellipsis,
+              color = MaterialTheme.colorScheme.onSurface
+            )
 
-              Text(
-                text = state.result.total,
-                style = MaterialTheme.typography.bodyLarge,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurface
-              )
-            }
+            Text(
+              text = state.result.total,
+              style = MaterialTheme.typography.bodyLarge,
+              overflow = TextOverflow.Ellipsis,
+              color = MaterialTheme.colorScheme.onSurface
+            )
           }
-        )
-      }
-      items(state.result.transactions, key = { it.toString() }) { transaction ->
-        YMSTransactionListItem(transaction)
+        }
+      )
+      LazyColumn {
+        items(state.result.transactions, key = { it.toString() }) { transaction ->
+          YMSTransactionListItem(transaction)
+        }
       }
     }
 
