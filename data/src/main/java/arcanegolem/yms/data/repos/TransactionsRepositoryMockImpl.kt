@@ -9,7 +9,9 @@ import arcanegolem.yms.domain.repos.TransactionsRepository
 class TransactionsRepositoryMockImpl : TransactionsRepository {
   override suspend fun loadExpenses(
     accountId: Int,
-    currency: String
+    currency: String,
+    periodStartMillis: Long?,
+    periodEndMillis: Long?
   ): TransactionsTotaledModel {
     // Сюда потом подгрузка транзакций по id аккаунта
     val loadedData = mockTransactions
@@ -36,7 +38,9 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
 
   override suspend fun loadIncomes(
     accountId: Int,
-    currency: String
+    currency: String,
+    periodStartMillis: Long?,
+    periodEndMillis: Long?
   ): TransactionsTotaledModel {
     // Сюда потом подгрузка транзакций по id аккаунта
     val loadedData = mockTransactions

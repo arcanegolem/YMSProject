@@ -1,5 +1,8 @@
 package arcanegolem.yms.data.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class TransactionResponse(
   val id : Int,
   val account : AccountBrief,

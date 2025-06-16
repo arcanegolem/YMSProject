@@ -3,9 +3,9 @@ package arcanegolem.yms.data.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Category(
-  val id : Int,
-  val name : String,
+data class StatItem(
+  val categoryId : Int,
+  val categoryName : String,
   val emoji : String,
-  val isIncome : Boolean
+  val amount : String
 )

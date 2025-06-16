@@ -1,6 +1,7 @@
 package arcanegolem.yms.project
 
 import android.app.Application
+import arcanegolem.yms.data.di.networkModule
 import arcanegolem.yms.project.di.appModule
 import arcanegolem.yms.project.di.dataModule
 import arcanegolem.yms.project.di.domainModule
@@ -16,7 +17,8 @@ class YMSProjectApplication : Application() {
       modules(
         appModule,
         domainModule,
-        dataModule
+        dataModule,
+        networkModule
       )
     }
   }
