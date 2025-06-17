@@ -12,6 +12,7 @@
     <string name="account_title">My account</string>
     <string name="groups_title">My categories</string>
     <string name="settings_title">Settings</string>
+    <string name="history_title">My history</string>
 
     <string name="total_text">Total</string>
     <string name="balance_text">Balance</string>
