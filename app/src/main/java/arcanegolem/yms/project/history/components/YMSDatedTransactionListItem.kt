@@ -1,4 +1,4 @@
-package arcanegolem.yms.project.common
+package arcanegolem.yms.project.history.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,15 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import arcanegolem.yms.project.R
 import arcanegolem.yms.domain.models.TransactionModel
+import arcanegolem.yms.project.R
+import arcanegolem.yms.project.common.YMSListItem
 import arcanegolem.yms.project.util.isEmoji
 
 @Composable
-fun YMSTransactionListItem(
+fun YMSDatedTransactionListItem(
   transactionModel : TransactionModel,
   onClick : (TransactionModel) -> Unit = {}
 ) {
@@ -83,13 +85,26 @@ fun YMSTransactionListItem(
             }
           }
         }
-        Text(
-          text = transactionModel.amountFormatted,
-          fontSize = 16.sp,
-          lineHeight = 24.sp,
-          overflow = TextOverflow.Ellipsis,
-          color = MaterialTheme.colorScheme.onSurface
-        )
+        Column {
+          Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = transactionModel.amountFormatted,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.End
+          )
+          Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = transactionModel.dateTimeFormatted,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.End
+          )
+        }
       }
     },
     trail = {

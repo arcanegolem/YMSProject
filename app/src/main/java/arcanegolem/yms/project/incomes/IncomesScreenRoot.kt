@@ -22,7 +22,7 @@ fun IncomesScreenRoot(
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.incomes_title)) }
   ProvideYMSTopAppBarActions {
     IconButton(
-      onClick = { navController.navigate(History(32)) }
+      onClick = { navController.navigate(History(32, true, "RUB")) }
     ) { Icon(painter = painterResource(R.drawable.history), contentDescription = null) }
   }
 

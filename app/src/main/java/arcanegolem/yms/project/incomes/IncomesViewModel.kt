@@ -26,7 +26,7 @@ class IncomesViewModel(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { IncomesState.Loading }
-        val result = loadIncomesUseCase.execute(32, "RUB")
+        val result = loadIncomesUseCase.execute(32, "RUB", System.currentTimeMillis(), System.currentTimeMillis())
         _state.update { IncomesState.Target(result) }
       }
     }

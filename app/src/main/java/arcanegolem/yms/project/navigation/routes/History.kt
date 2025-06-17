@@ -4,5 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class History(
-  val accountId : Int
+  val accountId : Int,
+  val isIncome : Boolean,
+  val currency : String
 )
