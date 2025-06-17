@@ -10,6 +10,7 @@ import arcanegolem.yms.domain.repos.TransactionsRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
+import kotlinx.datetime.Instant
 
 class TransactionsRepositoryRemoteImpl(
   private val httpClient: HttpClient
@@ -32,7 +33,9 @@ class TransactionsRepositoryRemoteImpl(
         )
       ).body<List<TransactionResponse>>()
 
-    val expenses = response.filter { !it.category.isIncome }
+    val expenses = response
+      .filter { !it.category.isIncome }
+      .sortedBy { Instant.parse(it.createdAt) }
 
     val expensesSum = expenses
       .map { it.amount.toFloat() }
@@ -72,17 +75,19 @@ class TransactionsRepositoryRemoteImpl(
         )
       ).body<List<TransactionResponse>>()
 
-    val expenses = response.filter { it.category.isIncome }
+    val incomes = response
+      .filter { it.category.isIncome }
+      .sortedBy { Instant.parse(it.createdAt) }
 
-    val expensesSum = expenses
+    val incomesSum = incomes
       .map { it.amount.toFloat() }
       .sum()
       .toString()
       .formatCash(currency)
 
     return TransactionsTotaledModel(
-      total = expensesSum,
-      transactions = expenses.map { transactionRemote ->
+      total = incomesSum,
+      transactions = incomes.map { transactionRemote ->
         TransactionModel(
           id = transactionRemote.id,
           emoji = transactionRemote.category.emoji,
