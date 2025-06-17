@@ -37,6 +37,7 @@ class TransactionsRepositoryRemoteImpl(
     val expenses = response
       .filter { !it.category.isIncome }
       .sortedBy { Instant.parse(it.createdAt) }
+      .reversed()
 
     val expensesSum = expenses
       .map { it.amount.toFloat() }
@@ -80,6 +81,7 @@ class TransactionsRepositoryRemoteImpl(
     val incomes = response
       .filter { it.category.isIncome }
       .sortedBy { Instant.parse(it.createdAt) }
+      .reversed()
 
     val incomesSum = incomes
       .map { it.amount.toFloat() }

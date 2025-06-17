@@ -6,6 +6,7 @@ import arcanegolem.yms.data.util.toFormattedDateTime
 import arcanegolem.yms.domain.models.TransactionModel
 import arcanegolem.yms.domain.models.TransactionsTotaledModel
 import arcanegolem.yms.domain.repos.TransactionsRepository
+import kotlinx.datetime.Instant
 
 class TransactionsRepositoryMockImpl : TransactionsRepository {
   override suspend fun loadExpenses(
@@ -16,9 +17,21 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
   ): TransactionsTotaledModel {
     // Сюда потом подгрузка транзакций по id аккаунта
     val loadedData = mockTransactions
-    val transactionsMapped = loadedData
+
+    val expenses = loadedData
       .filter { !it.category.isIncome }
-      .map { transactionRemote ->
+      .sortedBy { Instant.parse(it.createdAt) }
+      .reversed()
+
+    val expensesSum = expenses
+      .map { it.amount.toFloat() }
+      .sum()
+      .toString()
+      .formatCash(currency)
+
+    return TransactionsTotaledModel(
+      total = expensesSum,
+      transactions = expenses.map { transactionRemote ->
         TransactionModel(
           id = transactionRemote.id,
           emoji = transactionRemote.category.emoji,
@@ -28,14 +41,7 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
           dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
         )
       }
-
-    val total = loadedData
-      .map { it.amount.toFloat() }
-      .sum()
-      .toString()
-      .formatCash(currency)
-
-    return TransactionsTotaledModel(total, transactionsMapped)
+    )
   }
 
   override suspend fun loadIncomes(
@@ -46,9 +52,21 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
   ): TransactionsTotaledModel {
     // Сюда потом подгрузка транзакций по id аккаунта
     val loadedData = mockTransactions
-    val transactionsMapped = loadedData
+
+    val incomes = loadedData
       .filter { it.category.isIncome }
-      .map { transactionRemote ->
+      .sortedBy { Instant.parse(it.createdAt) }
+      .reversed()
+
+    val incomesSum = incomes
+      .map { it.amount.toFloat() }
+      .sum()
+      .toString()
+      .formatCash(currency)
+
+    return TransactionsTotaledModel(
+      total = incomesSum,
+      transactions = incomes.map { transactionRemote ->
         TransactionModel(
           id = transactionRemote.id,
           emoji = transactionRemote.category.emoji,
@@ -58,13 +76,6 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
           dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
         )
       }
-
-    val total = loadedData
-      .map { it.amount.toFloat() }
-      .sum()
-      .toString()
-      .formatCash(currency)
-
-    return TransactionsTotaledModel(total, transactionsMapped)
+    )
   }
 }
