@@ -2,6 +2,7 @@ package arcanegolem.yms.data.repos
 
 import arcanegolem.yms.data.mock.mockTransactions
 import arcanegolem.yms.data.util.formatCash
+import arcanegolem.yms.data.util.toFormattedDateTime
 import arcanegolem.yms.domain.models.TransactionModel
 import arcanegolem.yms.domain.models.TransactionsTotaledModel
 import arcanegolem.yms.domain.repos.TransactionsRepository
@@ -23,7 +24,8 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
           emoji = transactionRemote.category.emoji,
           label = transactionRemote.category.name,
           comment = transactionRemote.comment,
-          amountFormatted = transactionRemote.amount.formatCash(currency)
+          amountFormatted = transactionRemote.amount.formatCash(currency),
+          dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
         )
       }
 
@@ -52,7 +54,8 @@ class TransactionsRepositoryMockImpl : TransactionsRepository {
           emoji = transactionRemote.category.emoji,
           label = transactionRemote.category.name,
           comment = transactionRemote.comment,
-          amountFormatted = transactionRemote.amount.formatCash(currency)
+          amountFormatted = transactionRemote.amount.formatCash(currency),
+          dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
         )
       }
 

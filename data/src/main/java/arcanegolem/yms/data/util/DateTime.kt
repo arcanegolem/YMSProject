@@ -66,3 +66,7 @@ fun monthStartFormatted() : String {
 fun todayWithTimeFormatted() : String {
   return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).format(ReadableFormatWithTime)
 }
+
+fun String.toFormattedDateTime() : String {
+  return Instant.parse(this).toLocalDateTime(TimeZone.UTC).format(ReadableFormatWithTime)
+}

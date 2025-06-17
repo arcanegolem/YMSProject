@@ -4,6 +4,7 @@ import arcanegolem.yms.data.models.TransactionResponse
 import arcanegolem.yms.data.remote.api.Transactions
 import arcanegolem.yms.data.util.formatCash
 import arcanegolem.yms.data.util.toDateString
+import arcanegolem.yms.data.util.toFormattedDateTime
 import arcanegolem.yms.domain.models.TransactionModel
 import arcanegolem.yms.domain.models.TransactionsTotaledModel
 import arcanegolem.yms.domain.repos.TransactionsRepository
@@ -51,7 +52,8 @@ class TransactionsRepositoryRemoteImpl(
           emoji = transactionRemote.category.emoji,
           label = transactionRemote.category.name,
           comment = transactionRemote.comment,
-          amountFormatted = transactionRemote.amount.formatCash(currency)
+          amountFormatted = transactionRemote.amount.formatCash(currency),
+          dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
         )
       }
     )
@@ -93,7 +95,8 @@ class TransactionsRepositoryRemoteImpl(
           emoji = transactionRemote.category.emoji,
           label = transactionRemote.category.name,
           comment = transactionRemote.comment,
-          amountFormatted = transactionRemote.amount.formatCash(currency)
+          amountFormatted = transactionRemote.amount.formatCash(currency),
+          dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
         )
       }
     )
