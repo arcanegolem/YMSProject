@@ -5,5 +5,6 @@ data class TransactionModel(
   val emoji : String,
   val label : String,
   val comment : String?,
-  val amountFormatted : String
+  val amountFormatted : String,
+  val dateTimeFormatted : String
 )
