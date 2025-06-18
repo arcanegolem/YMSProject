@@ -13,5 +13,5 @@ val appModule = module {
   viewModel { ExpensesViewModel(get()) }
   viewModel { AccountViewModel(get()) }
   viewModel { CategoriesViewModel(get()) }
-  viewModel { HistoryViewModel(get(), get()) }
+  viewModel { HistoryViewModel(get()) }
 }

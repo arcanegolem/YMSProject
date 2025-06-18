@@ -1,6 +1,7 @@
 package arcanegolem.yms.project.history.state_handlers
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,30 +14,42 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import arcanegolem.yms.data.util.monthStartFormatted
-import arcanegolem.yms.data.util.todayWithTimeFormatted
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.common.YMSListItem
 import arcanegolem.yms.project.history.HistoryEvent
 import arcanegolem.yms.project.history.HistoryState
+import arcanegolem.yms.project.history.components.DatePickerSource
+import arcanegolem.yms.project.history.components.YMSDatePicker
 import arcanegolem.yms.project.history.components.YMSDatedTransactionListItem
+import arcanegolem.yms.project.util.toReadableDate
 
 @Composable
 fun TargetHistoryState(
   state : HistoryState.Target,
   eventProcessor : (HistoryEvent) -> Unit
 ) {
+  var datePickerActive by remember { mutableStateOf(false) }
+  var datePickerSource by remember { mutableStateOf(DatePickerSource.PERIOD_START) }
+
   Box(modifier = Modifier.fillMaxSize()) {
     Column {
       YMSListItem(
         modifier = Modifier
           .fillMaxWidth()
           .height(56.dp)
-          .background(MaterialTheme.colorScheme.secondary),
+          .background(MaterialTheme.colorScheme.secondary)
+          .clickable {
+            datePickerSource = DatePickerSource.PERIOD_START
+            datePickerActive = true
+          },
         content = {
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -50,7 +63,7 @@ fun TargetHistoryState(
             )
 
             Text(
-              text = monthStartFormatted(),
+              text = state.result.periodStart.toReadableDate(),
               style = MaterialTheme.typography.bodyLarge,
               overflow = TextOverflow.Ellipsis,
               color = MaterialTheme.colorScheme.onSurface
@@ -62,7 +75,11 @@ fun TargetHistoryState(
         modifier = Modifier
           .fillMaxWidth()
           .height(56.dp)
-          .background(MaterialTheme.colorScheme.secondary),
+          .background(MaterialTheme.colorScheme.secondary)
+          .clickable {
+            datePickerSource = DatePickerSource.PERIOD_END
+            datePickerActive = true
+          },
         content = {
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -76,7 +93,7 @@ fun TargetHistoryState(
             )
 
             Text(
-              text = todayWithTimeFormatted(),
+              text = state.result.periodEnd.toReadableDate(),
               style = MaterialTheme.typography.bodyLarge,
               overflow = TextOverflow.Ellipsis,
               color = MaterialTheme.colorScheme.onSurface
@@ -102,7 +119,7 @@ fun TargetHistoryState(
             )
 
             Text(
-              text = state.result.total,
+              text = state.result.transactionsTotaled.total,
               style = MaterialTheme.typography.bodyLarge,
               overflow = TextOverflow.Ellipsis,
               color = MaterialTheme.colorScheme.onSurface
@@ -111,10 +128,40 @@ fun TargetHistoryState(
         }
       )
       LazyColumn {
-        items(state.result.transactions, key = { it.toString() }) { transaction ->
+        items(state.result.transactionsTotaled.transactions, key = { it.toString() }) { transaction ->
           YMSDatedTransactionListItem(transaction)
         }
       }
     }
+
+    YMSDatePicker(
+      isActive = datePickerActive,
+      onDismissRequest = { datePickerActive = false },
+      onDateSelected = { selectedDate ->
+        if (selectedDate != null){
+          when (datePickerSource) {
+            DatePickerSource.PERIOD_START -> eventProcessor(
+              HistoryEvent.LoadTransactionsForPeriod(
+                state.result.isIncome,
+                periodStart = selectedDate,
+                periodEnd = state.result.periodEnd
+              )
+            )
+
+            DatePickerSource.PERIOD_END -> eventProcessor(
+              HistoryEvent.LoadTransactionsForPeriod(
+                state.result.isIncome,
+                periodStart = state.result.periodStart,
+                periodEnd = selectedDate
+              )
+            )
+          }
+        }
+      },
+      initialDateMillis = when (datePickerSource) {
+        DatePickerSource.PERIOD_START -> state.result.periodStart
+        DatePickerSource.PERIOD_END -> state.result.periodEnd
+      }
+    )
   }
 }

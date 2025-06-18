@@ -20,6 +20,8 @@
     <string name="currency_text">Валюта</string>
     <string name="start_text">Начало</string>
     <string name="end_text">Конец</string>
+    <string name="ok_text">ОК</string>
+    <string name="cancel_text">Отмена</string>
 
     <string name="category_search_placeholder">Найти статью</string>
 

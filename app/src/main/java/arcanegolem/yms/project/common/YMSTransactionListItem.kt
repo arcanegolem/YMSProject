@@ -64,7 +64,9 @@ fun YMSTransactionListItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
       ) {
-        Column {
+        Column(
+          modifier = Modifier.fillMaxWidth(0.5f)
+        ) {
           Text(
             text = transactionModel.label,
             style = MaterialTheme.typography.bodyLarge,

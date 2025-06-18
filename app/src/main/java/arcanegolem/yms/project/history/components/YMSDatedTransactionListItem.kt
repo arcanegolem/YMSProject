@@ -28,6 +28,7 @@ import arcanegolem.yms.domain.models.TransactionModel
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.common.YMSListItem
 import arcanegolem.yms.project.util.isEmoji
+import arcanegolem.yms.project.util.toFormattedDateTime
 
 @Composable
 fun YMSDatedTransactionListItem(
@@ -66,7 +67,9 @@ fun YMSDatedTransactionListItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
       ) {
-        Column {
+        Column(
+          modifier = Modifier.fillMaxWidth(0.5f)
+        ) {
           Text(
             text = transactionModel.label,
             style = MaterialTheme.typography.bodyLarge,
@@ -97,7 +100,7 @@ fun YMSDatedTransactionListItem(
           )
           Text(
             modifier = Modifier.fillMaxWidth(),
-            text = transactionModel.dateTimeFormatted,
+            text = transactionModel.dateTimeMillis.toFormattedDateTime(),
             fontSize = 16.sp,
             lineHeight = 24.sp,
             overflow = TextOverflow.Ellipsis,
