@@ -14,7 +14,7 @@ fun HistoryScreen(
   eventProcessor : (HistoryEvent) -> Unit
 ) {
   when (val s = state.value) {
-    HistoryState.Idle -> eventProcessor(HistoryEvent.LoadTransactionsForPeriod(route.accountId, route.isIncome, route.currency))
+    HistoryState.Idle -> eventProcessor(HistoryEvent.LoadTransactionsForPeriod(route.isIncome))
     HistoryState.Loading -> LoadingState()
     is HistoryState.Target -> TargetHistoryState(s, eventProcessor)
     is HistoryState.Error -> ErrorState(s.error)

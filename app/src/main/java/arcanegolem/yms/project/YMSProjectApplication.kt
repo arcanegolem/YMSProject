@@ -1,9 +1,8 @@
 package arcanegolem.yms.project
 
 import android.app.Application
-import arcanegolem.yms.data.di.networkModule
+import arcanegolem.yms.data.di.dataModule
 import arcanegolem.yms.project.di.appModule
-import arcanegolem.yms.project.di.dataModule
 import arcanegolem.yms.project.di.domainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -17,8 +16,7 @@ class YMSProjectApplication : Application() {
       modules(
         appModule,
         domainModule,
-        dataModule,
-        networkModule
+        dataModule
       )
     }
   }

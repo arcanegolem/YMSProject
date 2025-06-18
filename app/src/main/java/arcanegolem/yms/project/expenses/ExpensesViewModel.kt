@@ -26,7 +26,7 @@ class ExpensesViewModel(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { ExpensesState.Loading }
-        val result = loadExpensesUseCase.execute(32, "RUB", System.currentTimeMillis(), System.currentTimeMillis())
+        val result = loadExpensesUseCase.execute(System.currentTimeMillis(), System.currentTimeMillis())
         _state.update { ExpensesState.Target(result) }
       }
     }

@@ -20,22 +20,20 @@ class HistoryViewModel(
 
   fun processEvent(event : HistoryEvent) {
     when (event) {
-      is HistoryEvent.LoadTransactionsForPeriod -> loadHistory(event.accountId, event.isIncome, event.currency)
+      is HistoryEvent.LoadTransactionsForPeriod -> loadHistory(event.isIncome)
     }
   }
 
   private fun loadHistory(
-    accountId : Int,
     isIncome : Boolean,
-    currency : String
   ) {
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { HistoryState.Loading }
         val transactionsTotaled = if (isIncome) {
-          loadIncomesUseCase.execute(accountId, currency)
+          loadIncomesUseCase.execute()
         } else {
-          loadExpensesUseCase.execute(accountId, currency)
+          loadExpensesUseCase.execute()
         }
         _state.update { HistoryState.Target(transactionsTotaled) }
       }
