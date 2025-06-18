@@ -3,12 +3,12 @@ package arcanegolem.yms.data.repos
 import arcanegolem.yms.data.datastore.DataStoreManager
 import arcanegolem.yms.data.datastore.models.AccountInfoModel
 import arcanegolem.yms.data.remote.api.Accounts
-import arcanegolem.yms.data.remote.models.TransactionResponse
 import arcanegolem.yms.data.remote.api.Transactions
 import arcanegolem.yms.data.remote.models.Account
+import arcanegolem.yms.data.remote.models.TransactionResponse
 import arcanegolem.yms.data.util.formatCash
+import arcanegolem.yms.data.util.parseMillis
 import arcanegolem.yms.data.util.toDateString
-import arcanegolem.yms.data.util.toFormattedDateTime
 import arcanegolem.yms.domain.models.TransactionModel
 import arcanegolem.yms.domain.models.TransactionsTotaledModel
 import arcanegolem.yms.domain.repos.TransactionsRepository
@@ -73,7 +73,7 @@ class TransactionsRepositoryImpl(
           label = transactionRemote.category.name,
           comment = transactionRemote.comment,
           amountFormatted = transactionRemote.amount.formatCash(currency),
-          dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
+          dateTimeMillis = transactionRemote.transactionDate.parseMillis()
         )
       }
     )
@@ -131,7 +131,7 @@ class TransactionsRepositoryImpl(
           label = transactionRemote.category.name,
           comment = transactionRemote.comment,
           amountFormatted = transactionRemote.amount.formatCash(currency),
-          dateTimeFormatted = transactionRemote.transactionDate.toFormattedDateTime()
+          dateTimeMillis = transactionRemote.transactionDate.parseMillis()
         )
       }
     )

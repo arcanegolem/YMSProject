@@ -7,9 +7,11 @@ import arcanegolem.yms.data.datastore.DataStoreManager
 import arcanegolem.yms.data.datastore.preferencesDataStore
 import arcanegolem.yms.data.repos.AccountRepositoryImpl
 import arcanegolem.yms.data.repos.CategoriesRepositoryImpl
+import arcanegolem.yms.data.repos.HistoryRepositoryImpl
 import arcanegolem.yms.data.repos.TransactionsRepositoryImpl
 import arcanegolem.yms.domain.repos.AccountRepository
 import arcanegolem.yms.domain.repos.CategoriesRepository
+import arcanegolem.yms.domain.repos.HistoryRepository
 import arcanegolem.yms.domain.repos.TransactionsRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -32,6 +34,7 @@ val dataModule = module {
   single<CategoriesRepository> { CategoriesRepositoryImpl(get()) }
   single<TransactionsRepository> { TransactionsRepositoryImpl(get(), get()) }
   single<AccountRepository> { AccountRepositoryImpl(get(), get()) }
+  single<HistoryRepository> { HistoryRepositoryImpl(get(), get()) }
 
   single<DataStoreManager> {
     val context = get<Context>()

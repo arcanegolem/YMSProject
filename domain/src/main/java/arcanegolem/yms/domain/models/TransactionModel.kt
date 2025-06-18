@@ -6,5 +6,5 @@ data class TransactionModel(
   val label : String,
   val comment : String?,
   val amountFormatted : String,
-  val dateTimeFormatted : String
+  val dateTimeMillis : Long
 )
