@@ -1,6 +1,6 @@
 package arcanegolem.yms.data.repos
 
-import arcanegolem.yms.data.models.TransactionResponse
+import arcanegolem.yms.data.remote.models.TransactionResponse
 import arcanegolem.yms.data.remote.api.Transactions
 import arcanegolem.yms.data.util.formatCash
 import arcanegolem.yms.data.util.toDateString

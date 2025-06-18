@@ -1,6 +1,6 @@
 package arcanegolem.yms.data.repos
 
-import arcanegolem.yms.data.models.Category
+import arcanegolem.yms.data.remote.models.Category
 import arcanegolem.yms.data.remote.api.Categories
 import arcanegolem.yms.domain.models.CategoryModel
 import arcanegolem.yms.domain.repos.CategoriesRepository

@@ -1,7 +1,7 @@
 package arcanegolem.yms.data.mock
 
-import arcanegolem.yms.data.models.Category
-import arcanegolem.yms.data.models.TransactionResponse
+import arcanegolem.yms.data.remote.models.Category
+import arcanegolem.yms.data.remote.models.TransactionResponse
 
 val mockTransactions = listOf(
   TransactionResponse(

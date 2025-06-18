@@ -1,6 +1,6 @@
 package arcanegolem.yms.data.repos
 
-import arcanegolem.yms.data.models.AccountResponse
+import arcanegolem.yms.data.remote.models.AccountResponse
 import arcanegolem.yms.data.remote.api.Accounts
 import arcanegolem.yms.data.util.formatCash
 import arcanegolem.yms.data.util.formatCurrency
