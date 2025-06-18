@@ -59,5 +59,7 @@ dependencies {
 
   implementation(libs.kotlinx.datetime)
 
+  implementation(libs.androidx.datastore.preferences)
+
   implementation(project(":domain"))
 }

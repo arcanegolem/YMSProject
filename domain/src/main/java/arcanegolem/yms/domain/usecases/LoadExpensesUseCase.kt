@@ -7,11 +7,9 @@ class LoadExpensesUseCase(
   private val transactionsRepository: TransactionsRepository
 ) {
   suspend fun execute(
-    accountId : Int,
-    currency: String,
     periodStartMillis : Long? = null,
     periodEndMillis : Long? = periodStartMillis
   ): TransactionsTotaledModel {
-    return transactionsRepository.loadExpenses(accountId, currency, periodStartMillis, periodEndMillis)
+    return transactionsRepository.loadExpenses(periodStartMillis, periodEndMillis)
   }
 }

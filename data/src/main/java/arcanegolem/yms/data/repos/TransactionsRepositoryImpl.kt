@@ -1,7 +1,11 @@
 package arcanegolem.yms.data.repos
 
+import arcanegolem.yms.data.datastore.DataStoreManager
+import arcanegolem.yms.data.datastore.models.AccountInfoModel
+import arcanegolem.yms.data.remote.api.Accounts
 import arcanegolem.yms.data.remote.models.TransactionResponse
 import arcanegolem.yms.data.remote.api.Transactions
+import arcanegolem.yms.data.remote.models.Account
 import arcanegolem.yms.data.util.formatCash
 import arcanegolem.yms.data.util.toDateString
 import arcanegolem.yms.data.util.toFormattedDateTime
@@ -13,17 +17,32 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import kotlinx.datetime.Instant
 
-class TransactionsRepositoryRemoteImpl(
-  private val httpClient: HttpClient
+class TransactionsRepositoryImpl(
+  private val httpClient: HttpClient,
+  private val dataStoreManager: DataStoreManager
 ) : TransactionsRepository {
   override suspend fun loadExpenses(
-    accountId: Int,
-    currency: String,
     periodStartMillis: Long?,
     periodEndMillis: Long?
   ): TransactionsTotaledModel {
     val periodStartFormatted = periodStartMillis?.toDateString()
     val periodEndFormatted = periodEndMillis?.toDateString()
+
+    val accountId : Int
+    val currency : String
+
+    val cachedAccountInfo = dataStoreManager.getActiveAccount()
+
+    if (cachedAccountInfo != null) {
+      accountId = cachedAccountInfo.id
+      currency = cachedAccountInfo.currency
+    } else {
+      val remoteAccount = httpClient.get(Accounts()).body<List<Account>>().first()
+      val remoteInfo = AccountInfoModel(remoteAccount.id, remoteAccount.currency)
+      dataStoreManager.updateActiveAccount(remoteInfo)
+      accountId = remoteInfo.id
+      currency = remoteInfo.currency
+    }
 
     val response = httpClient
       .get(
@@ -61,13 +80,27 @@ class TransactionsRepositoryRemoteImpl(
   }
 
   override suspend fun loadIncomes(
-    accountId: Int,
-    currency: String,
     periodStartMillis: Long?,
     periodEndMillis: Long?
   ): TransactionsTotaledModel {
     val periodStartFormatted = periodStartMillis?.toDateString()
     val periodEndFormatted = periodEndMillis?.toDateString()
+
+    val accountId : Int
+    val currency : String
+
+    val cachedAccountInfo = dataStoreManager.getActiveAccount()
+
+    if (cachedAccountInfo != null) {
+      accountId = cachedAccountInfo.id
+      currency = cachedAccountInfo.currency
+    } else {
+      val remoteAccount = httpClient.get(Accounts()).body<List<Account>>().first()
+      val remoteInfo = AccountInfoModel(remoteAccount.id, remoteAccount.currency)
+      dataStoreManager.updateActiveAccount(remoteInfo)
+      accountId = remoteInfo.id
+      currency = remoteInfo.currency
+    }
 
     val response = httpClient
       .get(

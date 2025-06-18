@@ -1,10 +1,13 @@
 package arcanegolem.yms.data.di
 
+import android.content.Context
 import android.util.Log
 import arcanegolem.yms.data.BuildConfig
-import arcanegolem.yms.data.repos.AccountRepositoryRemoteImpl
-import arcanegolem.yms.data.repos.CategoriesRepositoryRemoteImpl
-import arcanegolem.yms.data.repos.TransactionsRepositoryRemoteImpl
+import arcanegolem.yms.data.datastore.DataStoreManager
+import arcanegolem.yms.data.datastore.preferencesDataStore
+import arcanegolem.yms.data.repos.AccountRepositoryImpl
+import arcanegolem.yms.data.repos.CategoriesRepositoryImpl
+import arcanegolem.yms.data.repos.TransactionsRepositoryImpl
 import arcanegolem.yms.domain.repos.AccountRepository
 import arcanegolem.yms.domain.repos.CategoriesRepository
 import arcanegolem.yms.domain.repos.TransactionsRepository
@@ -25,10 +28,15 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-val networkModule = module {
-  single<CategoriesRepository> { CategoriesRepositoryRemoteImpl(get()) }
-  single<TransactionsRepository> { TransactionsRepositoryRemoteImpl(get()) }
-  single<AccountRepository> { AccountRepositoryRemoteImpl(get()) }
+val dataModule = module {
+  single<CategoriesRepository> { CategoriesRepositoryImpl(get()) }
+  single<TransactionsRepository> { TransactionsRepositoryImpl(get(), get()) }
+  single<AccountRepository> { AccountRepositoryImpl(get(), get()) }
+
+  single<DataStoreManager> {
+    val context = get<Context>()
+    DataStoreManager(context.preferencesDataStore)
+  }
 
   single {
     HttpClient(OkHttp) {
