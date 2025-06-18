@@ -18,7 +18,8 @@ fun YMSDatePicker(
   onDateSelected : (Long?) -> Unit,
   initialDateMillis : Long? = null
 ) {
-  val datePickerState = rememberDatePickerState(initialSelectedDateMillis = initialDateMillis)
+  val datePickerState = rememberDatePickerState()
+  if (initialDateMillis != null) { datePickerState.displayedMonthMillis = initialDateMillis }
 
   if (isActive) {
     DatePickerDialog(
