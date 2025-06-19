@@ -3,6 +3,8 @@ package arcanegolem.yms.project.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.domain.usecases.LoadHistoryUseCase
+import arcanegolem.yms.project.R
+import arcanegolem.yms.project.common.state_handlers.error.YMSError
 import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +36,7 @@ class HistoryViewModel(
         if (!NetworkMonitor.networkAvailable.value) return@withContext
         runCatching { loadHistoryUseCase.execute(isIncome, periodStart, periodEnd) }
           .onSuccess { result -> _state.update { HistoryState.Target(result) } }
-          .onFailure { error -> _state.update { HistoryState.Error(error) } }
+          .onFailure { error -> _state.update { HistoryState.Error(YMSError(R.string.history_error_desc, error)) } }
       }
     }
   }

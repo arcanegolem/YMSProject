@@ -3,6 +3,8 @@ package arcanegolem.yms.project.incomes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.domain.usecases.LoadIncomesUseCase
+import arcanegolem.yms.project.R
+import arcanegolem.yms.project.common.state_handlers.error.YMSError
 import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +32,7 @@ class IncomesViewModel(
         if (!NetworkMonitor.networkAvailable.value) return@withContext
         runCatching { loadIncomesUseCase.execute(System.currentTimeMillis(), System.currentTimeMillis()) }
           .onSuccess { result -> _state.update { IncomesState.Target(result) } }
-          .onFailure { error -> _state.update { IncomesState.Error(error) } }
+          .onFailure { error -> _state.update { IncomesState.Error(YMSError(R.string.transaction_error_desc, error)) } }
       }
     }
   }

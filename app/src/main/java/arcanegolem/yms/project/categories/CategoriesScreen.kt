@@ -3,7 +3,7 @@ package arcanegolem.yms.project.categories
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import arcanegolem.yms.project.categories.state_handlers.TargetCategoriesState
-import arcanegolem.yms.project.common.state_handlers.ErrorState
+import arcanegolem.yms.project.common.state_handlers.error.ErrorState
 import arcanegolem.yms.project.common.state_handlers.LoadingState
 
 @Composable

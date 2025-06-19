@@ -24,6 +24,13 @@
     <string name="connection_available_text">Network available!</string>
     <string name="connection_unavailable_text">Network not available!</string>
 
+    <string name="error_desc_text">Error description</string>
+    <string name="transaction_error_desc">Error loading transactions! Description:</string>
+    <string name="account_error_desc">Error loading account data! Description:</string>
+    <string name="category_error_desc">Error loading categories! Description:</string>
+    <string name="history_error_desc">Error loading transaction history! Description:</string>
+    <string name="copy_error_desc_text">Copy description</string>
+
     <string name="category_search_placeholder">Find category</string>
     
     <string name="settings_theme_text">Dark theme</string>

@@ -2,6 +2,7 @@ package arcanegolem.yms.project
 
 import android.app.Application
 import arcanegolem.yms.data.di.dataModule
+import arcanegolem.yms.data.di.fakes.fakeDataModule
 import arcanegolem.yms.project.di.appModule
 import arcanegolem.yms.project.di.domainModule
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +17,8 @@ class YMSProjectApplication : Application() {
       modules(
         appModule,
         domainModule,
-        dataModule
+        dataModule,
+//        fakeDataModule
       )
     }
   }

@@ -3,6 +3,8 @@ package arcanegolem.yms.project.expenses
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.domain.usecases.LoadExpensesUseCase
+import arcanegolem.yms.project.R
+import arcanegolem.yms.project.common.state_handlers.error.YMSError
 import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +32,7 @@ class ExpensesViewModel(
         if (!NetworkMonitor.networkAvailable.value) return@withContext
         runCatching { loadExpensesUseCase.execute(System.currentTimeMillis(), System.currentTimeMillis())  }
           .onSuccess { result -> _state.update { ExpensesState.Target(result) } }
-          .onFailure { error -> _state.update { ExpensesState.Error(error) } }
+          .onFailure { error -> _state.update { ExpensesState.Error(YMSError(R.string.transaction_error_desc, error)) } }
       }
     }
   }

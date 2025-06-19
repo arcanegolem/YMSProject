@@ -25,6 +25,13 @@
     <string name="connection_available_text">Подключение доступно!</string>
     <string name="connection_unavailable_text">Подключение не доступно!</string>
 
+    <string name="error_desc_text">Описание ошибки</string>
+    <string name="transaction_error_desc">Ошибка при загрузке транзакций! Описание:</string>
+    <string name="account_error_desc">Ошибка при загрузке данных о счете! Описание:</string>
+    <string name="category_error_desc">Ошибка при загрузке статей! Описание:</string>
+    <string name="history_error_desc">Ошибка при загрузке истории транзакций! Описание:</string>
+    <string name="copy_error_desc_text">Копировать описание</string>
+
     <string name="category_search_placeholder">Найти статью</string>
 
     <string name="settings_theme_text">Темная тема</string>

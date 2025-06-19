@@ -3,7 +3,7 @@ package arcanegolem.yms.project.account
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import arcanegolem.yms.project.account.state_handlers.TargetAccountState
-import arcanegolem.yms.project.common.state_handlers.ErrorState
+import arcanegolem.yms.project.common.state_handlers.error.ErrorState
 import arcanegolem.yms.project.common.state_handlers.LoadingState
 
 @Composable

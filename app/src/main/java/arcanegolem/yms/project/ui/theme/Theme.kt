@@ -19,14 +19,15 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
   primary = GreenMain,
   secondary = GreenSecondary,
+  onSecondary = Color.White,
+  onPrimary = DarkGray,
   tertiary = RedVibrant,
   background = LightGrayBackground,
-  onSurface = DarkGrayOnSurface,
+  onSurface = DarkGray,
   primaryContainer = GreenMain,
   onPrimaryContainer = Color.White,
   outlineVariant = LightGrayOutlineVariant,
   onSurfaceVariant = LightGrayOnSurfaceVariant,
-  onSecondary = Color.White,
   errorContainer = RedVibrant,
   onErrorContainer = Color.White
 

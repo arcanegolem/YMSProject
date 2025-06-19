@@ -2,7 +2,7 @@ package arcanegolem.yms.project.history
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import arcanegolem.yms.project.common.state_handlers.ErrorState
+import arcanegolem.yms.project.common.state_handlers.error.ErrorState
 import arcanegolem.yms.project.common.state_handlers.LoadingState
 import arcanegolem.yms.project.history.state_handlers.TargetHistoryState
 import arcanegolem.yms.project.navigation.routes.History

@@ -62,6 +62,8 @@ dependencies {
 
   implementation(libs.kotlinx.datetime)
 
+  implementation(libs.material.icons.extended)
+
   implementation(project(":data"))
   implementation(project(":domain"))
 }

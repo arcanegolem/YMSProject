@@ -3,6 +3,8 @@ package arcanegolem.yms.project.account
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.domain.usecases.LoadFirstAccountUseCase
+import arcanegolem.yms.project.R
+import arcanegolem.yms.project.common.state_handlers.error.YMSError
 import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +32,7 @@ class AccountViewModel(
         if (!NetworkMonitor.networkAvailable.value) return@withContext
         runCatching { loadAccountUseCase.execute() }
           .onSuccess { result -> _state.update { AccountState.Target(result) } }
-          .onFailure { error -> _state.update { AccountState.Error(error) } }
+          .onFailure { error -> _state.update { AccountState.Error(YMSError(R.string.account_error_desc, error)) } }
       }
     }
   }
