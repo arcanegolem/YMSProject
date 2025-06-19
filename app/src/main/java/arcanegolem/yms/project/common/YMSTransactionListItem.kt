@@ -61,23 +61,28 @@ fun YMSTransactionListItem(
     content = {
       Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
       ) {
-        Column {
+        Column(
+          modifier = Modifier.fillMaxWidth(0.5f)
+        ) {
           Text(
             text = transactionModel.label,
             style = MaterialTheme.typography.bodyLarge,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onSurface
           )
-          transactionModel.comment?.let {
-            Text(
-              text = it,
-              fontSize = 14.sp,
-              lineHeight = 20.sp,
-              overflow = TextOverflow.Ellipsis,
-              color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+          if (transactionModel.comment?.isNotBlank() == true) {
+            transactionModel.comment?.let {
+              Text(
+                text = it,
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+              )
+            }
           }
         }
         Text(

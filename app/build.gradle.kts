@@ -60,6 +60,10 @@ dependencies {
   implementation(libs.koin.android)
   implementation(libs.androidx.core.splashscreen)
 
+  implementation(libs.kotlinx.datetime)
+
+  implementation(libs.material.icons.extended)
+
   implementation(project(":data"))
   implementation(project(":domain"))
 }

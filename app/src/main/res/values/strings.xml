@@ -12,10 +12,24 @@
     <string name="account_title">My account</string>
     <string name="groups_title">My categories</string>
     <string name="settings_title">Settings</string>
+    <string name="history_title">My history</string>
 
     <string name="total_text">Total</string>
     <string name="balance_text">Balance</string>
     <string name="currency_text">Currency</string>
+    <string name="start_text">Start</string>
+    <string name="end_text">End</string>
+    <string name="ok_text">OK</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="connection_available_text">Network available!</string>
+    <string name="connection_unavailable_text">Network not available!</string>
+
+    <string name="error_desc_text">Error description</string>
+    <string name="transaction_error_desc">Error loading transactions! Description:</string>
+    <string name="account_error_desc">Error loading account data! Description:</string>
+    <string name="category_error_desc">Error loading categories! Description:</string>
+    <string name="history_error_desc">Error loading transaction history! Description:</string>
+    <string name="copy_error_desc_text">Copy description</string>
 
     <string name="category_search_placeholder">Find category</string>
     

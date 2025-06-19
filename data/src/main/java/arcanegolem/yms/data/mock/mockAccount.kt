@@ -1,6 +1,6 @@
 package arcanegolem.yms.data.mock
 
-import arcanegolem.yms.data.models.AccountBrief
+import arcanegolem.yms.data.remote.models.AccountBrief
 
 val mockAccount = AccountBrief(
   id = 1,

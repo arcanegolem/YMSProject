@@ -15,7 +15,7 @@ val GreenSecondary = Color(0xFFD4FAE6)
 
 val LightGrayBackground = Color(0xFFFEF7FF)
 val LightGrayOutlineVariant = Color(0xFFCAC4D0)
-val DarkGrayOnSurface = Color(0xFF1D1B20)
+val DarkGray = Color(0xFF1D1B20)
 val LightGrayOnSurfaceVariant = Color(0xFF49454F)
 
 val RedVibrant = Color(0xFFE46962)

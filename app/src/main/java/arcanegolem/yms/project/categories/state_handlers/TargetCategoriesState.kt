@@ -42,84 +42,84 @@ import arcanegolem.yms.project.util.isEmoji
 @Composable
 fun TargetCategoriesState(state : CategoriesState.Target) {
   Box(modifier = Modifier.fillMaxSize()){
-    LazyColumn {
-      item {
-        var query by remember { mutableStateOf("") }
+    Column {
+      var query by remember { mutableStateOf("") }
 
-        DockedSearchBar (
-          modifier = Modifier.fillMaxWidth(),
-          shape = RectangleShape,
-          inputField = {
-            SearchBarDefaults.InputField(
-              modifier = Modifier.fillMaxWidth(),
-              query = query,
-              onSearch = {},
-              onQueryChange = { query = it },
-              expanded = false,
-              onExpandedChange = {},
-              trailingIcon = {
-                Icon(
-                  painter = painterResource(R.drawable.search),
-                  contentDescription = null
-                )
-              },
-              placeholder = {
-                Text(
-                  text = stringResource(R.string.category_search_placeholder),
-                  style = MaterialTheme.typography.bodyLarge,
-                  color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-              }
-            )
-          },
-          expanded = false,
-          onExpandedChange = {},
-          content = {}
-        )
-        HorizontalDivider(thickness = 1.dp)
-      }
-      items(state.result, key = { it.toString() }) { category ->
-        YMSListItem(
-          modifier = Modifier
-            .fillMaxWidth()
-            .height(70.dp),
-          lead = {
-            if (category.emoji.isNotEmpty()){
-              Box(
-                modifier = Modifier.size(24.dp)
-              ) {
-                val isEmoji = remember(category.emoji) { category.emoji.isEmoji() }
+      DockedSearchBar (
+        modifier = Modifier.fillMaxWidth(),
+        shape = RectangleShape,
+        inputField = {
+          SearchBarDefaults.InputField(
+            modifier = Modifier.fillMaxWidth(),
+            query = query,
+            onSearch = {},
+            onQueryChange = { query = it },
+            expanded = false,
+            onExpandedChange = {},
+            trailingIcon = {
+              Icon(
+                painter = painterResource(R.drawable.search),
+                contentDescription = null
+              )
+            },
+            placeholder = {
+              Text(
+                text = stringResource(R.string.category_search_placeholder),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+              )
+            }
+          )
+        },
+        expanded = false,
+        onExpandedChange = {},
+        content = {}
+      )
+      HorizontalDivider(thickness = 1.dp)
+      LazyColumn {
+        items(state.result, key = { it.toString() }) { category ->
+          YMSListItem(
+            modifier = Modifier
+              .fillMaxWidth()
+              .height(70.dp),
+            lead = {
+              if (category.emoji.isNotEmpty()) {
                 Box(
-                  modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.secondary)
-                )
-                Text(
-                  modifier = Modifier.align(Alignment.Center),
-                  text = category.emoji,
-                  fontSize = if (isEmoji) 18.sp else 10.sp,
-                  lineHeight = if (isEmoji) 24.sp else 22.sp
-                )
+                  modifier = Modifier.size(24.dp)
+                ) {
+                  val isEmoji = remember(category.emoji) { category.emoji.isEmoji() }
+                  Box(
+                    modifier = Modifier
+                      .fillMaxSize()
+                      .clip(CircleShape)
+                      .background(MaterialTheme.colorScheme.secondary)
+                  )
+                  Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = category.emoji,
+                    fontSize = if (isEmoji) 18.sp else 10.sp,
+                    lineHeight = if (isEmoji) 24.sp else 22.sp
+                  )
+                }
+              }
+            },
+            content = {
+              Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+              ) {
+                Column {
+                  Text(
+                    text = category.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
+                  )
+                }
               }
             }
-          },
-          content = {
-            Row(
-              modifier = Modifier.fillMaxWidth(),
-              horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-              Column {
-                Text(
-                  text = category.name,
-                  style = MaterialTheme.typography.bodyLarge,
-                  overflow = TextOverflow.Ellipsis,
-                  color = MaterialTheme.colorScheme.onSurface
-                )
-              }
-            }
-          }
-        )
+          )
+        }
       }
     }
   }

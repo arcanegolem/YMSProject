@@ -2,10 +2,11 @@ package arcanegolem.yms.project.account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arcanegolem.yms.data.mock.mockAccount
-import arcanegolem.yms.domain.usecases.LoadAccountUseCase
+import arcanegolem.yms.domain.usecases.LoadFirstAccountUseCase
+import arcanegolem.yms.project.R
+import arcanegolem.yms.project.common.state_handlers.error.YMSError
+import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AccountViewModel(
-  private val loadAccountUseCase: LoadAccountUseCase
+  private val loadAccountUseCase: LoadFirstAccountUseCase
 ) : ViewModel() {
   private val _state = MutableStateFlow<AccountState>(AccountState.Idle)
   val state get() = _state.asStateFlow()
@@ -28,9 +29,10 @@ class AccountViewModel(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { AccountState.Loading }
-        delay(600) // Для демонстрации стейта загрузки
-        val result = loadAccountUseCase.execute(mockAccount.id)
-        _state.update { AccountState.Target(result) }
+        if (!NetworkMonitor.networkAvailable.value) return@withContext
+        runCatching { loadAccountUseCase.execute() }
+          .onSuccess { result -> _state.update { AccountState.Target(result) } }
+          .onFailure { error -> _state.update { AccountState.Error(YMSError(R.string.account_error_desc, error)) } }
       }
     }
   }
