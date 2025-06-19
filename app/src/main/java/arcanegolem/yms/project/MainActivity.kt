@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import arcanegolem.yms.project.ui.theme.YMSProjectTheme
+import arcanegolem.yms.project.util.network.NetworkMonitor
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,9 @@ class MainActivity : ComponentActivity() {
       statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
       navigationBarStyle = SystemBarStyle.light(Color.WHITE, Color.BLACK)
     )
+
+    NetworkMonitor.collectChanges(this)
+
     setContent {
       YMSProjectTheme {
         YMSProjectRoot()

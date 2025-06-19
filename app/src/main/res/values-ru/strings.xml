@@ -22,6 +22,8 @@
     <string name="end_text">Конец</string>
     <string name="ok_text">ОК</string>
     <string name="cancel_text">Отмена</string>
+    <string name="connection_available_text">Подключение доступно!</string>
+    <string name="connection_unavailable_text">Подключение не доступно!</string>
 
     <string name="category_search_placeholder">Найти статью</string>
 

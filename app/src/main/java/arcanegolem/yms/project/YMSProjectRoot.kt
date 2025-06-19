@@ -1,9 +1,14 @@
 package arcanegolem.yms.project
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import arcanegolem.yms.project.bottom_bar.YMSNavBar
@@ -19,10 +24,21 @@ fun YMSProjectRoot() {
     topBar = { YMSTopAppBar(navController = navController) },
     bottomBar = { YMSNavBar(navController = navController) }
   ) { paddingValues ->
-    NavHost(
-      modifier = Modifier.padding(paddingValues),
-      navController = navController,
-      startDestination = Expenses
-    ) { navigationGraph(navController) }
+    Box(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues)
+    ){
+      NavHost(
+        navController = navController,
+        startDestination = Expenses
+      ) { navigationGraph(navController) }
+
+      YMSConnectionDisplay(
+        modifier = Modifier
+          .align(Alignment.BottomCenter)
+          .offset(y = -(16.dp))
+      )
+    }
   }
 }

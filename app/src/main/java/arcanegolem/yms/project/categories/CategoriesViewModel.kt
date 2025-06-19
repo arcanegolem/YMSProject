@@ -3,6 +3,7 @@ package arcanegolem.yms.project.categories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.domain.usecases.LoadCategoriesUseCase
+import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,8 +27,10 @@ class CategoriesViewModel(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { CategoriesState.Loading }
-        val result = loadCategoriesUseCase.execute()
-        _state.update { CategoriesState.Target(result) }
+        if (!NetworkMonitor.networkAvailable.value) return@withContext
+        runCatching { loadCategoriesUseCase.execute() }
+          .onSuccess { result -> _state.update { CategoriesState.Target(result) } }
+          .onFailure { error -> _state.update { CategoriesState.Error(error) } }
       }
     }
   }
