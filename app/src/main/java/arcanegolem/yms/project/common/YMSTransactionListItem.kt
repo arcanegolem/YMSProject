@@ -70,6 +70,7 @@ fun YMSTransactionListItem(
           Text(
             text = transactionModel.label,
             style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onSurface
           )
@@ -79,6 +80,7 @@ fun YMSTransactionListItem(
                 text = it,
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
               )

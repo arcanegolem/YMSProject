@@ -4,9 +4,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.navigation.routes.History
@@ -31,7 +31,7 @@ fun HistoryScreenRoot(
     ) { Icon(painter = painterResource(R.drawable.arrow_back), contentDescription = null) }
   }
 
-  val state = viewModel.state.collectAsState()
+  val state = viewModel.state.collectAsStateWithLifecycle()
 
   HistoryScreen(route, state, viewModel::processEvent)
 }

@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.delay
 
@@ -36,7 +36,7 @@ import kotlinx.coroutines.delay
 fun YMSConnectionDisplay(
   modifier: Modifier
 ) {
-  val networkAvailable by NetworkMonitor.networkAvailable.collectAsState()
+  val networkAvailable by NetworkMonitor.networkAvailable.collectAsStateWithLifecycle()
   var visible by remember(networkAvailable) { mutableStateOf(true) }
 
   LaunchedEffect(networkAvailable) {

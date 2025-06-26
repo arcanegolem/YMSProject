@@ -139,24 +139,11 @@ fun TargetHistoryState(
       onDismissRequest = { datePickerActive = false },
       onDateSelected = { selectedDate ->
         if (selectedDate != null){
-          when (datePickerSource) {
-            DatePickerSource.PERIOD_START -> eventProcessor(
-              HistoryEvent.LoadTransactionsForPeriod(
-                state.result.isIncome,
-                periodStart = selectedDate,
-                periodEnd = state.result.periodEnd
-              )
-            )
-
-            DatePickerSource.PERIOD_END -> eventProcessor(
-              HistoryEvent.LoadTransactionsForPeriod(
-                state.result.isIncome,
-                periodStart = state.result.periodStart,
-                periodEnd = selectedDate
-              )
-            )
-          }
+          eventProcessor(HistoryEvent.ChangePeriodSideAndLoadData(datePickerSource, selectedDate))
         }
+      },
+      onDateClear = {
+        eventProcessor(HistoryEvent.ChangePeriodSideAndLoadData(datePickerSource, null))
       },
       initialDateMillis = when (datePickerSource) {
         DatePickerSource.PERIOD_START -> state.result.periodStart

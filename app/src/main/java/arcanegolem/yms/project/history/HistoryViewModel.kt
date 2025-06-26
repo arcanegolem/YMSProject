@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.domain.usecases.LoadHistoryUseCase
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.common.state_handlers.error.YMSError
+import arcanegolem.yms.project.history.components.DatePickerSource
 import arcanegolem.yms.project.util.network.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,15 @@ class HistoryViewModel(
   fun processEvent(event : HistoryEvent) {
     when (event) {
       is HistoryEvent.LoadTransactionsForPeriod -> loadHistory(event.isIncome, event.periodStart, event.periodEnd)
+      is HistoryEvent.ChangePeriodSideAndLoadData -> {
+        val s = _state.value
+        if (s is HistoryState.Target) {
+          when (event.source) {
+            DatePickerSource.PERIOD_START -> loadHistory(s.result.isIncome, event.millis, s.result.periodEnd)
+            DatePickerSource.PERIOD_END -> loadHistory(s.result.isIncome, s.result.periodStart, event.millis)
+          }
+        }
+      }
     }
   }
 
