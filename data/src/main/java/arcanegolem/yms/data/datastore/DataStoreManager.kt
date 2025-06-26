@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 
 internal val Context.preferencesDataStore : DataStore<Preferences> by preferencesDataStore(name = "preferences")
 
-class DataStoreManager(
+internal class DataStoreManager(
   private val dataStore: DataStore<Preferences>
 ) {
   companion object {

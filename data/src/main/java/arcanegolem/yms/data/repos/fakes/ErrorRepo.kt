@@ -12,7 +12,7 @@ import arcanegolem.yms.domain.repos.TransactionsRepository
 /**
  * Имплементация всех репозиториев, где каждый метод кидает ошибку. Для тестирования стейта ошибки на любом экране
  */
-class ErrorRepo : TransactionsRepository, CategoriesRepository, HistoryRepository, AccountRepository {
+internal class ErrorRepo : TransactionsRepository, CategoriesRepository, HistoryRepository, AccountRepository {
   override suspend fun loadExpenses(
     periodStartMillis: Long?,
     periodEndMillis: Long?

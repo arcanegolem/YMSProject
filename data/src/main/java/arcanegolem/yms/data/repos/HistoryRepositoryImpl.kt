@@ -7,7 +7,7 @@ import arcanegolem.yms.domain.repos.HistoryRepository
 import arcanegolem.yms.domain.usecases.LoadExpensesUseCase
 import arcanegolem.yms.domain.usecases.LoadIncomesUseCase
 
-class HistoryRepositoryImpl(
+internal class HistoryRepositoryImpl(
   private val loadIncomesUseCase: LoadIncomesUseCase,
   private val loadExpensesUseCase: LoadExpensesUseCase
 ) : HistoryRepository {

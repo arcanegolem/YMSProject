@@ -7,6 +7,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import arcanegolem.yms.project.ui.YMSProjectRoot
 import arcanegolem.yms.project.ui.theme.YMSProjectTheme
 import arcanegolem.yms.project.util.network.NetworkMonitor
 

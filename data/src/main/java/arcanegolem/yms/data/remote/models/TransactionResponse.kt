@@ -3,7 +3,7 @@ package arcanegolem.yms.data.remote.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransactionResponse(
+internal data class TransactionResponse(
   val id : Int,
   val account : AccountBrief,
   val category : Category,

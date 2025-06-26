@@ -13,7 +13,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 
-class AccountRepositoryImpl(
+internal class AccountRepositoryImpl(
   private val httpClient: HttpClient,
   private val dataStoreManager : DataStoreManager
 ) : AccountRepository {

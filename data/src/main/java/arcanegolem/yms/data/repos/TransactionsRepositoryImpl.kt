@@ -17,7 +17,7 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import kotlinx.datetime.Instant
 
-class TransactionsRepositoryImpl(
+internal class TransactionsRepositoryImpl(
   private val httpClient: HttpClient,
   private val dataStoreManager: DataStoreManager
 ) : TransactionsRepository {
