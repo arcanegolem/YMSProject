@@ -12,6 +12,11 @@ import kotlinx.serialization.json.Json
 
 internal val Context.preferencesDataStore : DataStore<Preferences> by preferencesDataStore(name = "preferences")
 
+/**
+ * Хелпер-класс для взаимодействия с DataStore с информацией об активном аккаунте
+ *
+ * @param dataStore объект Preferences [DataStore]
+ */
 internal class DataStoreManager(
   private val dataStore: DataStore<Preferences>
 ) {

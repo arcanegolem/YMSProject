@@ -7,6 +7,12 @@ import arcanegolem.yms.domain.repos.HistoryRepository
 import arcanegolem.yms.domain.usecases.LoadExpensesUseCase
 import arcanegolem.yms.domain.usecases.LoadIncomesUseCase
 
+/**
+ * Реальная имплементация репозитория истории
+ *
+ * @param loadIncomesUseCase юзкейс для подгрузки данных о прибыльных транзакциях
+ * @param loadExpensesUseCase юзкейс для подгрузки данных о расходных транзакциях
+ */
 internal class HistoryRepositoryImpl(
   private val loadIncomesUseCase: LoadIncomesUseCase,
   private val loadExpensesUseCase: LoadExpensesUseCase

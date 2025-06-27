@@ -13,6 +13,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 
+/**
+ * Реальная имплементация репозитория для работы с счетами
+ *
+ * @param httpClient Ktor http-клиент
+ * @param dataStoreManager хелпер для датастора с данными активного счета
+ */
 internal class AccountRepositoryImpl(
   private val httpClient: HttpClient,
   private val dataStoreManager : DataStoreManager
