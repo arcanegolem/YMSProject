@@ -13,12 +13,19 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 
-class AccountRepositoryImpl(
+/**
+ * Реальная имплементация репозитория для работы с счетами
+ *
+ * @param httpClient Ktor http-клиент
+ * @param dataStoreManager хелпер для датастора с данными активного счета
+ */
+internal class AccountRepositoryImpl(
   private val httpClient: HttpClient,
   private val dataStoreManager : DataStoreManager
 ) : AccountRepository {
   override suspend fun loadAccount(accountId: Int): AccountModel {
-    // Тут пока AccountResponse хотя должно быть AccountHistoryResponse из Swagger, но так как графика пока что нет оставил так
+    // Тут пока AccountResponse хотя должно быть AccountHistoryResponse из Swagger,
+    // но так как графика пока что нет оставил так
     val response = httpClient.get(Accounts.Id(id = accountId)).body<AccountResponse>()
 
     return AccountModel(

@@ -1,10 +1,10 @@
 package arcanegolem.yms.project.di
 
-import arcanegolem.yms.project.account.AccountViewModel
-import arcanegolem.yms.project.categories.CategoriesViewModel
-import arcanegolem.yms.project.expenses.ExpensesViewModel
-import arcanegolem.yms.project.history.HistoryViewModel
-import arcanegolem.yms.project.incomes.IncomesViewModel
+import arcanegolem.yms.project.ui.screens.account.AccountViewModel
+import arcanegolem.yms.project.ui.screens.categories.CategoriesViewModel
+import arcanegolem.yms.project.ui.screens.expenses.ExpensesViewModel
+import arcanegolem.yms.project.ui.screens.history.HistoryViewModel
+import arcanegolem.yms.project.ui.screens.incomes.IncomesViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

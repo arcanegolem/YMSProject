@@ -3,7 +3,7 @@ package arcanegolem.yms.data.mock
 import arcanegolem.yms.data.remote.models.Category
 import arcanegolem.yms.data.remote.models.TransactionResponse
 
-val mockTransactions = listOf(
+internal val mockTransactions = listOf(
   TransactionResponse(
     id = 1,
     account = mockAccount,

@@ -2,7 +2,7 @@ package arcanegolem.yms.data.mock
 
 import arcanegolem.yms.data.remote.models.Category
 
-val mockCategories = listOf(
+internal val mockCategories = listOf(
   Category(
     id = 1,
     name = "Аренда квартиры",

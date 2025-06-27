@@ -9,12 +9,27 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 
+private val RUSSIAN_FULL = listOf(
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь"
+)
+
 fun getMonthNames() : MonthNames {
   val lang = LocaleList.current.localeList[0].language
 
   return when (lang) {
     "en" -> MonthNames.ENGLISH_FULL
-    "ru" -> MonthNames(listOf("Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"))
+    "ru" -> MonthNames(RUSSIAN_FULL)
     else -> MonthNames.ENGLISH_ABBREVIATED
   }
 }
