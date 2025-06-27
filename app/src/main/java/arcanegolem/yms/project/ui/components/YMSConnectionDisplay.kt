@@ -57,20 +57,28 @@ fun YMSConnectionDisplay(
     Row (
       modifier = Modifier
         .clip(RoundedCornerShape(100))
-        .background(color = if (networkAvailable) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.errorContainer)
+        .background(
+          color = if (networkAvailable) MaterialTheme.colorScheme.primary
+          else MaterialTheme.colorScheme.errorContainer
+        )
         .padding(8.dp),
       verticalAlignment = Alignment.CenterVertically
     ) {
       Icon(
         imageVector = if (networkAvailable) Icons.Rounded.CheckCircle else Icons.Rounded.Warning,
         contentDescription = null,
-        tint = if (networkAvailable) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onErrorContainer
+        tint = if (networkAvailable) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.onErrorContainer
       )
       Spacer(modifier = Modifier.width(4.dp))
       Text(
-        text = stringResource(if (networkAvailable) R.string.connection_available_text else R.string.connection_unavailable_text),
+        text = stringResource(
+          if (networkAvailable) R.string.connection_available_text
+          else R.string.connection_unavailable_text
+        ),
         style = MaterialTheme.typography.bodyLarge,
-        color = if (networkAvailable) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onErrorContainer
+        color = if (networkAvailable) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.onErrorContainer
       )
     }
   }

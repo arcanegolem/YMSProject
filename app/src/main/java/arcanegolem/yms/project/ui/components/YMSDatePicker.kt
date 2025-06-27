@@ -23,7 +23,8 @@ import arcanegolem.yms.project.R
  *
  * @param isActive флаг отображения диалога
  * @param onDismissRequest колбек для закрытия диалога
- * @param onDateSelected колбек при подтверждении выбора даты, возвращает дату в миллисекундах [Long], может быть null при отсутствии выбора
+ * @param onDateSelected колбек при подтверждении выбора даты, возвращает дату
+ * в миллисекундах [Long], может быть null при отсутствии выбора
  * @param onDateClear колбек при нажатии кнопки очистки
  * @param initialDateMillis дата которая определяет изначальное положение календаря (год, месяц)
  */

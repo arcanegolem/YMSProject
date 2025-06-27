@@ -43,8 +43,11 @@ fun YMSListItemLayout(
       val trailHeight = trailPlaceable?.measuredHeight ?: 0
       val trailPadding = if (trailWidth == 0) 0 else padding
 
-      val contentConstraints = constraints.copy(maxWidth = constraints.maxWidth - (leadWidth + leadPadding + trailWidth + trailPadding))
-      val contentPlaceable = if (contentM.isNotEmpty()) contentM.first().measure(contentConstraints) else null
+      val contentConstraints = constraints.copy(
+        maxWidth = constraints.maxWidth - (leadWidth + leadPadding + trailWidth + trailPadding)
+      )
+      val contentPlaceable = if (contentM.isNotEmpty()) contentM.first().measure(contentConstraints)
+      else null
       val contentWidth = contentPlaceable?.measuredWidth ?: 0
       val contentHeight = contentPlaceable?.measuredHeight ?: 0
 
@@ -53,7 +56,10 @@ fun YMSListItemLayout(
       layout(constraints.maxWidth, constraints.maxHeight) {
         leadPlaceable?.place(0, heightMedian - (leadHeight / 2))
         contentPlaceable?.place(leadWidth + leadPadding, heightMedian - (contentHeight / 2))
-        trailPlaceable?.place(leadPadding + trailPadding + contentWidth + leadWidth, heightMedian - (trailHeight / 2))
+        trailPlaceable?.place(
+          leadPadding + trailPadding + contentWidth + leadWidth,
+          heightMedian - (trailHeight / 2)
+        )
       }
     }
   )

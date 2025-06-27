@@ -30,7 +30,10 @@ import kotlinx.coroutines.launch
 fun ErrorState(error : YMSError) {
   val clipboard = LocalClipboard.current
   val compositionScope = rememberCoroutineScope()
-  val clipData = ClipData.newPlainText(stringResource(R.string.error_desc_text), error.throwable.toString())
+  val clipData = ClipData.newPlainText(
+    stringResource(R.string.error_desc_text),
+    error.throwable.toString()
+  )
 
   Box(modifier = Modifier.fillMaxSize()) {
     Column(
@@ -44,7 +47,10 @@ fun ErrorState(error : YMSError) {
       )
       Spacer(modifier = Modifier.height(12.dp))
       Button(
-        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary),
+        colors = ButtonDefaults.buttonColors(
+          containerColor = MaterialTheme.colorScheme.primary,
+          contentColor = MaterialTheme.colorScheme.onPrimary
+        ),
         onClick = { compositionScope.launch { clipboard.setClipEntry(ClipEntry(clipData)) } }
       ) {
         Icon(

@@ -19,7 +19,11 @@ fun AccountScreenRoot(
   viewModel: AccountViewModel = koinViewModel()
 ) {
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.account_title)) }
-  ProvideYMSTopAppBarActions { IconButton(onClick = {}) { Icon(painter = painterResource(R.drawable.edit), contentDescription = null) } }
+  ProvideYMSTopAppBarActions {
+    IconButton(
+      onClick = {})
+    { Icon(painter = painterResource(R.drawable.edit), contentDescription = null) }
+  }
 
   val state = viewModel.state.collectAsStateWithLifecycle()
 

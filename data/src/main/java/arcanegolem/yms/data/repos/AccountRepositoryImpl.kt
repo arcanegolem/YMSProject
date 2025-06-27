@@ -24,7 +24,8 @@ internal class AccountRepositoryImpl(
   private val dataStoreManager : DataStoreManager
 ) : AccountRepository {
   override suspend fun loadAccount(accountId: Int): AccountModel {
-    // Тут пока AccountResponse хотя должно быть AccountHistoryResponse из Swagger, но так как графика пока что нет оставил так
+    // Тут пока AccountResponse хотя должно быть AccountHistoryResponse из Swagger,
+    // но так как графика пока что нет оставил так
     val response = httpClient.get(Accounts.Id(id = accountId)).body<AccountResponse>()
 
     return AccountModel(
