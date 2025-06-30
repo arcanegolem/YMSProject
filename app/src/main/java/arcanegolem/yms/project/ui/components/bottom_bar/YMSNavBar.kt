@@ -1,6 +1,5 @@
 package arcanegolem.yms.project.ui.components.bottom_bar
 
-import android.annotation.SuppressLint
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -19,6 +18,7 @@ import arcanegolem.yms.project.navigation.YMSDestinationModel
 import arcanegolem.yms.project.navigation.routes.Account
 import arcanegolem.yms.project.navigation.routes.ExpenseGroups
 import arcanegolem.yms.project.navigation.routes.Expenses
+import arcanegolem.yms.project.navigation.routes.History
 import arcanegolem.yms.project.navigation.routes.Incomes
 import arcanegolem.yms.project.navigation.routes.Settings
 
@@ -55,19 +55,23 @@ private val navbarModels = listOf(
  *
  * @param navController [NavController]
  */
-@SuppressLint("RestrictedApi")
 @Composable
 fun YMSNavBar(navController: NavController) {
   val backStackEntry by navController.currentBackStackEntryAsState()
+  val prevDestination = navController.previousBackStackEntry?.destination
   val destination = backStackEntry?.destination
 
   NavigationBar {
     navbarModels.forEach { model ->
-      val selected = destination?.hasRoute(model.destination::class) == true
+      val selected = destination?.hasRoute(model.destination::class) == true ||
+          (model.destination == Incomes && destination?.hasRoute(History::class) == true
+              && prevDestination?.hasRoute(Incomes::class) == true) ||
+          (model.destination == Expenses && destination?.hasRoute(History::class) == true
+              && prevDestination?.hasRoute(Expenses::class) == true)
 
       NavigationBarItem(
         selected = selected,
-        onClick = { navController.navigate(model.destination) },
+        onClick = { if (!selected) navController.navigate(model.destination) },
         icon = {
           Icon(
             painter = painterResource(model.iconId),
