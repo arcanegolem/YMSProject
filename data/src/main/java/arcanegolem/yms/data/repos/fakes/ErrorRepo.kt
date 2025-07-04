@@ -8,6 +8,7 @@ import arcanegolem.yms.domain.repos.AccountRepository
 import arcanegolem.yms.domain.repos.CategoriesRepository
 import arcanegolem.yms.domain.repos.HistoryRepository
 import arcanegolem.yms.domain.repos.TransactionsRepository
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Имплементация всех репозиториев, где каждый метод кидает ошибку. Для тестирования стейта ошибки на любом экране
@@ -43,7 +44,15 @@ internal class ErrorRepo : TransactionsRepository, CategoriesRepository, History
     throw RuntimeException("Error loading account!")
   }
 
-  override suspend fun loadFirstAccount(): AccountModel {
-    throw RuntimeException("Error loading first account!")
+  override suspend fun loadFirstRemoteAccount() {
+    throw RuntimeException("Error loading remote account!")
+  }
+
+  override suspend fun getAccount(): Flow<AccountModel?> {
+    throw RuntimeException("Error loading account!")
+  }
+
+  override suspend fun updateAccount(model: AccountModel) {
+    throw RuntimeException("Error updating account!")
   }
 }

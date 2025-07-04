@@ -1,6 +1,7 @@
 package arcanegolem.yms.domain.repos
 
 import arcanegolem.yms.domain.models.AccountModel
+import kotlinx.coroutines.flow.Flow
 
 interface AccountRepository {
   /**
@@ -14,9 +15,21 @@ interface AccountRepository {
   suspend fun loadAccount(accountId : Int) : AccountModel
 
   /**
+   * Отдельный метод для подгрузки с бека информации о первом счете и кешировании его в DataStore
+   */
+  suspend fun loadFirstRemoteAccount()
+
+  /**
    * Загружает данные о первом счете
    *
-   * @return данные о счете в виде [AccountModel]
+   * @return данные о счете в виде [Flow] из [AccountModel]
    */
-  suspend fun loadFirstAccount() : AccountModel
+  suspend fun getAccount() : Flow<AccountModel?>
+
+  /**
+   * Обновляет данные о счете
+   *
+   * @param model измененная модель счета в виде [AccountModel]
+   */
+  suspend fun updateAccount(model : AccountModel)
 }

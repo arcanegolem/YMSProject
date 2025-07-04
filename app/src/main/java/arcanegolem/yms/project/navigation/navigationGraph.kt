@@ -10,11 +10,13 @@ import arcanegolem.yms.project.ui.screens.expenses.ExpensesScreenRoot
 import arcanegolem.yms.project.ui.screens.history.HistoryScreenRoot
 import arcanegolem.yms.project.ui.screens.incomes.IncomesScreenRoot
 import arcanegolem.yms.project.navigation.routes.Account
+import arcanegolem.yms.project.navigation.routes.AccountEdit
 import arcanegolem.yms.project.navigation.routes.ExpenseGroups
 import arcanegolem.yms.project.navigation.routes.Expenses
 import arcanegolem.yms.project.navigation.routes.History
 import arcanegolem.yms.project.navigation.routes.Incomes
 import arcanegolem.yms.project.navigation.routes.Settings
+import arcanegolem.yms.project.ui.screens.account_edit.AccountEditScreenRoot
 import arcanegolem.yms.project.ui.screens.settings.SettingsScreenRoot
 
 fun NavGraphBuilder.navigationGraph(navController: NavController) {
@@ -26,6 +28,9 @@ fun NavGraphBuilder.navigationGraph(navController: NavController) {
   }
   composable<Account> {
     AccountScreenRoot(navController)
+  }
+  composable<AccountEdit> { backStackEntry ->
+    AccountEditScreenRoot(navController, backStackEntry.toRoute())
   }
   composable<ExpenseGroups> {
     CategoriesScreenRoot(navController)

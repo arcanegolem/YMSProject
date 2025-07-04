@@ -1,13 +1,15 @@
 package arcanegolem.yms.project.util
 
 import androidx.compose.ui.text.intl.LocaleList
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.Padding
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 private val RUSSIAN_FULL = listOf(
   "Январь",
@@ -35,7 +37,7 @@ fun getMonthNames() : MonthNames {
 }
 
 private val ReadableFormat = LocalDateTime.Format {
-  dayOfMonth()
+  day(padding = Padding.ZERO)
   char(' ')
   monthName(getMonthNames())
   char(' ')
@@ -43,7 +45,7 @@ private val ReadableFormat = LocalDateTime.Format {
 }
 
 private val ReadableFormatWithTime = LocalDateTime.Format {
-  dayOfMonth()
+  day(padding = Padding.ZERO)
   char('.')
   monthNumber()
   char('.')
@@ -54,12 +56,14 @@ private val ReadableFormatWithTime = LocalDateTime.Format {
   minute()
 }
 
+@OptIn(ExperimentalTime::class)
 fun Long.toFormattedDateTime() : String {
   return Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault()).format(
     ReadableFormatWithTime
   )
 }
 
+@OptIn(ExperimentalTime::class)
 fun Long.toReadableDate() : String {
   return Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault()).format(
     ReadableFormat

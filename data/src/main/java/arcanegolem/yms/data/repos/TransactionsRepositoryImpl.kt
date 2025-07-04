@@ -15,7 +15,8 @@ import arcanegolem.yms.domain.repos.TransactionsRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Реальная имплементация репозитория транзакций
@@ -30,6 +31,7 @@ internal class TransactionsRepositoryImpl(
   // Да тут функции больше 20 строк, но увы красивое форматирование и преобразование данных требуют
   // жертв, проверяющие не бейте :)
 
+  @OptIn(ExperimentalTime::class)
   override suspend fun loadExpenses(
     periodStartMillis: Long?,
     periodEndMillis: Long?
@@ -47,7 +49,12 @@ internal class TransactionsRepositoryImpl(
       currency = cachedAccountInfo.currency
     } else {
       val remoteAccount = httpClient.get(Accounts()).body<List<Account>>().first()
-      val remoteInfo = AccountInfoModel(remoteAccount.id, remoteAccount.currency)
+      val remoteInfo = AccountInfoModel(
+        currency = remoteAccount.currency,
+        name = remoteAccount.name,
+        id = remoteAccount.id,
+        balance = remoteAccount.balance.formatCash(remoteAccount.currency)
+      )
       dataStoreManager.updateActiveAccount(remoteInfo)
       accountId = remoteInfo.id
       currency = remoteInfo.currency
@@ -88,6 +95,7 @@ internal class TransactionsRepositoryImpl(
     )
   }
 
+  @OptIn(ExperimentalTime::class)
   override suspend fun loadIncomes(
     periodStartMillis: Long?,
     periodEndMillis: Long?
@@ -105,7 +113,12 @@ internal class TransactionsRepositoryImpl(
       currency = cachedAccountInfo.currency
     } else {
       val remoteAccount = httpClient.get(Accounts()).body<List<Account>>().first()
-      val remoteInfo = AccountInfoModel(remoteAccount.id, remoteAccount.currency)
+      val remoteInfo = AccountInfoModel(
+        currency = remoteAccount.currency,
+        name = remoteAccount.name,
+        id = remoteAccount.id,
+        balance = remoteAccount.balance.formatCash(remoteAccount.currency)
+      )
       dataStoreManager.updateActiveAccount(remoteInfo)
       accountId = remoteInfo.id
       currency = remoteInfo.currency

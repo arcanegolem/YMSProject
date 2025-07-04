@@ -11,7 +11,7 @@ import androidx.annotation.StringRes
  * @param destination направление навигации в виде класса
  */
 data class YMSDestinationModel<T : Any>(
-  @StringRes val titleId: Int,
-  @DrawableRes val iconId : Int,
+  @param:StringRes val titleId: Int,
+  @param:DrawableRes val iconId : Int,
   val destination : T
 )
