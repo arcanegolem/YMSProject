@@ -31,7 +31,7 @@ import arcanegolem.yms.project.ui.screens.account_edit.AccountEditEvent
 import arcanegolem.yms.project.ui.screens.account_edit.AccountEditState
 import arcanegolem.yms.project.ui.screens.account_edit.components.YMSTextFieldListItem
 import arcanegolem.yms.project.ui.screens.account_edit.components.currency_chooser.CurrencyChooser
-import arcanegolem.yms.project.util.ThousandSeparator
+import arcanegolem.yms.project.util.visual_transformation.ThousandSeparator
 import arcanegolem.yms.project.util.formatCashNoSymbol
 
 @Composable
