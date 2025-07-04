@@ -7,7 +7,9 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import arcanegolem.yms.data.datastore.models.AccountInfoModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 
 internal val Context.preferencesDataStore : DataStore<Preferences> by preferencesDataStore(name = "preferences")
@@ -26,6 +28,12 @@ internal class DataStoreManager(
 
   suspend fun getActiveAccount() : AccountInfoModel? {
     return dataStore.data.first()[ACTIVE_ACCOUNT_KEY]?.let { Json.decodeFromString(it) }
+  }
+
+  fun getActiveAccountFlow() : Flow<AccountInfoModel?> {
+    return dataStore.data.map { preferences ->
+      preferences[ACTIVE_ACCOUNT_KEY]?.let { Json.decodeFromString(it) }
+    }
   }
 
   suspend fun updateActiveAccount(account : AccountInfoModel) {
