@@ -16,6 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.navigation.YMSDestinationModel
 import arcanegolem.yms.project.navigation.routes.Account
+import arcanegolem.yms.project.navigation.routes.AccountEdit
 import arcanegolem.yms.project.navigation.routes.ExpenseGroups
 import arcanegolem.yms.project.navigation.routes.Expenses
 import arcanegolem.yms.project.navigation.routes.History
@@ -67,11 +68,18 @@ fun YMSNavBar(navController: NavController) {
           (model.destination == Incomes && destination?.hasRoute(History::class) == true
               && prevDestination?.hasRoute(Incomes::class) == true) ||
           (model.destination == Expenses && destination?.hasRoute(History::class) == true
-              && prevDestination?.hasRoute(Expenses::class) == true)
+              && prevDestination?.hasRoute(Expenses::class) == true) ||
+          (model.destination == Account && destination?.hasRoute(AccountEdit::class) == true
+              && prevDestination?.hasRoute(Account::class) == true)
 
       NavigationBarItem(
         selected = selected,
-        onClick = { if (!selected) navController.navigate(model.destination) },
+        onClick = {
+          if (!selected) {
+            navController.popBackStack()
+            navController.navigate(model.destination)
+          }
+        },
         icon = {
           Icon(
             painter = painterResource(model.iconId),

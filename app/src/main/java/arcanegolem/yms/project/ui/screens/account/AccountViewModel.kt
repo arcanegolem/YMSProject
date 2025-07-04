@@ -2,7 +2,8 @@ package arcanegolem.yms.project.ui.screens.account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arcanegolem.yms.domain.usecases.LoadFirstAccountUseCase
+import arcanegolem.yms.domain.usecases.GetAccountUseCase
+import arcanegolem.yms.domain.usecases.LoadAccountRemoteUseCase
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.ui.components.state_handlers.error.YMSError
 import arcanegolem.yms.project.util.network.NetworkMonitor
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AccountViewModel(
-  private val loadAccountUseCase: LoadFirstAccountUseCase
+  private val getAccountUseCase: GetAccountUseCase,
+  private val loadAccountRemoteUseCase: LoadAccountRemoteUseCase
 ) : ViewModel() {
   private val _state = MutableStateFlow<AccountState>(AccountState.Idle)
   val state get() = _state.asStateFlow()
@@ -29,19 +31,47 @@ class AccountViewModel(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { AccountState.Loading }
-        if (!NetworkMonitor.networkAvailable.value) return@withContext
-        runCatching { loadAccountUseCase.execute() }
-          .onSuccess { result -> _state.update { AccountState.Target(result) } }
-          .onFailure { error ->
-            _state.update {
-              AccountState.Error(
-                YMSError(
-                  R.string.account_error_desc,
-                  error
-                )
-              )
+        if (NetworkMonitor.networkAvailable.value) {
+          runCatching{ loadAccountRemoteUseCase.execute() }
+            .onSuccess {
+              launch { loadCached() }
             }
+            .onFailure { error ->
+              _state.update {
+                AccountState.Error(
+                  YMSError(
+                    R.string.account_error_desc,
+                    error
+                  )
+                )
+              }
+            }
+        } else {
+          launch { loadCached() }
+        }
+      }
+    }
+  }
+
+  private suspend fun loadCached() {
+    runCatching {
+      getAccountUseCase.execute()
+    }.onSuccess { result ->
+      result.collect { accountModel ->
+        accountModel?.let {
+          _state.update {
+            AccountState.Target(accountModel)
           }
+        }
+      }
+    }.onFailure { error ->
+      _state.update {
+        AccountState.Error(
+          YMSError(
+            R.string.account_error_desc,
+            error
+          )
+        )
       }
     }
   }

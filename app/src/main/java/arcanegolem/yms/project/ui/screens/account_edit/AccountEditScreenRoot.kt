@@ -1,4 +1,4 @@
-package arcanegolem.yms.project.ui.screens.account
+package arcanegolem.yms.project.ui.screens.account_edit
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -11,13 +11,15 @@ import androidx.navigation.NavController
 import arcanegolem.yms.project.R
 import arcanegolem.yms.project.navigation.routes.AccountEdit
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarActions
+import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarNavAction
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarTitle
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun AccountScreenRoot(
+fun AccountEditScreenRoot(
   navController: NavController,
-  viewModel: AccountViewModel = koinViewModel()
+  route : AccountEdit,
+  viewModel: AccountEditViewModel = koinViewModel()
 ) {
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.account_title)) }
 
@@ -25,17 +27,18 @@ fun AccountScreenRoot(
 
   ProvideYMSTopAppBarActions {
     IconButton(
-      enabled = state.value is AccountState.Target,
       onClick = {
-        val captured = state.value as AccountState.Target
-
-        navController.navigate(
-          AccountEdit(captured.result.name, captured.result.balance, captured.result.currency)
+        viewModel.processEvent(
+          AccountEditEvent.ConsumeUpdates { navController.navigateUp() }
         )
       }
-    ) { Icon(painter = painterResource(R.drawable.edit), contentDescription = null) }
+    ) { Icon(painter = painterResource(R.drawable.check), contentDescription = null) }
+  }
+  ProvideYMSTopAppBarNavAction {
+    IconButton(
+      onClick = { navController.navigateUp() }
+    ) { Icon(painter = painterResource(R.drawable.cancel), contentDescription = null) }
   }
 
-
-  AccountScreen(state, viewModel::processEvent)
+  AccountEditScreen(route, state, viewModel::processEvent)
 }

@@ -1,19 +1,15 @@
 package arcanegolem.yms.project.ui.screens.account.state_handlers
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,9 +23,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import arcanegolem.yms.project.R
-import arcanegolem.yms.project.ui.screens.account.AccountState
-import arcanegolem.yms.project.ui.components.YMSFAB
 import arcanegolem.yms.project.ui.components.YMSListItem
+import arcanegolem.yms.project.ui.screens.account.AccountState
 
 @Composable
 fun TargetAccountState(state : AccountState.Target) {
@@ -40,8 +35,7 @@ fun TargetAccountState(state : AccountState.Target) {
           modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(MaterialTheme.colorScheme.secondary)
-            .clickable {  },
+            .background(MaterialTheme.colorScheme.secondary),
           lead = {
             Box(
               modifier = Modifier.size(24.dp)
@@ -90,8 +84,7 @@ fun TargetAccountState(state : AccountState.Target) {
           modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(MaterialTheme.colorScheme.secondary)
-            .clickable {  },
+            .background(MaterialTheme.colorScheme.secondary),
           content = {
             Row(
               modifier = Modifier.fillMaxWidth(),
@@ -117,14 +110,6 @@ fun TargetAccountState(state : AccountState.Target) {
           }
         )
       }
-    }
-    YMSFAB(
-      modifier = Modifier
-        .align(Alignment.BottomEnd)
-        .offset((-14).dp, (-16).dp),
-      onClick = {}
-    ) {
-      Icon(Icons.Rounded.Add, null)
     }
   }
 }
