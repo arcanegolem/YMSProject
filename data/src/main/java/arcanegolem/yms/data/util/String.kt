@@ -20,7 +20,7 @@ internal fun String.formatCash(currency : String) : String {
 }
 
 internal fun String.formatCashBackwards() : String {
-  val clean = this.replace(Regex("[^\\d.]"), "")
+  val clean = this.replace(Regex("[^-\\d.]"), "")
   return clean
 }
 
