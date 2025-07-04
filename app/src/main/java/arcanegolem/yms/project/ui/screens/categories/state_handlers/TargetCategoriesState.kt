@@ -77,7 +77,10 @@ fun TargetCategoriesState(state : CategoriesState.Target) {
       )
       HorizontalDivider(thickness = 1.dp)
       LazyColumn {
-        items(state.result, key = { it.toString() }) { category ->
+        items(
+          items = state.result.filter { it.name.lowercase().contains(query.lowercase()) },
+          key = { it.toString() }
+        ) { category ->
           YMSListItem(
             modifier = Modifier
               .fillMaxWidth()
