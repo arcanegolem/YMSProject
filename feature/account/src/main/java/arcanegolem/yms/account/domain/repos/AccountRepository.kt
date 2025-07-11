@@ -17,7 +17,7 @@ interface AccountRepository {
   /**
    * Отдельный метод для подгрузки с бека информации о первом счете и кешировании его в DataStore
    */
-  suspend fun loadFirstRemoteAccount()
+  suspend fun refreshActiveAccount()
 
   /**
    * Загружает данные о первом счете

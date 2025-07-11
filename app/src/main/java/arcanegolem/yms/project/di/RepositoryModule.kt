@@ -2,6 +2,7 @@ package arcanegolem.yms.project.di
 
 import arcanegolem.yms.account.data.repos.AccountRepositoryImpl
 import arcanegolem.yms.account.domain.repos.AccountRepository
+import arcanegolem.yms.account.domain.usecases.LoadAccountRemoteUseCase
 import arcanegolem.yms.categories.data.repos.CategoriesRepositoryImpl
 import arcanegolem.yms.categories.domain.repos.CategoriesRepository
 import arcanegolem.yms.core.data.datastore.DataStoreManager
@@ -21,11 +22,13 @@ class RepositoryModule {
   @[ApplicationScope Provides]
   fun provideTransactionsRepository(
     httpClient : HttpClient,
-    dataStoreManager : DataStoreManager
+    dataStoreManager : DataStoreManager,
+    loadAccountRemoteUseCase: LoadAccountRemoteUseCase
   ) : TransactionsRepository {
     return TransactionsRepositoryImpl(
       httpClient = httpClient,
-      dataStoreManager = dataStoreManager
+      dataStoreManager = dataStoreManager,
+      loadAccountRemoteUseCase = loadAccountRemoteUseCase
     )
   }
 

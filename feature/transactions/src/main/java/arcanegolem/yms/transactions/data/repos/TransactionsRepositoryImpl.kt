@@ -1,5 +1,6 @@
 package arcanegolem.yms.transactions.data.repos
 
+import arcanegolem.yms.account.domain.usecases.LoadAccountRemoteUseCase
 import arcanegolem.yms.core.data.datastore.DataStoreManager
 import arcanegolem.yms.core.data.utils.formatCash
 import arcanegolem.yms.core.data.utils.parseMillis
@@ -24,7 +25,8 @@ import kotlin.time.Instant
  */
 class TransactionsRepositoryImpl @Inject constructor(
   private val httpClient: HttpClient,
-  private val dataStoreManager: DataStoreManager
+  private val dataStoreManager: DataStoreManager,
+  private val loadAccountRemoteUseCase: LoadAccountRemoteUseCase
 ) : TransactionsRepository {
   // Да тут функции больше 20 строк, но увы красивое форматирование и преобразование данных требуют
   // жертв, проверяющие не бейте :)
@@ -40,13 +42,18 @@ class TransactionsRepositoryImpl @Inject constructor(
     val accountId : Int
     val currency : String
 
-    val cachedAccountInfo = dataStoreManager.getActiveAccount()
+    var cachedAccountInfo = dataStoreManager.getActiveAccount()
 
     if (cachedAccountInfo != null) {
       accountId = cachedAccountInfo.id
       currency = cachedAccountInfo.currency
     } else {
-      throw RuntimeException("Account not loaded!")
+      loadAccountRemoteUseCase.execute()
+      cachedAccountInfo = dataStoreManager.getActiveAccount()
+      if (cachedAccountInfo != null) {
+        accountId = cachedAccountInfo.id
+        currency = cachedAccountInfo.currency
+      } else throw RuntimeException("Failure loading account from remote!")
     }
 
     val response = httpClient
@@ -95,13 +102,18 @@ class TransactionsRepositoryImpl @Inject constructor(
     val accountId : Int
     val currency : String
 
-    val cachedAccountInfo = dataStoreManager.getActiveAccount()
+    var cachedAccountInfo = dataStoreManager.getActiveAccount()
 
     if (cachedAccountInfo != null) {
       accountId = cachedAccountInfo.id
       currency = cachedAccountInfo.currency
     } else {
-      throw RuntimeException("Account not loaded!")
+      loadAccountRemoteUseCase.execute()
+      cachedAccountInfo = dataStoreManager.getActiveAccount()
+      if (cachedAccountInfo != null) {
+        accountId = cachedAccountInfo.id
+        currency = cachedAccountInfo.currency
+      } else throw RuntimeException("Failure loading account from remote!")
     }
 
     val response = httpClient

@@ -45,7 +45,7 @@ class AccountRepositoryImpl @Inject constructor(
     )
   }
 
-  override suspend fun loadFirstRemoteAccount() {
+  override suspend fun refreshActiveAccount() {
     // Тут пока AccountResponse хотя должно быть AccountHistoryResponse из Swagger,
     // но так как графика пока что нет оставил так
     val response = httpClient.get(Accounts()).body<List<Account>>()

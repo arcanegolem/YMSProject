@@ -67,6 +67,8 @@ dependencies {
 
   implementation(libs.androidx.navigation.compose)
 
+  implementation(project(":feature:account"))
+
   implementation(project(":core:data"))
   implementation(project(":core:ui"))
   implementation(project(":core:utils"))

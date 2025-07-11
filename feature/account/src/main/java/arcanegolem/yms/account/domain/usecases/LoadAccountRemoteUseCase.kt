@@ -7,6 +7,6 @@ class LoadAccountRemoteUseCase @Inject constructor(
   private val accountRepository: AccountRepository
 ) {
   suspend fun execute() {
-    accountRepository.loadFirstRemoteAccount()
+    accountRepository.refreshActiveAccount()
   }
 }
