@@ -5,7 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun resolveDaggerComponent() : CategoriesComponent {
+internal fun resolveDaggerComponent() : CategoriesComponent {
   val context = LocalContext.current.applicationContext
   val dependencies = remember {
     (context as CategoriesDependenciesProvider).resolveCategoriesDependencies()
