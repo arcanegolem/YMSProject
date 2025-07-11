@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
@@ -5,11 +6,12 @@ plugins {
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.detekt)
+  alias(libs.plugins.ksp)
 }
 
 android {
   namespace = "arcanegolem.yms.data"
-  compileSdk = 35
+  compileSdk = 36
 
   buildFeatures.buildConfig = true
 
@@ -35,8 +37,8 @@ android {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
-  kotlinOptions {
-    jvmTarget = "11"
+  kotlin.compilerOptions {
+    jvmTarget = JvmTarget.JVM_11
   }
 }
 
@@ -48,19 +50,21 @@ dependencies {
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
 
-  implementation(libs.koin.android)
+  implementation(libs.dagger.android)
+  ksp(libs.dagger.android.processor)
+  ksp(libs.dagger.compiler)
 
-  implementation(libs.ktor.client.core)
-  implementation(libs.ktor.client.okhttp)
-  implementation(libs.ktor.serialization.json)
-  implementation(libs.ktor.content.negotiation)
-  implementation(libs.ktor.client.logging)
-  implementation(libs.ktor.client.auth)
-  implementation(libs.ktor.client.resources)
+  api(libs.ktor.client.core)
+  api(libs.ktor.client.okhttp)
+  api(libs.ktor.serialization.json)
+  api(libs.ktor.content.negotiation)
+  api(libs.ktor.client.logging)
+  api(libs.ktor.client.auth)
+  api(libs.ktor.client.resources)
 
   implementation(libs.kotlinx.datetime)
 
-  implementation(libs.androidx.datastore.preferences)
+  api(libs.androidx.datastore.preferences)
 
   implementation(project(":domain"))
 }

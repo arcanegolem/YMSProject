@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class HistoryViewModel(
+class HistoryViewModel @Inject constructor(
   private val loadHistoryUseCase: LoadHistoryUseCase
 ) : ViewModel() {
   private val _state = MutableStateFlow<HistoryState>(HistoryState.Idle)

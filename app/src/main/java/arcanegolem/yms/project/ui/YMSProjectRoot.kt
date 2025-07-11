@@ -9,16 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import arcanegolem.yms.project.ui.components.bottom_bar.YMSNavBar
 import arcanegolem.yms.project.navigation.navigationGraph
 import arcanegolem.yms.project.navigation.routes.Expenses
 import arcanegolem.yms.project.ui.components.YMSConnectionDisplay
+import arcanegolem.yms.project.ui.components.bottom_bar.YMSNavBar
 import arcanegolem.yms.project.ui.components.top_bar.YMSTopAppBar
 
 @Composable
-fun YMSProjectRoot() {
+fun YMSProjectRoot(viewModelProviderFactory: ViewModelProvider.Factory) {
   val navController = rememberNavController()
 
   Scaffold(
@@ -33,7 +34,7 @@ fun YMSProjectRoot() {
       NavHost(
         navController = navController,
         startDestination = Expenses
-      ) { navigationGraph(navController) }
+      ) { navigationGraph(navController, viewModelProviderFactory) }
 
       YMSConnectionDisplay(
         modifier = Modifier

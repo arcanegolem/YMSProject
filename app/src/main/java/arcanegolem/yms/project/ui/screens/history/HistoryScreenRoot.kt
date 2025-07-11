@@ -13,13 +13,12 @@ import arcanegolem.yms.project.navigation.routes.History
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarActions
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarNavAction
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarTitle
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HistoryScreenRoot(
   navController: NavController,
   route : History,
-  viewModel: HistoryViewModel = koinViewModel()
+  viewModel: HistoryViewModel
 ) {
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.history_title)) }
   ProvideYMSTopAppBarActions {

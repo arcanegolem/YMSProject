@@ -12,12 +12,11 @@ import arcanegolem.yms.project.R
 import arcanegolem.yms.project.navigation.routes.AccountEdit
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarActions
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarTitle
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AccountScreenRoot(
   navController: NavController,
-  viewModel: AccountViewModel = koinViewModel()
+  viewModel: AccountViewModel
 ) {
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.account_title)) }
 

@@ -1,19 +1,22 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.detekt)
+  alias(libs.plugins.ksp)
 }
 
 android {
   namespace = "arcanegolem.yms.project"
-  compileSdk = 35
+  compileSdk = 36
 
   defaultConfig {
     applicationId = "arcanegolem.yms.project"
     minSdk = 24
-    targetSdk = 35
+    targetSdk = 36
     versionCode = 1
     versionName = "1.0"
 
@@ -30,8 +33,8 @@ android {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
-  kotlinOptions {
-    jvmTarget = "11"
+  kotlin.compilerOptions {
+    jvmTarget = JvmTarget.JVM_11
   }
   buildFeatures {
     compose = true
@@ -61,9 +64,14 @@ dependencies {
   debugImplementation(libs.androidx.ui.test.manifest)
 
   implementation(libs.androidx.navigation.compose)
+
   implementation(libs.kotlinx.serialization.json)
-  implementation(libs.koin.android)
+
   implementation(libs.androidx.core.splashscreen)
+
+  implementation(libs.dagger.android)
+  ksp(libs.dagger.android.processor)
+  ksp(libs.dagger.compiler)
 
   implementation(libs.kotlinx.datetime)
 

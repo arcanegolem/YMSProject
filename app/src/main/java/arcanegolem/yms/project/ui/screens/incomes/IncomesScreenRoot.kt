@@ -12,12 +12,11 @@ import arcanegolem.yms.project.R
 import arcanegolem.yms.project.navigation.routes.History
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarActions
 import arcanegolem.yms.project.ui.components.top_bar.ProvideYMSTopAppBarTitle
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun IncomesScreenRoot(
   navController: NavController,
-  viewModel: IncomesViewModel = koinViewModel()
+  viewModel: IncomesViewModel
 ) {
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.incomes_title)) }
   ProvideYMSTopAppBarActions {

@@ -1,5 +1,7 @@
 package arcanegolem.yms.project.navigation
 
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -19,26 +21,49 @@ import arcanegolem.yms.project.navigation.routes.Settings
 import arcanegolem.yms.project.ui.screens.account_edit.AccountEditScreenRoot
 import arcanegolem.yms.project.ui.screens.settings.SettingsScreenRoot
 
-fun NavGraphBuilder.navigationGraph(navController: NavController) {
+fun NavGraphBuilder.navigationGraph(
+  navController: NavController,
+  viewModelProviderFactory : ViewModelProvider.Factory
+) {
   composable<Expenses> {
-    ExpensesScreenRoot(navController)
+    ExpensesScreenRoot(
+      navController = navController,
+      viewModel = viewModel(factory = viewModelProviderFactory)
+    )
   }
   composable<Incomes> {
-    IncomesScreenRoot(navController)
+    IncomesScreenRoot(
+      navController = navController,
+      viewModel = viewModel(factory = viewModelProviderFactory)
+    )
   }
   composable<Account> {
-    AccountScreenRoot(navController)
+    AccountScreenRoot(
+      navController = navController,
+      viewModel = viewModel(factory = viewModelProviderFactory)
+    )
   }
   composable<AccountEdit> { backStackEntry ->
-    AccountEditScreenRoot(navController, backStackEntry.toRoute())
+    AccountEditScreenRoot(
+      navController = navController,
+      route = backStackEntry.toRoute(),
+      viewModel = viewModel(factory = viewModelProviderFactory)
+    )
   }
   composable<ExpenseGroups> {
-    CategoriesScreenRoot(navController)
+    CategoriesScreenRoot(
+      navController = navController,
+      viewModel = viewModel(factory = viewModelProviderFactory)
+    )
   }
   composable<Settings> {
     SettingsScreenRoot()
   }
   composable<History> { backStackEntry ->
-    HistoryScreenRoot(navController, backStackEntry.toRoute())
+    HistoryScreenRoot(
+      navController = navController,
+      route = backStackEntry.toRoute(),
+      viewModel = viewModel(factory = viewModelProviderFactory)
+    )
   }
 }

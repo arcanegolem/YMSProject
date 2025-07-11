@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AccountViewModel(
+class AccountViewModel @Inject constructor(
   private val getAccountUseCase: GetAccountUseCase,
   private val loadAccountRemoteUseCase: LoadAccountRemoteUseCase
 ) : ViewModel() {

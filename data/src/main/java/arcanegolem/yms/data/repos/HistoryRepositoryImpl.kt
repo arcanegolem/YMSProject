@@ -6,6 +6,7 @@ import arcanegolem.yms.domain.models.HistoryModel
 import arcanegolem.yms.domain.repos.HistoryRepository
 import arcanegolem.yms.domain.usecases.LoadExpensesUseCase
 import arcanegolem.yms.domain.usecases.LoadIncomesUseCase
+import javax.inject.Inject
 
 /**
  * Реальная имплементация репозитория истории
@@ -13,7 +14,7 @@ import arcanegolem.yms.domain.usecases.LoadIncomesUseCase
  * @param loadIncomesUseCase юзкейс для подгрузки данных о прибыльных транзакциях
  * @param loadExpensesUseCase юзкейс для подгрузки данных о расходных транзакциях
  */
-internal class HistoryRepositoryImpl(
+ internal class HistoryRepositoryImpl @Inject constructor(
   private val loadIncomesUseCase: LoadIncomesUseCase,
   private val loadExpensesUseCase: LoadExpensesUseCase
 ) : HistoryRepository {

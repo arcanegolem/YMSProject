@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 internal val Context.preferencesDataStore : DataStore<Preferences> by preferencesDataStore(name = "preferences")
 
@@ -19,7 +20,7 @@ internal val Context.preferencesDataStore : DataStore<Preferences> by preference
  *
  * @param dataStore объект Preferences [DataStore]
  */
-internal class DataStoreManager(
+internal class DataStoreManager @Inject constructor(
   private val dataStore: DataStore<Preferences>
 ) {
   companion object {

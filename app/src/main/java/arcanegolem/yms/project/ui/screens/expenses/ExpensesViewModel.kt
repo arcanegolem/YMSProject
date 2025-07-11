@@ -12,8 +12,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ExpensesViewModel(
+class ExpensesViewModel @Inject constructor(
   private val loadExpensesUseCase: LoadExpensesUseCase
 ) : ViewModel() {
   private val _state = MutableStateFlow<ExpensesState>(ExpensesState.Idle)

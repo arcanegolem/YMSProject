@@ -1,25 +1,23 @@
 package arcanegolem.yms.project
 
 import android.app.Application
-import arcanegolem.yms.data.di.dataModule
-import arcanegolem.yms.data.di.fakes.fakeDataModule
-import arcanegolem.yms.project.di.appModule
-import arcanegolem.yms.project.di.domainModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import android.content.Context
+import arcanegolem.yms.data.BuildConfig
+import arcanegolem.yms.project.di.ApplicationComponent
+import arcanegolem.yms.project.di.DaggerApplicationComponent
 
 class YMSProjectApplication : Application() {
-  override fun onCreate() {
-    super.onCreate()
 
-    startKoin {
-      androidContext(this@YMSProjectApplication)
-      modules(
-        appModule,
-        domainModule,
-        dataModule,
-//        fakeDataModule
-      )
-    }
+  val applicationComponent : ApplicationComponent by lazy {
+    DaggerApplicationComponent.builder()
+      .context(this)
+      .token(BuildConfig.TOKEN)
+      .build()
   }
 }
+
+val Context.applicationComponent : ApplicationComponent
+  get() = when(this) {
+    is YMSProjectApplication -> applicationComponent
+    else -> this.applicationContext.applicationComponent
+  }

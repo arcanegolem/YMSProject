@@ -2,13 +2,14 @@ package arcanegolem.yms.domain.usecases
 
 import arcanegolem.yms.domain.models.HistoryModel
 import arcanegolem.yms.domain.repos.HistoryRepository
+import javax.inject.Inject
 
 /**
  * Юзкейс для получения истории транзакций за опредленный период с их суммой и периодом см. [HistoryModel]
  *
  * @param historyRepository имплементация [HistoryRepository]
  */
-class LoadHistoryUseCase(
+class LoadHistoryUseCase @Inject constructor(
   private val historyRepository: HistoryRepository
 ) {
   suspend fun execute(

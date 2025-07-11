@@ -3,6 +3,7 @@ package arcanegolem.yms.domain.usecases
 import arcanegolem.yms.domain.models.AccountModel
 import arcanegolem.yms.domain.repos.AccountRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 /**
  * Этот юзкейс используется для получения первого аккаунта если нет активного, потому что сейчас
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
  *
  * @param accountRepository имплементация [AccountRepository]
  */
-class GetAccountUseCase(
+class GetAccountUseCase @Inject constructor(
   private val accountRepository: AccountRepository
 ) {
   suspend fun execute() : Flow<AccountModel?> {

@@ -21,6 +21,7 @@ import io.ktor.client.request.header
 import io.ktor.client.request.setBody
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
  * Реальная имплементация репозитория для работы с счетами
@@ -28,7 +29,7 @@ import kotlinx.coroutines.flow.map
  * @param httpClient Ktor http-клиент
  * @param dataStoreManager хелпер для датастора с данными активного счета
  */
-internal class AccountRepositoryImpl(
+internal class AccountRepositoryImpl @Inject constructor(
   private val httpClient: HttpClient,
   private val dataStoreManager : DataStoreManager
 ) : AccountRepository {

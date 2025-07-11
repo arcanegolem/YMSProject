@@ -15,6 +15,7 @@ import arcanegolem.yms.domain.repos.TransactionsRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
+import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -24,7 +25,7 @@ import kotlin.time.Instant
  * @param httpClient Ktor http-клиент
  * @param dataStoreManager хелпер для датастора с данными активного счета
  */
-internal class TransactionsRepositoryImpl(
+internal class TransactionsRepositoryImpl @Inject constructor(
   private val httpClient: HttpClient,
   private val dataStoreManager: DataStoreManager
 ) : TransactionsRepository {

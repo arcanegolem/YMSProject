@@ -7,13 +7,14 @@ import arcanegolem.yms.domain.repos.CategoriesRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
+import javax.inject.Inject
 
 /**
  * Реальная имплементация репозитория статей
  *
  * @param httpClient Ktor http-клиент
  */
-internal class CategoriesRepositoryImpl(
+internal class CategoriesRepositoryImpl @Inject constructor(
   private val httpClient: HttpClient
 ) : CategoriesRepository {
   override suspend fun loadCategories(): List<CategoryModel> {
