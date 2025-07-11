@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
   alias(libs.plugins.android.application)
@@ -13,6 +14,10 @@ android {
   namespace = "arcanegolem.yms.project"
   compileSdk = 36
 
+  buildFeatures {
+    buildConfig = true
+  }
+
   defaultConfig {
     applicationId = "arcanegolem.yms.project"
     minSdk = 24
@@ -21,6 +26,11 @@ android {
     versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+    buildConfigField("String", "TOKEN", "\"${properties.getProperty("TOKEN")}\"")
   }
 
   buildTypes {
@@ -77,6 +87,22 @@ dependencies {
 
   implementation(libs.material.icons.extended)
 
-  implementation(project(":data"))
-  implementation(project(":domain"))
+  implementation(libs.ktor.client.core)
+  implementation(libs.ktor.client.okhttp)
+  implementation(libs.ktor.serialization.json)
+  implementation(libs.ktor.content.negotiation)
+  implementation(libs.ktor.client.logging)
+  implementation(libs.ktor.client.auth)
+  implementation(libs.ktor.client.resources)
+
+  implementation(libs.androidx.datastore.preferences)
+
+  implementation(project(":feature:account"))
+  implementation(project(":feature:categories"))
+  implementation(project(":feature:settings"))
+  implementation(project(":feature:transactions"))
+
+  implementation(project(":core:ui"))
+  implementation(project(":core:utils"))
+  implementation(project(":core:data"))
 }

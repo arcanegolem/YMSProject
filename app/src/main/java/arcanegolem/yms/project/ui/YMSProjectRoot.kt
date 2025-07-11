@@ -6,25 +6,42 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import arcanegolem.yms.account.navigation.AccountDestinationModel
+import arcanegolem.yms.categories.navigation.CategoriesDestinationModel
+import arcanegolem.yms.core.ui.components.YMSConnectionDisplay
+import arcanegolem.yms.core.ui.components.bottom_bar.YMSNavBar
+import arcanegolem.yms.core.ui.components.top_bar.YMSTopAppBar
+import arcanegolem.yms.core.utils.NetworkMonitor
 import arcanegolem.yms.project.navigation.navigationGraph
-import arcanegolem.yms.project.navigation.routes.Expenses
-import arcanegolem.yms.project.ui.components.YMSConnectionDisplay
-import arcanegolem.yms.project.ui.components.bottom_bar.YMSNavBar
-import arcanegolem.yms.project.ui.components.top_bar.YMSTopAppBar
+import arcanegolem.yms.settings.navigation.SettingsDestinationModel
+import arcanegolem.yms.transactions.navigation.ExpensesDestinationModel
+import arcanegolem.yms.transactions.navigation.IncomesDestinationModel
+import arcanegolem.yms.transactions.navigation.IncomesGraph
 
 @Composable
-fun YMSProjectRoot(viewModelProviderFactory: ViewModelProvider.Factory) {
+fun YMSProjectRoot() {
   val navController = rememberNavController()
+  val networkAvailable by NetworkMonitor.networkAvailable.collectAsStateWithLifecycle()
 
   Scaffold(
     topBar = { YMSTopAppBar(navController = navController) },
-    bottomBar = { YMSNavBar(navController = navController) }
+    bottomBar = { YMSNavBar(
+      navController = navController,
+      models = listOf(
+        IncomesDestinationModel(),
+        ExpensesDestinationModel(),
+        AccountDestinationModel(),
+        CategoriesDestinationModel(),
+        SettingsDestinationModel()
+      )
+    ) }
   ) { paddingValues ->
     Box(
       modifier = Modifier
@@ -33,13 +50,14 @@ fun YMSProjectRoot(viewModelProviderFactory: ViewModelProvider.Factory) {
     ){
       NavHost(
         navController = navController,
-        startDestination = Expenses
-      ) { navigationGraph(navController, viewModelProviderFactory) }
+        startDestination = IncomesGraph
+      ) { navigationGraph(navController) }
 
       YMSConnectionDisplay(
         modifier = Modifier
           .align(Alignment.BottomCenter)
-          .offset(y = -(16.dp))
+          .offset(y = -(16.dp)),
+        networkAvailable = networkAvailable
       )
     }
   }

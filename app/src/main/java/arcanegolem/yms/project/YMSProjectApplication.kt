@@ -2,17 +2,36 @@ package arcanegolem.yms.project
 
 import android.app.Application
 import android.content.Context
-import arcanegolem.yms.data.BuildConfig
+import arcanegolem.yms.account.di.AccountDependencies
+import arcanegolem.yms.account.di.AccountDependenciesProvider
+import arcanegolem.yms.categories.di.CategoriesDependencies
+import arcanegolem.yms.categories.di.CategoriesDependenciesProvider
 import arcanegolem.yms.project.di.ApplicationComponent
 import arcanegolem.yms.project.di.DaggerApplicationComponent
+import arcanegolem.yms.transactions.di.TransactionsDependencies
+import arcanegolem.yms.transactions.di.TransactionsDependenciesProvider
 
-class YMSProjectApplication : Application() {
+class YMSProjectApplication
+  : TransactionsDependenciesProvider,
+  CategoriesDependenciesProvider,
+  AccountDependenciesProvider,
+  Application() {
 
   val applicationComponent : ApplicationComponent by lazy {
-    DaggerApplicationComponent.builder()
-      .context(this)
-      .token(BuildConfig.TOKEN)
-      .build()
+    DaggerApplicationComponent.factory()
+      .create(this, BuildConfig.TOKEN)
+  }
+
+  override fun resolveTransactionsDependencies(): TransactionsDependencies {
+    return applicationComponent
+  }
+
+  override fun resolveCategoriesDependencies(): CategoriesDependencies {
+    return applicationComponent
+  }
+
+  override fun resolveAccountDependencies(): AccountDependencies {
+    return applicationComponent
   }
 }
 

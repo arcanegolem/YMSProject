@@ -1,30 +1,33 @@
 package arcanegolem.yms.project.di
 
 import android.content.Context
-import arcanegolem.yms.data.di.annotations.TokenQualifier
-import arcanegolem.yms.data.di.modules.DataModule
-import arcanegolem.yms.project.MainActivity
-import arcanegolem.yms.project.di.annotations.ApplicationScope
-import arcanegolem.yms.project.di.modules.ViewModelBindingModule
+import arcanegolem.yms.account.di.AccountDependencies
+import arcanegolem.yms.account.domain.repos.AccountRepository
+import arcanegolem.yms.categories.di.CategoriesDependencies
+import arcanegolem.yms.categories.domain.repos.CategoriesRepository
+import arcanegolem.yms.transactions.di.TransactionsDependencies
+import arcanegolem.yms.transactions.domain.repos.TransactionsHistoryRepository
+import arcanegolem.yms.transactions.domain.repos.TransactionsRepository
 import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
 @Component(
-  modules = [ViewModelBindingModule::class, DataModule::class]
+  modules = [RepositoryModule::class, StorageModule::class, NetworkModule::class]
 )
-interface ApplicationComponent  {
+interface ApplicationComponent
+  : TransactionsDependencies, AccountDependencies, CategoriesDependencies {
 
-  fun inject(activity: MainActivity)
+  override fun resolveAccountRepository(): AccountRepository
+  override fun resolveCategoriesRepository(): CategoriesRepository
+  override fun resolveTransactionsRepository(): TransactionsRepository
+  override fun resolveTransactionsHistoryRepository(): TransactionsHistoryRepository
 
-  @Component.Builder
-  interface Builder {
-    @BindsInstance
-    fun context(context : Context) : Builder
-
-    @BindsInstance
-    fun token(@TokenQualifier token : String) : Builder
-
-    fun build() : ApplicationComponent
+  @Component.Factory
+  interface Factory {
+    fun create(
+      @BindsInstance context : Context,
+      @BindsInstance @TokenQualifier token : String
+    ) : ApplicationComponent
   }
 }
