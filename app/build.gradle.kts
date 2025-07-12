@@ -1,23 +1,36 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.detekt)
+  alias(libs.plugins.ksp)
 }
 
 android {
   namespace = "arcanegolem.yms.project"
-  compileSdk = 35
+  compileSdk = 36
+
+  buildFeatures {
+    buildConfig = true
+  }
 
   defaultConfig {
     applicationId = "arcanegolem.yms.project"
     minSdk = 24
-    targetSdk = 35
+    targetSdk = 36
     versionCode = 1
     versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+    buildConfigField("String", "TOKEN", "\"${properties.getProperty("TOKEN")}\"")
   }
 
   buildTypes {
@@ -30,8 +43,8 @@ android {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
-  kotlinOptions {
-    jvmTarget = "11"
+  kotlin.compilerOptions {
+    jvmTarget = JvmTarget.JVM_11
   }
   buildFeatures {
     compose = true
@@ -61,14 +74,35 @@ dependencies {
   debugImplementation(libs.androidx.ui.test.manifest)
 
   implementation(libs.androidx.navigation.compose)
+
   implementation(libs.kotlinx.serialization.json)
-  implementation(libs.koin.android)
+
   implementation(libs.androidx.core.splashscreen)
+
+  implementation(libs.dagger.android)
+  ksp(libs.dagger.android.processor)
+  ksp(libs.dagger.compiler)
 
   implementation(libs.kotlinx.datetime)
 
   implementation(libs.material.icons.extended)
 
-  implementation(project(":data"))
-  implementation(project(":domain"))
+  implementation(libs.ktor.client.core)
+  implementation(libs.ktor.client.okhttp)
+  implementation(libs.ktor.serialization.json)
+  implementation(libs.ktor.content.negotiation)
+  implementation(libs.ktor.client.logging)
+  implementation(libs.ktor.client.auth)
+  implementation(libs.ktor.client.resources)
+
+  implementation(libs.androidx.datastore.preferences)
+
+  implementation(project(":feature:account"))
+  implementation(project(":feature:categories"))
+  implementation(project(":feature:settings"))
+  implementation(project(":feature:transactions"))
+
+  implementation(project(":core:ui"))
+  implementation(project(":core:utils"))
+  implementation(project(":core:data"))
 }

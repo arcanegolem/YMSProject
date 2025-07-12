@@ -1,0 +1,63 @@
+<resources>
+    <string name="expenses_label">Expenses</string>
+    <string name="incomes_label">Incomes</string>
+    <string name="account_label">Account</string>
+    <string name="categories_label">Categories</string>
+    <string name="settings_label">Settings</string>
+
+    <string name="expenses_title">Expenses today</string>
+    <string name="incomes_title">Incomes today</string>
+    <string name="account_title">My account</string>
+    <string name="groups_title">My categories</string>
+    <string name="settings_title">Settings</string>
+    <string name="history_title">My history</string>
+    <string name="transaction_edit_create_expense_title">My expenses</string>
+    <string name="transaction_edit_create_income_title">My incomes</string>
+
+    <string name="total_text">Total</string>
+    <string name="balance_text">Balance</string>
+    <string name="amount_text">Amount</string>
+    <string name="account_text">Account</string>
+    <string name="category_text">Category</string>
+    <string name="date_text">Date</string>
+    <string name="time_text">Time</string>
+    <string name="comment_text">Comment</string>
+    <string name="currency_text">Currency</string>
+    <string name="start_text">Start</string>
+    <string name="end_text">End</string>
+    <string name="ok_text">OK</string>
+    <string name="delete_text">Delete</string>
+    <string name="retry_text">Retry</string>
+    <string name="choose_text">Select</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="clear_text">Clear</string>
+    <string name="connection_available_text">Network available!</string>
+    <string name="connection_unavailable_text">Network not available!</string>
+    <string name="account_name_text">Account name</string>
+
+    <string name="ruble_text">Russian ruble ₽</string>
+    <string name="dollar_text">United states\' dollar $</string>
+    <string name="euro_text">Euro</string>
+
+    <string name="error_desc_text">Error description</string>
+    <string name="transaction_error_desc">Error loading transactions! Description:</string>
+    <string name="account_error_desc">Error loading account data! Description:</string>
+    <string name="account_update_error_desc">Error updating account data! Description:</string>
+    <string name="category_error_desc">Error loading categories! Description:</string>
+    <string name="history_error_desc">Error loading transaction history! Description:</string>
+    <string name="copy_error_desc_text">Copy description</string>
+    <string name="something_went_wrong">Oops! Something went wrong!</string>
+
+    <string name="category_search_placeholder">Find category</string>
+    
+    <string name="settings_theme_text">Dark theme</string>
+    <string name="settings_p_color_text">Primary color</string>
+    <string name="settings_sounds_text">Sounds</string>
+    <string name="settings_haptics_text">Haptics</string>
+    <string name="settings_passcode_text">Passcode</string>
+    <string name="settings_synchronization_text">Synchronization</string>
+    <string name="settings_language_text">Language</string>
+    <string name="settings_about_text">About</string>
+
+    <string name="error_state_msg">Oops! Something went wrong… Error description:\n</string>
+</resources>

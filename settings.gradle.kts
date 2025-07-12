@@ -21,5 +21,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "YMSProject"
 include(":app")
-include(":domain")
-include(":data")
+include(":feature:transactions")
+include(":feature:categories")
+include(":feature:account")
+include(":feature:settings")
+include(":core:data")
+include(":core:ui")
+include(":core:utils")
+include(":core:di")
