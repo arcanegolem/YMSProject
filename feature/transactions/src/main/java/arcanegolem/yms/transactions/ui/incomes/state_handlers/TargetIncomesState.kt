@@ -22,14 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.YMSFAB
 import arcanegolem.yms.core.ui.components.YMSListItem
+import arcanegolem.yms.transactions.navigation.TransactionEditCreate
 import arcanegolem.yms.transactions.ui.components.YMSTransactionListItem
 import arcanegolem.yms.transactions.ui.incomes.IncomesState
 
 @Composable
-fun TargetIncomesState(state : IncomesState.Target) {
+fun TargetIncomesState(
+  navController: NavController,
+  state : IncomesState.Target
+) {
   Box(modifier = Modifier.fillMaxSize()) {
     Column {
       YMSListItem(
@@ -60,7 +65,9 @@ fun TargetIncomesState(state : IncomesState.Target) {
       )
       LazyColumn {
         items(state.result.transactions, key = { it.toString() }) { transaction ->
-          YMSTransactionListItem(transaction)
+          YMSTransactionListItem(transaction) { t ->
+            navController.navigate(TransactionEditCreate(transactionId = t.id, isIncome = true))
+          }
         }
       }
     }
@@ -69,7 +76,7 @@ fun TargetIncomesState(state : IncomesState.Target) {
       modifier = Modifier
         .align(Alignment.BottomEnd)
         .offset((-14).dp, (-16).dp),
-      onClick = {}
+      onClick = { navController.navigate(TransactionEditCreate(transactionId = null, isIncome = true)) }
     ) {
       Icon(Icons.Rounded.Add, null)
     }

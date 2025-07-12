@@ -1,6 +1,6 @@
 package arcanegolem.yms.transactions.ui.history
 
-import arcanegolem.yms.core.ui.components.DatePickerSource
+import arcanegolem.yms.transactions.ui.history.components.DatePickerSource
 
 sealed class HistoryEvent {
   data class LoadTransactionsForPeriod(

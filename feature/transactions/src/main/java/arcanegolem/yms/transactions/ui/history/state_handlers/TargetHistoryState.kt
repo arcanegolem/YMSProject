@@ -23,17 +23,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hasRoute
 import arcanegolem.yms.core.ui.R
-import arcanegolem.yms.core.ui.components.DatePickerSource
 import arcanegolem.yms.core.ui.components.YMSDatePicker
 import arcanegolem.yms.core.ui.components.YMSListItem
 import arcanegolem.yms.core.utils.toReadableDate
+import arcanegolem.yms.transactions.navigation.IncomesGraph
+import arcanegolem.yms.transactions.navigation.TransactionEditCreate
 import arcanegolem.yms.transactions.ui.history.HistoryEvent
 import arcanegolem.yms.transactions.ui.history.HistoryState
+import arcanegolem.yms.transactions.ui.history.components.DatePickerSource
 import arcanegolem.yms.transactions.ui.history.components.YMSDatedTransactionListItem
 
 @Composable
 fun TargetHistoryState(
+  navController: NavController,
   state : HistoryState.Target,
   eventProcessor : (HistoryEvent) -> Unit
 ) {
@@ -130,7 +135,12 @@ fun TargetHistoryState(
       )
       LazyColumn {
         items(state.result.transactionsTotaled.transactions, key = { it.toString() }) { transaction ->
-          YMSDatedTransactionListItem(transaction)
+          YMSDatedTransactionListItem(transaction) { t ->
+            navController.navigate(TransactionEditCreate(
+              transactionId = t.id,
+              isIncome = navController.previousBackStackEntry?.destination?.parent?.hasRoute(IncomesGraph::class) == true
+            ))
+          }
         }
       }
     }

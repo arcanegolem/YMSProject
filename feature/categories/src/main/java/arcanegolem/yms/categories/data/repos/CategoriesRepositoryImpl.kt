@@ -24,7 +24,8 @@ class CategoriesRepositoryImpl @Inject constructor(
       CategoryModel(
         id = categoryRemote.id,
         name = categoryRemote.name,
-        emoji = categoryRemote.emoji
+        emoji = categoryRemote.emoji,
+        isIncome = categoryRemote.isIncome
       )
     }
   }

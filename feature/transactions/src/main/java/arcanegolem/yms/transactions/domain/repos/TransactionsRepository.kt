@@ -1,5 +1,6 @@
 package arcanegolem.yms.transactions.domain.repos
 
+import arcanegolem.yms.transactions.domain.models.TransactionInfoModel
 import arcanegolem.yms.transactions.domain.models.TransactionsTotaledModel
 
 interface TransactionsRepository {
@@ -28,4 +29,12 @@ interface TransactionsRepository {
     periodStartMillis: Long? = null,
     periodEndMillis : Long? = periodStartMillis
   ) : TransactionsTotaledModel
+
+  suspend fun updateTransaction(id : Int, model : TransactionInfoModel)
+
+  suspend fun createTransaction(model : TransactionInfoModel)
+
+  suspend fun loadTransaction(id : Int?) : TransactionInfoModel
+
+  suspend fun deleteTransaction(id : Int)
 }

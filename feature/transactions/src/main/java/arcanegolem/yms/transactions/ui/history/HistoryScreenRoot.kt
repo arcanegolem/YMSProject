@@ -35,5 +35,5 @@ fun HistoryScreenRoot(
 
   val state = viewModel.state.collectAsStateWithLifecycle()
 
-  HistoryScreen(route, state, viewModel::processEvent)
+  HistoryScreen(navController, route, state, viewModel::processEvent)
 }

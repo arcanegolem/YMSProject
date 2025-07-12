@@ -30,5 +30,5 @@ fun ExpensesScreenRoot(
 
   val state = viewModel.state.collectAsStateWithLifecycle()
 
-  ExpensesScreen(state, viewModel::processEvent)
+  ExpensesScreen(navController, state, viewModel::processEvent)
 }

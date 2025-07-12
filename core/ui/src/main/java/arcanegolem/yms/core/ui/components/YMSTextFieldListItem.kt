@@ -1,4 +1,4 @@
-package arcanegolem.yms.account.ui.account_edit.components
+package arcanegolem.yms.core.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import arcanegolem.yms.core.ui.components.YMSListItem
 
 @Composable
 fun YMSTextFieldListItem(

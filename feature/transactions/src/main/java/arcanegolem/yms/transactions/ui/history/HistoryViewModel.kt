@@ -3,10 +3,11 @@ package arcanegolem.yms.transactions.ui.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.core.ui.R
-import arcanegolem.yms.core.ui.components.DatePickerSource
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
 import arcanegolem.yms.core.utils.NetworkMonitor
 import arcanegolem.yms.transactions.domain.usecases.LoadTransactionsHistoryUseCase
+import arcanegolem.yms.transactions.ui.history.components.DatePickerSource.PERIOD_END
+import arcanegolem.yms.transactions.ui.history.components.DatePickerSource.PERIOD_START
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,8 +29,8 @@ class HistoryViewModel @Inject constructor(
         val s = _state.value
         if (s is HistoryState.Target) {
           when (event.source) {
-            DatePickerSource.PERIOD_START -> loadHistory(s.result.isIncome, event.millis, s.result.periodEnd)
-            DatePickerSource.PERIOD_END -> loadHistory(s.result.isIncome, s.result.periodStart, event.millis)
+            PERIOD_START -> loadHistory(s.result.isIncome, event.millis, s.result.periodEnd)
+            PERIOD_END -> loadHistory(s.result.isIncome, s.result.periodStart, event.millis)
           }
         }
       }

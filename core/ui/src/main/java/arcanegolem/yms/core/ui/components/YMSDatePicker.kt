@@ -101,8 +101,3 @@ fun YMSDatePicker(
     }
   }
 }
-
-enum class DatePickerSource {
-  PERIOD_START,
-  PERIOD_END
-}

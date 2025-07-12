@@ -27,10 +27,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import arcanegolem.yms.account.ui.account_edit.AccountEditEvent
 import arcanegolem.yms.account.ui.account_edit.AccountEditState
-import arcanegolem.yms.account.ui.account_edit.components.YMSTextFieldListItem
 import arcanegolem.yms.account.ui.account_edit.components.currency_chooser.CurrencyChooser
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.YMSListItem
+import arcanegolem.yms.core.ui.components.YMSTextFieldListItem
 import arcanegolem.yms.core.ui.components.utils.ThousandSeparator
 import arcanegolem.yms.core.utils.formatCashNoSymbol
 
@@ -63,7 +63,7 @@ fun TargetAccountEditState(
         focusManager = focusManager,
         descText = stringResource(R.string.balance_text),
         text = state.result.balance.formatCashNoSymbol(),
-        keyboardType = KeyboardType.Text,
+        keyboardType = KeyboardType.Number,
         onConsumeChanges = { eventProcessor(AccountEditEvent.UpdateAccountBalance(it)) },
         visualTransformation = VisualTransformation.ThousandSeparator
       )

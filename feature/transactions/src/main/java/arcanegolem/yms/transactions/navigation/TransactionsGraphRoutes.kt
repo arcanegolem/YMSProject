@@ -18,3 +18,9 @@ object Expenses
 data class History(
   val isIncome : Boolean
 )
+
+@Serializable
+data class TransactionEditCreate(
+  val transactionId : Int? = null,
+  val isIncome: Boolean
+)

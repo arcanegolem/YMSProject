@@ -29,5 +29,5 @@ fun IncomesScreenRoot(
 
   val state = viewModel.state.collectAsStateWithLifecycle()
 
-  IncomesScreen(state, viewModel::processEvent)
+  IncomesScreen(navController, state, viewModel::processEvent)
 }
