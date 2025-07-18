@@ -7,5 +7,6 @@ data class TransactionInfoModel(
   val amount : String = "",
   val date : String = "",
   val time : String = "",
-  val comment : String = ""
+  val comment : String = "",
+  val isArbitrary : Boolean
 )

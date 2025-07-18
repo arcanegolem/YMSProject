@@ -19,7 +19,7 @@ fun TransactionEditCreateScreen(
     TransactionEditCreateState.Idle -> {
       eventProcessor(
         if (route.transactionId != null) {
-          TransactionEditCreateEvent.InitialLoad(route.transactionId, route.isIncome)
+          TransactionEditCreateEvent.InitialLoad(route.transactionId, route.isIncome, route.isArbitrary)
         } else {
           TransactionEditCreateEvent.InitialBlank(route.isIncome)
         }

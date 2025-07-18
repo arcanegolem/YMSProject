@@ -55,14 +55,14 @@ private fun readableFormatWithTime() = LocalDateTime.Format {
 
 @OptIn(ExperimentalTime::class)
 fun Long.toFormattedDateTime() : String {
-  return Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault()).format(
+  return Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.UTC).format(
     readableFormatWithTime()
   )
 }
 
 @OptIn(ExperimentalTime::class)
 fun Long.toReadableDate(lang: String) : String {
-  return Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault()).format(
+  return Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.UTC).format(
     readableFormat(lang)
   )
 }

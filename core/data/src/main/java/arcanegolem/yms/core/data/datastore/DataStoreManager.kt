@@ -25,6 +25,19 @@ class DataStoreManager @Inject constructor(
 ) {
   companion object {
     private val ACTIVE_ACCOUNT_KEY = stringPreferencesKey("ACTIVE_ACCOUNT")
+    private val LAST_SYNC_KEY = stringPreferencesKey("LAST_SYNC")
+  }
+
+  fun getLastSyncFlow() : Flow<String> {
+    return dataStore.data.map { preferences ->
+      preferences[LAST_SYNC_KEY] ?: ""
+    }
+  }
+
+  suspend fun updateLastSync(value : String) {
+    dataStore.edit { preferences ->
+      preferences[LAST_SYNC_KEY] = value
+    }
   }
 
   suspend fun getActiveAccount() : AccountInfoModel? {

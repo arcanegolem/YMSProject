@@ -138,7 +138,8 @@ fun TargetHistoryState(
           YMSDatedTransactionListItem(transaction) { t ->
             navController.navigate(TransactionEditCreate(
               transactionId = t.id,
-              isIncome = navController.previousBackStackEntry?.destination?.parent?.hasRoute(IncomesGraph::class) == true
+              isIncome = navController.previousBackStackEntry?.destination?.parent?.hasRoute(IncomesGraph::class) == true,
+              isArbitrary = t.isArbitrary
             ))
           }
         }

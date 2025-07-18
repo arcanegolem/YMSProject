@@ -66,7 +66,7 @@ fun TargetIncomesState(
       LazyColumn {
         items(state.result.transactions, key = { it.toString() }) { transaction ->
           YMSTransactionListItem(transaction) { t ->
-            navController.navigate(TransactionEditCreate(transactionId = t.id, isIncome = true))
+            navController.navigate(TransactionEditCreate(transactionId = t.id, isIncome = true, isArbitrary = t.isArbitrary))
           }
         }
       }
@@ -76,7 +76,7 @@ fun TargetIncomesState(
       modifier = Modifier
         .align(Alignment.BottomEnd)
         .offset((-14).dp, (-16).dp),
-      onClick = { navController.navigate(TransactionEditCreate(transactionId = null, isIncome = true)) }
+      onClick = { navController.navigate(TransactionEditCreate(transactionId = null, isIncome = true, null)) }
     ) {
       Icon(Icons.Rounded.Add, null)
     }

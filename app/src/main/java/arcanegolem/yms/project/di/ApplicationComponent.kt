@@ -5,6 +5,8 @@ import arcanegolem.yms.account.di.AccountDependencies
 import arcanegolem.yms.account.domain.repos.AccountRepository
 import arcanegolem.yms.categories.di.CategoriesDependencies
 import arcanegolem.yms.categories.domain.repos.CategoriesRepository
+import arcanegolem.yms.project.di.worker.DaggerWorkerFactory
+import arcanegolem.yms.project.di.worker.WorkerBindingModule
 import arcanegolem.yms.transactions.di.TransactionsDependencies
 import arcanegolem.yms.transactions.domain.repos.TransactionsHistoryRepository
 import arcanegolem.yms.transactions.domain.repos.TransactionsRepository
@@ -13,7 +15,12 @@ import dagger.Component
 
 @ApplicationScope
 @Component(
-  modules = [RepositoryModule::class, StorageModule::class, NetworkModule::class]
+  modules = [
+    RepositoryModule::class,
+    StorageModule::class,
+    NetworkModule::class,
+    WorkerBindingModule::class
+  ]
 )
 interface ApplicationComponent
   : TransactionsDependencies, AccountDependencies, CategoriesDependencies {
@@ -22,6 +29,8 @@ interface ApplicationComponent
   override fun resolveCategoriesRepository(): CategoriesRepository
   override fun resolveTransactionsRepository(): TransactionsRepository
   override fun resolveTransactionsHistoryRepository(): TransactionsHistoryRepository
+
+  fun workerFactory() : DaggerWorkerFactory
 
   @Component.Factory
   interface Factory {

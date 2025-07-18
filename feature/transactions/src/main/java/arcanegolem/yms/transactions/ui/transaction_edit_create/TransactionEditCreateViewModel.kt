@@ -2,7 +2,6 @@ package arcanegolem.yms.transactions.ui.transaction_edit_create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arcanegolem.yms.categories.domain.models.CategoryModel
 import arcanegolem.yms.categories.domain.usecases.LoadCategoriesUseCase
 import arcanegolem.yms.core.data.utils.toDateStringDDMMYYYY
 import arcanegolem.yms.core.ui.R
@@ -17,6 +16,7 @@ import arcanegolem.yms.transactions.domain.usecases.UpdateTransactionUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,14 +32,13 @@ class TransactionEditCreateViewModel @Inject constructor(
   private val _state = MutableStateFlow<TransactionEditCreateState>(TransactionEditCreateState.Idle)
   val state get() = _state.asStateFlow()
 
-  var categories : List<CategoryModel> = emptyList()
-
   private var transactionId : Int? = null
+  private var arbitraryFlag : Boolean? = null
 
   fun processEvent(event: TransactionEditCreateEvent) {
     when (event) {
-      is TransactionEditCreateEvent.InitialBlank -> initializeStartingState(null,event.isIncome)
-      is TransactionEditCreateEvent.InitialLoad -> initializeStartingState(event.transactionId, event.isIncome)
+      is TransactionEditCreateEvent.InitialBlank -> initializeStartingState(null,event.isIncome, null)
+      is TransactionEditCreateEvent.InitialLoad -> initializeStartingState(event.transactionId, event.isIncome, event.isArbitrary)
       is TransactionEditCreateEvent.UpdateTransactionAmount -> updateAmount(event.new)
       is TransactionEditCreateEvent.UpdateTransactionCategory -> updateCategory(event.id, event.name)
       is TransactionEditCreateEvent.UpdateTransactionDate -> updateDate(event.new)
@@ -55,11 +54,12 @@ class TransactionEditCreateViewModel @Inject constructor(
 
   private fun deleteTransaction(onSuccess: () -> Unit) {
     val capturedId = transactionId
+    val capturedArbitrary = arbitraryFlag
 
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         capturedId?.let {
-          runCatching { deleteTransactionUseCase.execute(capturedId) }
+          runCatching { deleteTransactionUseCase.execute(capturedId, capturedArbitrary) }
             .onSuccess {
               withContext(Dispatchers.Main) {
                 onSuccess()
@@ -159,14 +159,39 @@ class TransactionEditCreateViewModel @Inject constructor(
     }
   }
 
-  private fun initializeStartingState(id : Int?, isIncome: Boolean) {
+  private fun initializeStartingState(id : Int?, isIncome: Boolean, isArbitrary : Boolean? = null) {
     transactionId = id
+    this.arbitraryFlag = isArbitrary
 
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { TransactionEditCreateState.Loading }
+
         runCatching { loadCategoriesUseCase.execute() }
-          .onSuccess { result -> categories = result.filter { it.isIncome == isIncome } }
+          .onSuccess { result ->
+            result.collectLatest { categoryModels ->
+              runCatching { loadTransactionUseCase.execute(id, isArbitrary) }
+                .onSuccess { transactionInfoModel ->
+                  _state.update {
+                    TransactionEditCreateState.Target(
+                      result = transactionInfoModel,
+                      transactionSyncError = null,
+                      availableCategories = categoryModels.filter { it.isIncome == isIncome }
+                    )
+                  }
+                }
+                .onFailure { error ->
+                  _state.update {
+                    TransactionEditCreateState.Error(
+                      YMSError(
+                        R.string.transaction_error_desc,
+                        error
+                      )
+                    )
+                  }
+                }
+            }
+          }
           .onFailure { error ->
             _state.update {
               TransactionEditCreateState.Error(
@@ -177,27 +202,6 @@ class TransactionEditCreateViewModel @Inject constructor(
               )
             }
             return@withContext
-          }
-
-        runCatching { loadTransactionUseCase.execute(id) }
-          .onSuccess { result ->
-            _state.update {
-              TransactionEditCreateState.Target(
-                result = result,
-                transactionSyncError = null,
-                availableCategories = categories
-              )
-            }
-          }
-          .onFailure { error ->
-            _state.update {
-              TransactionEditCreateState.Error(
-                YMSError(
-                  R.string.transaction_error_desc,
-                  error
-                )
-              )
-            }
           }
       }
     }

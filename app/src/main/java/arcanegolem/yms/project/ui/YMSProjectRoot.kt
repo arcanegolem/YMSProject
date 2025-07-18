@@ -1,5 +1,6 @@
 package arcanegolem.yms.project.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -29,6 +30,8 @@ import arcanegolem.yms.transactions.navigation.IncomesGraph
 fun YMSProjectRoot() {
   val navController = rememberNavController()
   val networkAvailable by NetworkMonitor.networkAvailable.collectAsStateWithLifecycle()
+
+  Log.i("NETWORK_STATUS", networkAvailable.toString())
 
   Scaffold(
     topBar = { YMSTopAppBar(navController = navController) },

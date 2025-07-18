@@ -1,6 +1,7 @@
 package arcanegolem.yms.transactions.domain.repos
 
 import arcanegolem.yms.transactions.domain.models.TransactionHistoryModel
+import kotlinx.coroutines.flow.Flow
 
 interface TransactionsHistoryRepository {
   /**
@@ -16,5 +17,5 @@ interface TransactionsHistoryRepository {
     isIncome : Boolean,
     periodStartMillis : Long? = null,
     periodEndMillis : Long? = null
-  ) : TransactionHistoryModel
+  ) : Flow<TransactionHistoryModel>
 }

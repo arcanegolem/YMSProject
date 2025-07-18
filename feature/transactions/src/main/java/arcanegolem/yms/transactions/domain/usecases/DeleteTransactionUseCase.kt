@@ -6,7 +6,7 @@ import javax.inject.Inject
 class DeleteTransactionUseCase @Inject constructor(
   private val transactionsRepository: TransactionsRepository
 ) {
-  suspend fun execute(id : Int) {
-    transactionsRepository.deleteTransaction(id)
+  suspend fun execute(id : Int, isArbitrary : Boolean?) {
+    transactionsRepository.deleteTransaction(id, isArbitrary)
   }
 }
