@@ -2,20 +2,24 @@ package arcanegolem.yms.transactions.ui.expenses
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arcanegolem.yms.categories.domain.usecases.LoadCategoriesUseCase
+import arcanegolem.yms.core.data.utils.dateMillisEndDay
+import arcanegolem.yms.core.data.utils.dateMillisStartDay
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
-import arcanegolem.yms.core.utils.NetworkMonitor
 import arcanegolem.yms.transactions.domain.usecases.LoadExpensesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ExpensesViewModel @Inject constructor(
-  private val loadExpensesUseCase: LoadExpensesUseCase
+  private val loadExpensesUseCase: LoadExpensesUseCase,
+  private val loadCategoriesUseCase: LoadCategoriesUseCase
 ) : ViewModel() {
   private val _state = MutableStateFlow<ExpensesState>(ExpensesState.Idle)
   val state get() = _state.asStateFlow()
@@ -30,9 +34,18 @@ class ExpensesViewModel @Inject constructor(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { ExpensesState.Loading }
-        if (!NetworkMonitor.networkAvailable.value) return@withContext
-        runCatching { loadExpensesUseCase.execute(System.currentTimeMillis(), System.currentTimeMillis())  }
-          .onSuccess { result -> _state.update { ExpensesState.Target(result) } }
+        runCatching {
+          // Костыль на предзагрузку статей
+          loadCategoriesUseCase.execute()
+          loadExpensesUseCase.execute(dateMillisStartDay(), dateMillisEndDay())
+        }
+          .onSuccess { result ->
+            launch {
+              result.collectLatest { transactionsTotaledModel ->
+                _state.update { ExpensesState.Target(transactionsTotaledModel) }
+              }
+            }
+          }
           .onFailure { error ->
             _state.update {
               ExpensesState.Error(

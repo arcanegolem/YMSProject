@@ -13,7 +13,9 @@ fun NavGraphBuilder.settingsGraph(
     startDestination = Settings
   ) {
     composable<Settings> {
-      SettingsScreenRoot()
+      SettingsScreenRoot(
+        navController = navController
+      )
     }
   }
 }

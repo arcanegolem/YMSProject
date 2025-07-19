@@ -2,6 +2,7 @@ package arcanegolem.yms.transactions.domain.usecases
 
 import arcanegolem.yms.transactions.domain.models.TransactionHistoryModel
 import arcanegolem.yms.transactions.domain.repos.TransactionsHistoryRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -16,7 +17,7 @@ class LoadTransactionsHistoryUseCase @Inject constructor(
     isIncome : Boolean,
     periodStart : Long? = null,
     periodEnd : Long? = null
-  ) : TransactionHistoryModel {
+  ) : Flow<TransactionHistoryModel> {
     return transactionsHistoryRepository.loadHistory(isIncome, periodStart, periodEnd)
   }
 }

@@ -2,6 +2,7 @@ package arcanegolem.yms.categories.domain.usecases
 
 import arcanegolem.yms.categories.domain.models.CategoryModel
 import arcanegolem.yms.categories.domain.repos.CategoriesRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class LoadCategoriesUseCase @Inject constructor(
   private val categoriesRepository: CategoriesRepository
 ) {
-  suspend fun execute() : List<CategoryModel> {
+  suspend fun execute() : Flow<List<CategoryModel>> {
     return categoriesRepository.loadCategories()
   }
 }

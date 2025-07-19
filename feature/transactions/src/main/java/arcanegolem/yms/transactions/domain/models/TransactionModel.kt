@@ -6,5 +6,6 @@ data class TransactionModel(
   val label : String,
   val comment : String?,
   val amountFormatted : String,
-  val dateTimeMillis : Long
+  val dateTimeMillis : Long,
+  val isArbitrary : Boolean
 )

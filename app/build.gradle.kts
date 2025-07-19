@@ -97,6 +97,12 @@ dependencies {
 
   implementation(libs.androidx.datastore.preferences)
 
+  implementation(libs.room.runtime)
+  implementation(libs.room.ktx)
+  ksp(libs.room.compiler)
+
+  implementation(libs.androidx.work.runtime.ktx)
+
   implementation(project(":feature:account"))
   implementation(project(":feature:categories"))
   implementation(project(":feature:settings"))

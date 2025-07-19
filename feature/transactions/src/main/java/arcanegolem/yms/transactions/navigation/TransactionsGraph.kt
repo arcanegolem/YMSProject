@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import arcanegolem.yms.transactions.ui.analysis.AnalysisScreenRoot
 import arcanegolem.yms.transactions.ui.expenses.ExpensesScreenRoot
 import arcanegolem.yms.transactions.ui.history.HistoryScreenRoot
 import arcanegolem.yms.transactions.ui.incomes.IncomesScreenRoot
@@ -33,6 +34,13 @@ fun NavGraphBuilder.transactionsGraph(
         route = it.toRoute()
       )
     }
+
+    composable<Analysis> {
+      AnalysisScreenRoot(
+        navController = navController,
+        route = it.toRoute()
+      )
+    }
   }
 
   navigation<ExpensesGraph>(
@@ -51,6 +59,13 @@ fun NavGraphBuilder.transactionsGraph(
 
     composable<TransactionEditCreate> {
       TransactionEditCreateScreenRoot(
+        navController = navController,
+        route = it.toRoute()
+      )
+    }
+
+    composable<Analysis> {
+      AnalysisScreenRoot(
         navController = navController,
         route = it.toRoute()
       )

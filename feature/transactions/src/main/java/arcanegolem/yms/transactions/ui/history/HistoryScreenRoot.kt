@@ -14,6 +14,7 @@ import arcanegolem.yms.core.ui.components.top_bar.ProvideYMSTopAppBarActions
 import arcanegolem.yms.core.ui.components.top_bar.ProvideYMSTopAppBarNavAction
 import arcanegolem.yms.core.ui.components.top_bar.ProvideYMSTopAppBarTitle
 import arcanegolem.yms.transactions.di.resolveDaggerComponent
+import arcanegolem.yms.transactions.navigation.Analysis
 import arcanegolem.yms.transactions.navigation.History
 
 @Composable
@@ -25,11 +26,13 @@ fun HistoryScreenRoot(
 
   ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.history_title)) }
   ProvideYMSTopAppBarActions {
-    IconButton(onClick = {}) { Icon(painter = painterResource(R.drawable.analysis), contentDescription = null) }
+    IconButton(onClick = { navController.navigate(Analysis(route.isIncome)) }) {
+      Icon(painter = painterResource(R.drawable.analysis), contentDescription = null)
+    }
   }
   ProvideYMSTopAppBarNavAction {
     IconButton(
-      onClick = { navController.navigateUp() }
+      onClick = { navController.popBackStack() }
     ) { Icon(painter = painterResource(R.drawable.arrow_back), contentDescription = null) }
   }
 

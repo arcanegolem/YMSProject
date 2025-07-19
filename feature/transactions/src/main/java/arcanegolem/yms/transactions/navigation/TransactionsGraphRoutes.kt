@@ -22,5 +22,11 @@ data class History(
 @Serializable
 data class TransactionEditCreate(
   val transactionId : Int? = null,
+  val isIncome: Boolean,
+  val isArbitrary : Boolean?
+)
+
+@Serializable
+data class Analysis(
   val isIncome: Boolean
 )

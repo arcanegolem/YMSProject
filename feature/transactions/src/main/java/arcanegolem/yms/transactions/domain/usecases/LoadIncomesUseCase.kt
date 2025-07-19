@@ -2,6 +2,7 @@ package arcanegolem.yms.transactions.domain.usecases
 
 import arcanegolem.yms.transactions.domain.models.TransactionsTotaledModel
 import arcanegolem.yms.transactions.domain.repos.TransactionsRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ class LoadIncomesUseCase @Inject constructor(
   suspend fun execute(
     periodStartMillis : Long? = null,
     periodEndMillis : Long? = periodStartMillis
-  ) : TransactionsTotaledModel {
-    return transactionsRepository.loadIncomes(periodStartMillis, periodEndMillis)
+  ) : Flow<TransactionsTotaledModel> {
+    return transactionsRepository.loadTransactionsForPeriod(periodStartMillis, periodEndMillis, true)
   }
 }

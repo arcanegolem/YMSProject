@@ -1,6 +1,7 @@
 package arcanegolem.yms.categories.domain.repos
 
 import arcanegolem.yms.categories.domain.models.CategoryModel
+import kotlinx.coroutines.flow.Flow
 
 interface CategoriesRepository {
   /**
@@ -8,5 +9,5 @@ interface CategoriesRepository {
    *
    * @return [List] из [arcanegolem.yms.categories.domain.models.CategoryModel]
    */
-  suspend fun loadCategories() : List<CategoryModel>
+  suspend fun loadCategories() : Flow<List<CategoryModel>>
 }

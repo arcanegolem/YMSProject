@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
-import arcanegolem.yms.core.utils.NetworkMonitor
 import arcanegolem.yms.transactions.domain.usecases.LoadTransactionsHistoryUseCase
 import arcanegolem.yms.transactions.ui.history.components.DatePickerSource.PERIOD_END
 import arcanegolem.yms.transactions.ui.history.components.DatePickerSource.PERIOD_START
@@ -45,9 +44,16 @@ class HistoryViewModel @Inject constructor(
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { HistoryState.Loading }
-        if (!NetworkMonitor.networkAvailable.value) return@withContext
         runCatching { loadTransactionsHistoryUseCase.execute(isIncome, periodStart, periodEnd) }
-          .onSuccess { result -> _state.update { HistoryState.Target(result) } }
+          .onSuccess { result ->
+            launch {
+              result.collect { transactionHistoryModel ->
+                _state.update {
+                  HistoryState.Target(transactionHistoryModel)
+                }
+              }
+            }
+          }
           .onFailure { error ->
             _state.update {
               HistoryState.Error(

@@ -51,4 +51,8 @@ dependencies {
   implementation(libs.dagger.android)
   ksp(libs.dagger.android.processor)
   ksp(libs.dagger.compiler)
+
+  implementation(libs.room.runtime)
+  implementation(libs.room.ktx)
+  ksp(libs.room.compiler)
 }

@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.LocaleList
@@ -59,7 +60,8 @@ fun TargetHistoryState(
         content = {
           Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
           ) {
             Text(
               text = stringResource(R.string.start_text),
@@ -89,7 +91,8 @@ fun TargetHistoryState(
         content = {
           Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
           ) {
             Text(
               text = stringResource(R.string.end_text),
@@ -115,7 +118,8 @@ fun TargetHistoryState(
         content = {
           Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
           ) {
             Text(
               text = stringResource(R.string.total_text),
@@ -138,7 +142,8 @@ fun TargetHistoryState(
           YMSDatedTransactionListItem(transaction) { t ->
             navController.navigate(TransactionEditCreate(
               transactionId = t.id,
-              isIncome = navController.previousBackStackEntry?.destination?.parent?.hasRoute(IncomesGraph::class) == true
+              isIncome = navController.previousBackStackEntry?.destination?.parent?.hasRoute(IncomesGraph::class) == true,
+              isArbitrary = t.isArbitrary
             ))
           }
         }

@@ -66,7 +66,7 @@ fun TargetExpensesState(
       LazyColumn {
         items(state.result.transactions, key = { it.toString() }) { transaction ->
           YMSTransactionListItem(transaction) { t ->
-            navController.navigate(TransactionEditCreate(transactionId = t.id, isIncome = false))
+            navController.navigate(TransactionEditCreate(transactionId = t.id, isIncome = false, isArbitrary = t.isArbitrary))
           }
         }
       }
@@ -76,7 +76,7 @@ fun TargetExpensesState(
       modifier = Modifier
         .align(Alignment.BottomEnd)
         .offset((-14).dp, (-16).dp),
-      onClick = { navController.navigate(TransactionEditCreate(transactionId = null, isIncome = false)) }
+      onClick = { navController.navigate(TransactionEditCreate(transactionId = null, isIncome = false, isArbitrary = null)) }
     ) {
       Icon(Icons.Rounded.Add, null)
     }

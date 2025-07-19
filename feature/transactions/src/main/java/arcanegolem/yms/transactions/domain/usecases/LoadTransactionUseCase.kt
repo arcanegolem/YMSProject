@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LoadTransactionUseCase @Inject constructor(
   private val transactionsRepository: TransactionsRepository
 ) {
-  suspend fun execute(id : Int? = null) : TransactionInfoModel {
-    return transactionsRepository.loadTransaction(id)
+  suspend fun execute(id : Int? = null, isArbitrary : Boolean?) : TransactionInfoModel {
+    return transactionsRepository.loadTransaction(id, isArbitrary)
   }
 }

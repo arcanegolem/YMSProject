@@ -2,6 +2,7 @@ package arcanegolem.yms.transactions.di
 
 import androidx.lifecycle.ViewModel
 import arcanegolem.yms.core.di.ViewModelKey
+import arcanegolem.yms.transactions.ui.analysis.AnalysisViewModel
 import arcanegolem.yms.transactions.ui.expenses.ExpensesViewModel
 import arcanegolem.yms.transactions.ui.history.HistoryViewModel
 import arcanegolem.yms.transactions.ui.incomes.IncomesViewModel
@@ -23,4 +24,7 @@ interface TransactionsViewModelsBindingModule {
 
   @[Binds IntoMap ViewModelKey(TransactionEditCreateViewModel::class)]
   fun bindTransactionEditCreateViewModelToViewModel(viewModel: TransactionEditCreateViewModel) : ViewModel
+
+  @[Binds IntoMap ViewModelKey(AnalysisViewModel::class)]
+  fun bindAnalysisViewModelToViewModel(viewModel: AnalysisViewModel) : ViewModel
 }
