@@ -13,6 +13,8 @@ import arcanegolem.yms.categories.di.CategoriesDependenciesProvider
 import arcanegolem.yms.project.di.ApplicationComponent
 import arcanegolem.yms.project.di.DaggerApplicationComponent
 import arcanegolem.yms.project.sync.SyncWorker
+import arcanegolem.yms.settings.di.SettingsDependencies
+import arcanegolem.yms.settings.di.SettingsDependenciesProvider
 import arcanegolem.yms.transactions.di.TransactionsDependencies
 import arcanegolem.yms.transactions.di.TransactionsDependenciesProvider
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +25,7 @@ class YMSProjectApplication
   : TransactionsDependenciesProvider,
   CategoriesDependenciesProvider,
   AccountDependenciesProvider,
+  SettingsDependenciesProvider,
   Configuration.Provider,
   Application() {
 
@@ -42,6 +45,10 @@ class YMSProjectApplication
   }
 
   override fun resolveAccountDependencies(): AccountDependencies {
+    return applicationComponent
+  }
+
+  override fun resolveSettingsDependencies(): SettingsDependencies {
     return applicationComponent
   }
 

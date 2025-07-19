@@ -1,4 +1,4 @@
-package arcanegolem.yms.transactions.ui.history.state_handlers
+package arcanegolem.yms.transactions.ui.analysis.state_handlers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,39 +22,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hasRoute
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.YMSDatePicker
 import arcanegolem.yms.core.ui.components.YMSListItem
 import arcanegolem.yms.core.utils.toReadableDate
-import arcanegolem.yms.transactions.navigation.IncomesGraph
-import arcanegolem.yms.transactions.navigation.TransactionEditCreate
-import arcanegolem.yms.transactions.ui.history.HistoryEvent
-import arcanegolem.yms.transactions.ui.history.HistoryState
+import arcanegolem.yms.transactions.ui.analysis.AnalysisEvent
+import arcanegolem.yms.transactions.ui.analysis.AnalysisState
+import arcanegolem.yms.transactions.ui.analysis.components.SummarizedCategoryListItem
 import arcanegolem.yms.transactions.ui.history.components.DatePickerSource
-import arcanegolem.yms.transactions.ui.history.components.YMSDatedTransactionListItem
 
 @Composable
-fun TargetHistoryState(
-  navController: NavController,
-  state : HistoryState.Target,
-  eventProcessor : (HistoryEvent) -> Unit
+fun TargetAnalysisState(
+  state: AnalysisState.Target,
+  eventProcessor : (AnalysisEvent) -> Unit
 ) {
   var datePickerActive by remember { mutableStateOf(false) }
   var datePickerSource by remember { mutableStateOf(DatePickerSource.PERIOD_START) }
 
-  Box(modifier = Modifier.fillMaxSize()) {
+  Box(
+    modifier = Modifier
+      .fillMaxSize()
+      .background(MaterialTheme.colorScheme.onSecondary)
+  ) {
     Column {
       YMSListItem(
         modifier = Modifier
           .fillMaxWidth()
           .height(56.dp)
-          .background(MaterialTheme.colorScheme.secondary)
           .clickable {
             datePickerSource = DatePickerSource.PERIOD_START
             datePickerActive = true
@@ -70,12 +72,20 @@ fun TargetHistoryState(
               color = MaterialTheme.colorScheme.onSurface
             )
 
-            Text(
-              text = state.result.periodStart.toReadableDate(LocaleList.current.localeList[0].language),
-              style = MaterialTheme.typography.bodyLarge,
-              overflow = TextOverflow.Ellipsis,
-              color = MaterialTheme.colorScheme.onSurface
-            )
+            Row(
+              modifier = Modifier
+                .clip(RoundedCornerShape(100))
+                .background(MaterialTheme.colorScheme.primary)
+            ) {
+              Text(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp),
+                text = state.result.periodStart.toReadableDate(LocaleList.current.localeList[0].language),
+                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.bodyLarge,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onSurface
+              )
+            }
           }
         }
       )
@@ -83,7 +93,6 @@ fun TargetHistoryState(
         modifier = Modifier
           .fillMaxWidth()
           .height(56.dp)
-          .background(MaterialTheme.colorScheme.secondary)
           .clickable {
             datePickerSource = DatePickerSource.PERIOD_END
             datePickerActive = true
@@ -101,20 +110,27 @@ fun TargetHistoryState(
               color = MaterialTheme.colorScheme.onSurface
             )
 
-            Text(
-              text = state.result.periodEnd.toReadableDate(LocaleList.current.localeList[0].language),
-              style = MaterialTheme.typography.bodyLarge,
-              overflow = TextOverflow.Ellipsis,
-              color = MaterialTheme.colorScheme.onSurface
-            )
+            Row(
+              modifier = Modifier
+                .clip(RoundedCornerShape(100))
+                .background(MaterialTheme.colorScheme.primary)
+            ) {
+              Text(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp),
+                text = state.result.periodEnd.toReadableDate(LocaleList.current.localeList[0].language),
+                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.bodyLarge,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onSurface
+              )
+            }
           }
         }
       )
       YMSListItem(
         modifier = Modifier
           .fillMaxWidth()
-          .height(56.dp)
-          .background(MaterialTheme.colorScheme.secondary),
+          .height(56.dp),
         content = {
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -129,7 +145,7 @@ fun TargetHistoryState(
             )
 
             Text(
-              text = state.result.transactionsTotaled.total,
+              text = state.result.total,
               style = MaterialTheme.typography.bodyLarge,
               overflow = TextOverflow.Ellipsis,
               color = MaterialTheme.colorScheme.onSurface
@@ -138,14 +154,8 @@ fun TargetHistoryState(
         }
       )
       LazyColumn {
-        items(state.result.transactionsTotaled.transactions, key = { it.toString() }) { transaction ->
-          YMSDatedTransactionListItem(transaction) { t ->
-            navController.navigate(TransactionEditCreate(
-              transactionId = t.id,
-              isIncome = navController.previousBackStackEntry?.destination?.parent?.hasRoute(IncomesGraph::class) == true,
-              isArbitrary = t.isArbitrary
-            ))
-          }
+        items(state.result.categoriesData, key = { it.toString() }) { categoryTotalModel ->
+          SummarizedCategoryListItem(categoryTotalModel)
         }
       }
     }
@@ -155,11 +165,11 @@ fun TargetHistoryState(
       onDismissRequest = { datePickerActive = false },
       onDateSelected = { selectedDate ->
         if (selectedDate != null){
-          eventProcessor(HistoryEvent.ChangePeriodSideAndLoadData(datePickerSource, selectedDate))
+          eventProcessor(AnalysisEvent.ChangePeriodSideAndLoadData(datePickerSource, selectedDate))
         }
       },
       onDateClear = {
-        eventProcessor(HistoryEvent.ChangePeriodSideAndLoadData(datePickerSource, null))
+        eventProcessor(AnalysisEvent.ChangePeriodSideAndLoadData(datePickerSource, null))
       },
       initialDateMillis = when (datePickerSource) {
         DatePickerSource.PERIOD_START -> state.result.periodStart

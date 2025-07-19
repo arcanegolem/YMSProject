@@ -109,7 +109,7 @@ fun monthStartMillis() : Long {
 
 @OptIn(ExperimentalTime::class)
 fun todayMillis() : Long {
-  return Clock.System.now().toEpochMilliseconds()
+  return dateMillisEndDay()
 }
 
 @OptIn(ExperimentalTime::class)

@@ -25,3 +25,8 @@ data class TransactionEditCreate(
   val isIncome: Boolean,
   val isArbitrary : Boolean?
 )
+
+@Serializable
+data class Analysis(
+  val isIncome: Boolean
+)

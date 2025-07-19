@@ -6,6 +6,7 @@
     <string name="categories_label">Статьи</string>
     <string name="settings_label">Настройки</string>
 
+    <string name="analysis_title">Анализ</string>
     <string name="expenses_title">Расходы сегодня</string>
     <string name="incomes_title">Доходы сегодня</string>
     <string name="account_title">Мой счет</string>
@@ -45,6 +46,7 @@
     <string name="account_error_desc">Ошибка при загрузке данных о счете! Описание:</string>
     <string name="account_update_error_desc">Ошибка при обновлении данных счета! Описание:</string>
     <string name="category_error_desc">Ошибка при загрузке статей! Описание:</string>
+    <string name="analysis_error_desc">Ошибка загрузки анализа! Описание:</string>
     <string name="history_error_desc">Ошибка при загрузке истории транзакций! Описание:</string>
     <string name="copy_error_desc_text">Копировать описание</string>
     <string name="something_went_wrong">Ой! Что-то пошло не так!</string>
@@ -59,6 +61,8 @@
     <string name="settings_synchronization_text">Синхронизация</string>
     <string name="settings_language_text">Язык</string>
     <string name="settings_about_text">О программе</string>
+    <string name="settings_last_sync_text">Последняя синхронизация</string>
+    <string name="settings_sync_not_yet_performed">Еще не производилась</string>
 
     <string name="error_state_msg">Ой! Что-то пошло не так… Описание ошибки:\n</string>
 </resources>

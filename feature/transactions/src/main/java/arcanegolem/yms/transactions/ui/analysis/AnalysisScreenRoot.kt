@@ -1,4 +1,4 @@
-package arcanegolem.yms.transactions.ui.history
+package arcanegolem.yms.transactions.ui.analysis
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -10,26 +10,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import arcanegolem.yms.core.ui.R
-import arcanegolem.yms.core.ui.components.top_bar.ProvideYMSTopAppBarActions
 import arcanegolem.yms.core.ui.components.top_bar.ProvideYMSTopAppBarNavAction
 import arcanegolem.yms.core.ui.components.top_bar.ProvideYMSTopAppBarTitle
 import arcanegolem.yms.transactions.di.resolveDaggerComponent
 import arcanegolem.yms.transactions.navigation.Analysis
-import arcanegolem.yms.transactions.navigation.History
 
 @Composable
-fun HistoryScreenRoot(
+fun AnalysisScreenRoot(
   navController: NavController,
-  route : History,
-  viewModel : HistoryViewModel = viewModel(factory = resolveDaggerComponent().viewModelFactory())
+  route : Analysis,
+  viewModel : AnalysisViewModel = viewModel(factory = resolveDaggerComponent().viewModelFactory())
 ) {
-
-  ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.history_title)) }
-  ProvideYMSTopAppBarActions {
-    IconButton(onClick = { navController.navigate(Analysis(route.isIncome)) }) {
-      Icon(painter = painterResource(R.drawable.analysis), contentDescription = null)
-    }
-  }
+  ProvideYMSTopAppBarTitle { Text(text = stringResource(R.string.analysis_title)) }
   ProvideYMSTopAppBarNavAction {
     IconButton(
       onClick = { navController.popBackStack() }
@@ -38,5 +30,5 @@ fun HistoryScreenRoot(
 
   val state = viewModel.state.collectAsStateWithLifecycle()
 
-  HistoryScreen(navController, route, state, viewModel::processEvent)
+  AnalysisScreen(route, state, viewModel::processEvent)
 }

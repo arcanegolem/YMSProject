@@ -30,14 +30,14 @@ fun AccountEditScreenRoot(
     IconButton(
       onClick = {
         viewModel.processEvent(
-          AccountEditEvent.ConsumeUpdates { navController.navigateUp() }
+          AccountEditEvent.ConsumeUpdates { navController.popBackStack() }
         )
       }
     ) { Icon(painter = painterResource(R.drawable.check), contentDescription = null) }
   }
   ProvideYMSTopAppBarNavAction {
     IconButton(
-      onClick = { navController.navigateUp() }
+      onClick = { navController.popBackStack() }
     ) { Icon(painter = painterResource(R.drawable.cancel), contentDescription = null) }
   }
 

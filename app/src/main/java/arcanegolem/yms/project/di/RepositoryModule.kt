@@ -11,10 +11,14 @@ import arcanegolem.yms.categories.domain.repos.CategoriesRepository
 import arcanegolem.yms.categories.domain.repos.SyncCategoriesRepository
 import arcanegolem.yms.core.data.database.YMSDatabase
 import arcanegolem.yms.core.data.datastore.DataStoreManager
+import arcanegolem.yms.settings.data.repos.SettingsRepositoryImpl
+import arcanegolem.yms.settings.domain.repos.SettingsRepository
 import arcanegolem.yms.transactions.data.repos.SyncTransactionsRepositoryImpl
+import arcanegolem.yms.transactions.data.repos.TransactionAnalysisRepositoryImpl
 import arcanegolem.yms.transactions.data.repos.TransactionsHistoryRepositoryImpl
 import arcanegolem.yms.transactions.data.repos.TransactionsRepositoryImpl
 import arcanegolem.yms.transactions.domain.repos.SyncTransactionsRepository
+import arcanegolem.yms.transactions.domain.repos.TransactionsAnalysisRepository
 import arcanegolem.yms.transactions.domain.repos.TransactionsHistoryRepository
 import arcanegolem.yms.transactions.domain.repos.TransactionsRepository
 import arcanegolem.yms.transactions.domain.usecases.LoadExpensesUseCase
@@ -112,6 +116,31 @@ class RepositoryModule {
     return SyncCategoriesRepositoryImpl(
       httpClient = httpClient,
       categoryDao = database.categoryDao()
+    )
+  }
+
+  @[ApplicationScope Provides]
+  fun provideTransactionsAnalysisRepository(
+    httpClient: HttpClient,
+    dataStoreManager: DataStoreManager,
+    loadAccountRemoteUseCase: LoadAccountRemoteUseCase,
+    database: YMSDatabase
+  ) : TransactionsAnalysisRepository {
+    return TransactionAnalysisRepositoryImpl(
+      httpClient = httpClient,
+      dataStoreManager = dataStoreManager,
+      transactionsDao = database.transactionDao(),
+      loadAccountRemoteUseCase = loadAccountRemoteUseCase,
+      categoryDao = database.categoryDao()
+    )
+  }
+
+  @[ApplicationScope Provides]
+  fun provideSettingsRepository(
+    dataStoreManager: DataStoreManager
+  ) : SettingsRepository {
+    return SettingsRepositoryImpl(
+      dataStoreManager = dataStoreManager
     )
   }
 }

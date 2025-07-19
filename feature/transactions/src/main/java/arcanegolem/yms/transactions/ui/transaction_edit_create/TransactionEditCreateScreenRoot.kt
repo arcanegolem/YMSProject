@@ -47,7 +47,7 @@ fun TransactionEditCreateScreenRoot(
   }
   ProvideYMSTopAppBarNavAction {
     IconButton(
-      onClick = { navController.navigateUp() }
+      onClick = { navController.popBackStack() }
     ) { Icon(painter = painterResource(R.drawable.cancel), contentDescription = null) }
   }
 

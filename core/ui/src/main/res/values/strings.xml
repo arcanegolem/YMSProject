@@ -5,6 +5,7 @@
     <string name="categories_label">Categories</string>
     <string name="settings_label">Settings</string>
 
+    <string name="analysis_title">Analysis</string>
     <string name="expenses_title">Expenses today</string>
     <string name="incomes_title">Incomes today</string>
     <string name="account_title">My account</string>
@@ -44,6 +45,7 @@
     <string name="account_error_desc">Error loading account data! Description:</string>
     <string name="account_update_error_desc">Error updating account data! Description:</string>
     <string name="category_error_desc">Error loading categories! Description:</string>
+    <string name="analysis_error_desc">Error loading analysis! Description:</string>
     <string name="history_error_desc">Error loading transaction history! Description:</string>
     <string name="copy_error_desc_text">Copy description</string>
     <string name="something_went_wrong">Oops! Something went wrong!</string>
@@ -58,6 +60,8 @@
     <string name="settings_synchronization_text">Synchronization</string>
     <string name="settings_language_text">Language</string>
     <string name="settings_about_text">About</string>
+    <string name="settings_last_sync_text">Last sync</string>
+    <string name="settings_sync_not_yet_performed">Not yet performed</string>
 
     <string name="error_state_msg">Oops! Something went wrong… Error description:\n</string>
 </resources>
