@@ -36,6 +36,7 @@
     <string name="connection_available_text">Подключение доступно!</string>
     <string name="connection_unavailable_text">Подключение не доступно!</string>
     <string name="account_name_text">Название счета</string>
+    <string name="other_text">Другие</string>
 
     <string name="ruble_text">Российский рубль ₽</string>
     <string name="dollar_text">Американский доллар $</string>

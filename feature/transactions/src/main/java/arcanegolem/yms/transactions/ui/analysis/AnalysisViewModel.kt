@@ -7,6 +7,7 @@ import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
 import arcanegolem.yms.transactions.domain.usecases.LoadTransactionsAnalysisUseCase
 import arcanegolem.yms.transactions.ui.history.components.DatePickerSource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -34,18 +35,23 @@ class AnalysisViewModel @Inject constructor(
       }
     }
   }
+  
+  private var resultCollectionJob : Job? = null
 
   fun loadAnalysis(
     isIncome : Boolean,
     periodStart : Long?,
     periodEnd : Long?
   ) {
+    resultCollectionJob?.cancel()
+    resultCollectionJob = null
+    
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { AnalysisState.Loading }
         runCatching { loadTransactionsAnalysisUseCase.execute(isIncome, periodStart, periodEnd) }
           .onSuccess { result ->
-            launch {
+            resultCollectionJob = launch {
               result.collect { transactionAnalysisModel ->
                 _state.update {
                   AnalysisState.Target(transactionAnalysisModel)

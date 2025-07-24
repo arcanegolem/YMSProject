@@ -35,6 +35,7 @@
     <string name="connection_available_text">Network available!</string>
     <string name="connection_unavailable_text">Network not available!</string>
     <string name="account_name_text">Account name</string>
+    <string name="other_text">Other</string>
 
     <string name="ruble_text">Russian ruble ₽</string>
     <string name="dollar_text">United states\' dollar $</string>
