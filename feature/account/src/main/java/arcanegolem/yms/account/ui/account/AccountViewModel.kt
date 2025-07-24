@@ -8,6 +8,7 @@ import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
 import arcanegolem.yms.core.utils.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -28,14 +29,23 @@ class AccountViewModel @Inject constructor(
     }
   }
 
+  private var onlineAccountLoadingJob : Job? = null
+  private var offlineAccountLoadingJob : Job? = null
+  
   private fun loadAccount() {
+    onlineAccountLoadingJob?.cancel()
+    onlineAccountLoadingJob = null
+    
+    offlineAccountLoadingJob?.cancel()
+    offlineAccountLoadingJob = null
+    
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { AccountState.Loading }
         if (NetworkMonitor.networkAvailable.value) {
           runCatching{ loadAccountRemoteUseCase.execute() }
             .onSuccess {
-              launch { loadCached() }
+              onlineAccountLoadingJob = launch { loadCached() }
             }
             .onFailure { error ->
               _state.update {
@@ -48,7 +58,7 @@ class AccountViewModel @Inject constructor(
               }
             }
         } else {
-          launch { loadCached() }
+          offlineAccountLoadingJob = launch { loadCached() }
         }
       }
     }

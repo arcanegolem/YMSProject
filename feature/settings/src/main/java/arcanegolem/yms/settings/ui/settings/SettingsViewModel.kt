@@ -6,6 +6,7 @@ import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
 import arcanegolem.yms.settings.domain.usecases.GetLastSyncUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -24,14 +25,19 @@ class SettingsViewModel @Inject constructor(
       SettingsEvent.LoadInitial -> loadInitial()
     }
   }
+  
+  private var settingsLoadingJob : Job? = null
 
   private fun loadInitial() {
+    settingsLoadingJob?.cancel()
+    settingsLoadingJob = null
+    
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { SettingsState.Loading }
         runCatching { getLastSyncUseCase.execute() }
           .onSuccess { result ->
-            launch {
+            settingsLoadingJob = launch {
               result.collect { lastSync ->
                 _state.update { SettingsState.Target(result = lastSync) }
               }

@@ -9,6 +9,7 @@ import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
 import arcanegolem.yms.transactions.domain.usecases.LoadExpensesUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -29,8 +30,13 @@ class ExpensesViewModel @Inject constructor(
       ExpensesEvent.LoadExpenses -> loadExpenses()
     }
   }
+  
+  private var expensesLoadingJob : Job? = null
 
   private fun loadExpenses() {
+    expensesLoadingJob?.cancel()
+    expensesLoadingJob = null
+    
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { ExpensesState.Loading }
@@ -40,7 +46,7 @@ class ExpensesViewModel @Inject constructor(
           loadExpensesUseCase.execute(dateMillisStartDay(), dateMillisEndDay())
         }
           .onSuccess { result ->
-            launch {
+            expensesLoadingJob = launch {
               result.collectLatest { transactionsTotaledModel ->
                 _state.update { ExpensesState.Target(transactionsTotaledModel) }
               }
