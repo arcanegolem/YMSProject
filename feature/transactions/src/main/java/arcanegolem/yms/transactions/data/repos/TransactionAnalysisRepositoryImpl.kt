@@ -12,9 +12,9 @@ import arcanegolem.yms.core.data.utils.parseMillis
 import arcanegolem.yms.core.data.utils.toDateStringYYYYMMDD
 import arcanegolem.yms.core.data.utils.todayMillis
 import arcanegolem.yms.core.utils.NetworkMonitor
-import arcanegolem.yms.transactions.data.models.TransactionIntermediateModel
-import arcanegolem.yms.transactions.data.remote.api.Transactions
-import arcanegolem.yms.transactions.data.remote.models.TransactionResponse
+import arcanegolem.yms.core.domain.models.TransactionIntermediateModel
+import arcanegolem.yms.core.data.remote.api.Transactions
+import arcanegolem.yms.core.data.remote.models.TransactionResponse
 import arcanegolem.yms.transactions.domain.models.CategoryTotalModel
 import arcanegolem.yms.transactions.domain.models.TransactionAnalysisModel
 import arcanegolem.yms.transactions.domain.repos.TransactionsAnalysisRepository

@@ -1,6 +1,7 @@
 package arcanegolem.yms.account.domain.repos
 
 import arcanegolem.yms.account.domain.models.AccountModel
+import arcanegolem.yms.account.domain.models.TransactionsByDayOfMonthModel
 import kotlinx.coroutines.flow.Flow
 
 interface AccountRepository {
@@ -32,4 +33,6 @@ interface AccountRepository {
    * @param model измененная модель счета в виде [AccountModel]
    */
   suspend fun updateAccount(model : AccountModel)
+  
+  suspend fun getAccountTransactionsForThisMonth() : Flow<TransactionsByDayOfMonthModel>
 }

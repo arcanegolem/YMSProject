@@ -19,6 +19,14 @@ interface TransactionsDao {
     periodStart : Long,
     periodEnd : Long
   ) : Flow<List<TransactionEntity>>
+  
+  @Query("SELECT * FROM transactions WHERE " +
+      "transactionDateMillis >= :periodStart AND " +
+      "transactionDateMillis <= :periodEnd")
+  fun getAllTransactionsForPeriod(
+    periodStart : Long,
+    periodEnd : Long
+  ) : Flow<List<TransactionEntity>>
 
   @Query("SELECT * FROM transactions")
   suspend fun getAllTransactions() : List<TransactionEntity>
@@ -38,6 +46,14 @@ interface TransactionsDao {
       "isIncome = :isIncome")
   fun getArbitraryTransactionsForPeriod(
     isIncome : Boolean,
+    periodStart : Long,
+    periodEnd : Long
+  ) : Flow<List<ArbitraryTransactionEntity>>
+  
+  @Query("SELECT * FROM arbitrary_transactions WHERE " +
+    "transactionDateMillis >= :periodStart AND " +
+        "transactionDateMillis <= :periodEnd")
+  fun getAllArbitraryTransactionsForPeriod(
     periodStart : Long,
     periodEnd : Long
   ) : Flow<List<ArbitraryTransactionEntity>>

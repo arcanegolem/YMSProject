@@ -14,6 +14,7 @@ import arcanegolem.yms.transactions.domain.usecases.DeleteTransactionUseCase
 import arcanegolem.yms.transactions.domain.usecases.LoadTransactionUseCase
 import arcanegolem.yms.transactions.domain.usecases.UpdateTransactionUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -158,10 +159,15 @@ class TransactionEditCreateViewModel @Inject constructor(
       }
     }
   }
+  
+  private var categoriesLoadingJob : Job? = null
 
   private fun initializeStartingState(id : Int?, isIncome: Boolean, isArbitrary : Boolean? = null) {
     transactionId = id
     this.arbitraryFlag = isArbitrary
+    
+    categoriesLoadingJob?.cancel()
+    categoriesLoadingJob = null
 
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
@@ -169,27 +175,29 @@ class TransactionEditCreateViewModel @Inject constructor(
 
         runCatching { loadCategoriesUseCase.execute() }
           .onSuccess { result ->
-            result.collectLatest { categoryModels ->
-              runCatching { loadTransactionUseCase.execute(id, isArbitrary) }
-                .onSuccess { transactionInfoModel ->
-                  _state.update {
-                    TransactionEditCreateState.Target(
-                      result = transactionInfoModel,
-                      transactionSyncError = null,
-                      availableCategories = categoryModels.filter { it.isIncome == isIncome }
-                    )
-                  }
-                }
-                .onFailure { error ->
-                  _state.update {
-                    TransactionEditCreateState.Error(
-                      YMSError(
-                        R.string.transaction_error_desc,
-                        error
+            categoriesLoadingJob = launch {
+              result.collectLatest { categoryModels ->
+                runCatching { loadTransactionUseCase.execute(id, isArbitrary) }
+                  .onSuccess { transactionInfoModel ->
+                    _state.update {
+                      TransactionEditCreateState.Target(
+                        result = transactionInfoModel,
+                        transactionSyncError = null,
+                        availableCategories = categoryModels.filter { it.isIncome == isIncome }
                       )
-                    )
+                    }
                   }
-                }
+                  .onFailure { error ->
+                    _state.update {
+                      TransactionEditCreateState.Error(
+                        YMSError(
+                          R.string.transaction_error_desc,
+                          error
+                        )
+                      )
+                    }
+                  }
+              }
             }
           }
           .onFailure { error ->

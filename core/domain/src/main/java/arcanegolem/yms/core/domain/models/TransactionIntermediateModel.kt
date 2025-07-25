@@ -1,4 +1,4 @@
-package arcanegolem.yms.transactions.data.models
+package arcanegolem.yms.core.domain.models
 
 data class TransactionIntermediateModel(
   val transactionId : Int,

@@ -16,6 +16,7 @@
     <string name="transaction_edit_create_income_title">My incomes</string>
 
     <string name="total_text">Total</string>
+    <string name="day_text">day</string>
     <string name="balance_text">Balance</string>
     <string name="amount_text">Amount</string>
     <string name="account_text">Account</string>
@@ -24,6 +25,7 @@
     <string name="time_text">Time</string>
     <string name="comment_text">Comment</string>
     <string name="currency_text">Currency</string>
+    <string name="changes_for_text">Changes for:</string>
     <string name="start_text">Start</string>
     <string name="end_text">End</string>
     <string name="ok_text">OK</string>
@@ -35,6 +37,20 @@
     <string name="connection_available_text">Network available!</string>
     <string name="connection_unavailable_text">Network not available!</string>
     <string name="account_name_text">Account name</string>
+    <string name="other_text">Other</string>
+    <string name="version_text">App version</string>
+    <string name="last_updated_text">Last updated</string>
+
+    <string name="money_green_text">Money green</string>
+    <string name="classy_purple_text">Classy purple</string>
+    <string name="eldorado_text">Eldorado</string>
+
+    <string name="bee_buzz">Bee buzz</string>
+    <string name="fly_buzz">Fly buzz</string>
+    <string name="mosquito_squeak">Mosquito squeak</string>
+
+    <string name="lang_name_russian">Russian</string>
+    <string name="lang_name_english">English</string>
 
     <string name="ruble_text">Russian ruble ₽</string>
     <string name="dollar_text">United states\' dollar $</string>

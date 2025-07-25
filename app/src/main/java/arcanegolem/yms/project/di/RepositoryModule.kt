@@ -67,7 +67,9 @@ class RepositoryModule {
     return AccountRepositoryImpl(
       httpClient = httpClient,
       dataStoreManager = dataStoreManager,
-      queueDao = database.queueDao()
+      queueDao = database.queueDao(),
+      transactionsDao = database.transactionDao(),
+      categoryDao = database.categoryDao()
     )
   }
 

@@ -6,11 +6,11 @@ import arcanegolem.yms.core.data.database.dao.TransactionsDao
 import arcanegolem.yms.core.data.database.entities.QueueOperationType
 import arcanegolem.yms.core.data.database.entities.TransactionEntity
 import arcanegolem.yms.core.data.utils.parseMillis
-import arcanegolem.yms.transactions.data.remote.api.Transactions
+import arcanegolem.yms.core.data.remote.api.Transactions
 import arcanegolem.yms.transactions.data.remote.models.TransactionCreate
 import arcanegolem.yms.transactions.data.remote.models.TransactionCreateResponse
 import arcanegolem.yms.transactions.data.remote.models.TransactionDelete
-import arcanegolem.yms.transactions.data.remote.models.TransactionResponse
+import arcanegolem.yms.core.data.remote.models.TransactionResponse
 import arcanegolem.yms.transactions.data.remote.models.TransactionUpdate
 import arcanegolem.yms.transactions.domain.repos.SyncTransactionsRepository
 import io.ktor.client.HttpClient

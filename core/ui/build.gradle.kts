@@ -52,4 +52,7 @@ dependencies {
   implementation(libs.androidx.navigation.compose)
 
   implementation(libs.material.icons.extended)
+  
+  implementation(project(":core:domain"))
+  implementation(project(":core:utils"))
 }

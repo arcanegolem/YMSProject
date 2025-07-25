@@ -50,9 +50,7 @@ dependencies {
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
-
-  implementation(platform(libs.androidx.compose.bom))
-
+  
   implementation(libs.dagger.android)
   ksp(libs.dagger.android.processor)
   ksp(libs.dagger.compiler)
@@ -66,6 +64,8 @@ dependencies {
   implementation(libs.ktor.client.resources)
 
   implementation(libs.androidx.navigation.compose)
+  
+  implementation(libs.androidx.appcompat)
 
   implementation(project(":core:data"))
   implementation(project(":core:ui"))

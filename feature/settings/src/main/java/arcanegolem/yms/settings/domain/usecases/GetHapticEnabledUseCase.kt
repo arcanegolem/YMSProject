@@ -1,0 +1,13 @@
+package arcanegolem.yms.settings.domain.usecases
+
+import arcanegolem.yms.settings.domain.repos.SettingsRepository
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+
+class GetHapticEnabledUseCase @Inject constructor(
+  private val settingsRepository: SettingsRepository
+) {
+  fun execute() : Flow<Boolean> {
+    return settingsRepository.getHapticEnabled()
+  }
+}

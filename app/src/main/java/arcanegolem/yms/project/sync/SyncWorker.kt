@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkerParameters
@@ -40,15 +43,27 @@ class SyncWorker(
   }
 
   companion object {
-    const val WORKER_NAME = "global_sync_yms_proj"
-
-    fun createRequest() : PeriodicWorkRequest {
+    const val PERIODIC_WORKER_NAME = "global_sync_yms_proj"
+    const val ONE_TIME_WORKER_NAME = "global_sync_yms_proj_oneshot"
+    
+    fun createPeriodicRequest() : PeriodicWorkRequest {
       return PeriodicWorkRequestBuilder<SyncWorker>(3, TimeUnit.HOURS)
         .setConstraints(
           Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         ).build()
+    }
+    
+    fun createExpeditedOneTimeRequest() : OneTimeWorkRequest {
+      return OneTimeWorkRequestBuilder<SyncWorker>()
+        .setConstraints(
+          Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        )
+        .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+        .build()
     }
   }
 }

@@ -17,6 +17,10 @@ android {
   buildFeatures {
     buildConfig = true
   }
+  
+  androidResources {
+    generateLocaleConfig = true
+  }
 
   defaultConfig {
     applicationId = "arcanegolem.yms.project"
@@ -102,6 +106,8 @@ dependencies {
   ksp(libs.room.compiler)
 
   implementation(libs.androidx.work.runtime.ktx)
+  
+  implementation(libs.androidx.appcompat)
 
   implementation(project(":feature:account"))
   implementation(project(":feature:categories"))
@@ -109,6 +115,7 @@ dependencies {
   implementation(project(":feature:transactions"))
 
   implementation(project(":core:ui"))
+  implementation(project(":core:di"))
   implementation(project(":core:utils"))
   implementation(project(":core:data"))
 }

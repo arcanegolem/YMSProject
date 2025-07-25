@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetLastSyncUseCase @Inject constructor(
   private val settingsRepository: SettingsRepository
 ) {
-  suspend fun execute() : Flow<String> {
+  fun execute() : Flow<String> {
     return settingsRepository.getLastSync()
   }
 }

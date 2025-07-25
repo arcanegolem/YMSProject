@@ -1,11 +1,9 @@
-package arcanegolem.yms.transactions.data.remote.models
+package arcanegolem.yms.core.data.remote.models
 
-import arcanegolem.yms.core.data.remote.models.AccountBrief
-import arcanegolem.yms.core.data.remote.models.Category
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class TransactionResponse(
+data class TransactionResponse(
   val id : Int,
   val account : AccountBrief,
   val category : Category,

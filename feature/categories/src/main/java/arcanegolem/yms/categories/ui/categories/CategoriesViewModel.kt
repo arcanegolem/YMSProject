@@ -6,6 +6,7 @@ import arcanegolem.yms.categories.domain.usecases.LoadCategoriesUseCase
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -26,13 +27,18 @@ class CategoriesViewModel @Inject constructor(
     }
   }
 
+  private var categoriesLoadingJob : Job? = null
+  
   private fun loadCategories() {
+    categoriesLoadingJob?.cancel()
+    categoriesLoadingJob = null
+    
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { CategoriesState.Loading }
         runCatching { loadCategoriesUseCase.execute() }
           .onSuccess { result ->
-            launch {
+            categoriesLoadingJob = launch {
               result.collectLatest { categoryModels ->
                 _state.update { CategoriesState.Target(categoryModels) }
               }

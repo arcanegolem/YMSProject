@@ -1,6 +1,6 @@
 package arcanegolem.yms.transactions.domain.usecases
 
-import arcanegolem.yms.transactions.domain.models.TransactionsTotaledModel
+import arcanegolem.yms.core.domain.models.TransactionsTotaledModel
 import arcanegolem.yms.transactions.domain.repos.TransactionsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

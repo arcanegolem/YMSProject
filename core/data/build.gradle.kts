@@ -47,6 +47,8 @@ dependencies {
   implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.androidx.datastore.preferences)
+  
+  implementation(libs.ktor.client.resources)
 
   implementation(libs.dagger.android)
   ksp(libs.dagger.android.processor)

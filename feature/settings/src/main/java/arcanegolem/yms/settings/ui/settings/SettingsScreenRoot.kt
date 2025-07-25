@@ -19,5 +19,5 @@ fun SettingsScreenRoot(
 
   val state = viewModel.state.collectAsStateWithLifecycle()
 
-  SettingsScreen(state, viewModel::processEvent)
+  SettingsScreen(navController, state, viewModel::processEvent)
 }

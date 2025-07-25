@@ -1,4 +1,4 @@
-package arcanegolem.yms.transactions.ui.components
+package arcanegolem.yms.core.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,14 +24,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import arcanegolem.yms.core.ui.R
-import arcanegolem.yms.core.ui.components.YMSListItem
 import arcanegolem.yms.core.utils.isEmoji
-import arcanegolem.yms.transactions.domain.models.TransactionModel
+import arcanegolem.yms.core.domain.models.TransactionModel
 
 /**
- * Версия [arcanegolem.yms.core.ui.components.YMSListItem] для отображения транзакции
+ * Версия [YMSListItem] для отображения транзакции
  *
- * @param transactionModel модель транзакции [TransactionModel]
+ * @param transactionModel модель транзакции [arcanegolem.yms.core.domain.models.TransactionModel]
  * @param onClick колбек на клик по элементу
  */
 @Composable
@@ -83,7 +82,7 @@ fun YMSTransactionListItem(
           )
           if (transactionModel.comment?.isNotBlank() == true) {
             Text(
-              text = transactionModel.comment,
+              text = transactionModel.comment ?: "",
               fontSize = 14.sp,
               lineHeight = 20.sp,
               maxLines = 1,

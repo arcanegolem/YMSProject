@@ -7,3 +7,6 @@ object SettingsGraph
 
 @Serializable
 object Settings
+
+@Serializable
+object PrimaryColorChooser

@@ -31,7 +31,7 @@ fun AccountScreenRoot(
         val captured = state.value as AccountState.Target
 
         navController.navigate(
-          AccountEdit(captured.result.name, captured.result.balance, captured.result.currency)
+          AccountEdit(captured.accountModel.name, captured.accountModel.balance, captured.accountModel.currency)
         )
       }
     ) { Icon(painter = painterResource(R.drawable.edit), contentDescription = null) }

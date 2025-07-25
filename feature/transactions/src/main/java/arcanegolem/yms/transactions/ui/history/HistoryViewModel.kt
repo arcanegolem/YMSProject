@@ -8,6 +8,7 @@ import arcanegolem.yms.transactions.domain.usecases.LoadTransactionsHistoryUseCa
 import arcanegolem.yms.transactions.ui.history.components.DatePickerSource.PERIOD_END
 import arcanegolem.yms.transactions.ui.history.components.DatePickerSource.PERIOD_START
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,18 +36,23 @@ class HistoryViewModel @Inject constructor(
       }
     }
   }
+  
+  private var historyLoadingJob : Job? = null
 
   private fun loadHistory(
     isIncome : Boolean,
     periodStart : Long?,
     periodEnd : Long?
   ) {
+    historyLoadingJob?.cancel()
+    historyLoadingJob = null
+    
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { HistoryState.Loading }
         runCatching { loadTransactionsHistoryUseCase.execute(isIncome, periodStart, periodEnd) }
           .onSuccess { result ->
-            launch {
+            historyLoadingJob = launch {
               result.collect { transactionHistoryModel ->
                 _state.update {
                   HistoryState.Target(transactionHistoryModel)
