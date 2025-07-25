@@ -1,7 +1,7 @@
 package arcanegolem.yms.transactions.ui.expenses
 
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
-import arcanegolem.yms.transactions.domain.models.TransactionsTotaledModel
+import arcanegolem.yms.core.domain.models.TransactionsTotaledModel
 
 sealed class ExpensesState {
   data object Idle : ExpensesState()

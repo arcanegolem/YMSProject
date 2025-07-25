@@ -3,14 +3,14 @@ package arcanegolem.yms.account.ui.account
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arcanegolem.yms.account.domain.usecases.GetAccountUseCase
-import arcanegolem.yms.account.domain.usecases.LoadAccountRemoteUseCase
+import arcanegolem.yms.account.domain.usecases.LoadThisMonthTransactionsForAccountUseCase
 import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
-import arcanegolem.yms.core.utils.NetworkMonitor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(
   private val getAccountUseCase: GetAccountUseCase,
-  private val loadAccountRemoteUseCase: LoadAccountRemoteUseCase
+  private val loadThisMonthTransactionsForAccountUseCase: LoadThisMonthTransactionsForAccountUseCase
 ) : ViewModel() {
   private val _state = MutableStateFlow<AccountState>(AccountState.Idle)
   val state get() = _state.asStateFlow()
@@ -29,60 +29,44 @@ class AccountViewModel @Inject constructor(
     }
   }
 
-  private var onlineAccountLoadingJob : Job? = null
-  private var offlineAccountLoadingJob : Job? = null
+  private var accountLoadingJob : Job? = null
+  private var transactionsLoadingJob : Job? = null
   
   private fun loadAccount() {
-    onlineAccountLoadingJob?.cancel()
-    onlineAccountLoadingJob = null
+    accountLoadingJob?.cancel()
+    accountLoadingJob = null
     
-    offlineAccountLoadingJob?.cancel()
-    offlineAccountLoadingJob = null
+    transactionsLoadingJob?.cancel()
+    transactionsLoadingJob = null
     
     viewModelScope.launch {
       withContext(Dispatchers.IO) {
         _state.update { AccountState.Loading }
-        if (NetworkMonitor.networkAvailable.value) {
-          runCatching{ loadAccountRemoteUseCase.execute() }
-            .onSuccess {
-              onlineAccountLoadingJob = launch { loadCached() }
+        runCatching {
+          getAccountUseCase.execute()
+            .combine(loadThisMonthTransactionsForAccountUseCase.execute()) { am, tbm ->
+              Pair(am, tbm)
             }
-            .onFailure { error ->
-              _state.update {
-                AccountState.Error(
-                  YMSError(
-                    R.string.account_error_desc,
-                    error
-                  )
-                )
+        }.onSuccess { result ->
+          accountLoadingJob = launch {
+            result.collect { (accountModel, transactionsByDayOfMonthModel) ->
+              accountModel?.let {
+                _state.update {
+                  AccountState.Target(accountModel, transactionsByDayOfMonthModel)
+                }
               }
             }
-        } else {
-          offlineAccountLoadingJob = launch { loadCached() }
-        }
-      }
-    }
-  }
-
-  private suspend fun loadCached() {
-    runCatching {
-      getAccountUseCase.execute()
-    }.onSuccess { result ->
-      result.collect { accountModel ->
-        accountModel?.let {
+          }
+        }.onFailure { error ->
           _state.update {
-            AccountState.Target(accountModel)
+            AccountState.Error(
+              YMSError(
+                R.string.account_error_desc,
+                error
+              )
+            )
           }
         }
-      }
-    }.onFailure { error ->
-      _state.update {
-        AccountState.Error(
-          YMSError(
-            R.string.account_error_desc,
-            error
-          )
-        )
       }
     }
   }

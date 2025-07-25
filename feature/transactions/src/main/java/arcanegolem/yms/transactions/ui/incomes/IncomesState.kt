@@ -1,7 +1,7 @@
 package arcanegolem.yms.transactions.ui.incomes
 
 import arcanegolem.yms.core.ui.components.state_handlers.error.YMSError
-import arcanegolem.yms.transactions.domain.models.TransactionsTotaledModel
+import arcanegolem.yms.core.domain.models.TransactionsTotaledModel
 
 
 sealed class IncomesState {

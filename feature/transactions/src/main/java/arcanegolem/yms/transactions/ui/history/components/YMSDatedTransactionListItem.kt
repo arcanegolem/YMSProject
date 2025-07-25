@@ -28,7 +28,7 @@ import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.YMSListItem
 import arcanegolem.yms.core.utils.isEmoji
 import arcanegolem.yms.core.utils.toFormattedDateTime
-import arcanegolem.yms.transactions.domain.models.TransactionModel
+import arcanegolem.yms.core.domain.models.TransactionModel
 
 /**
  * Версия [YMSListItem] для отображения транзакции с датой
@@ -85,7 +85,7 @@ fun YMSDatedTransactionListItem(
           )
           if (transactionModel.comment?.isNotBlank() == true) {
             Text(
-              text = transactionModel.comment,
+              text = transactionModel.comment ?: "",
               fontSize = 14.sp,
               lineHeight = 20.sp,
               maxLines = 1,

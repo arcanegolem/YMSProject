@@ -27,7 +27,7 @@ import arcanegolem.yms.core.ui.R
 import arcanegolem.yms.core.ui.components.YMSFAB
 import arcanegolem.yms.core.ui.components.YMSListItem
 import arcanegolem.yms.transactions.navigation.TransactionEditCreate
-import arcanegolem.yms.transactions.ui.components.YMSTransactionListItem
+import arcanegolem.yms.core.ui.components.YMSTransactionListItem
 import arcanegolem.yms.transactions.ui.incomes.IncomesState
 
 @Composable

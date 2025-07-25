@@ -60,6 +60,12 @@ fun Long.toDateStringYYYYMMDD() : String {
 }
 
 @OptIn(ExperimentalTime::class)
+fun Long.getDayNumberFromMillis() : Int {
+  val instant = Instant.fromEpochMilliseconds(this)
+  return instant.toLocalDateTime(TimeZone.UTC).date.day
+}
+
+@OptIn(ExperimentalTime::class)
 fun currentDateTimeAsString() : String {
   val instant = Clock.System.now()
   val localDateTime = instant.toLocalDateTime(TimeZone.UTC)

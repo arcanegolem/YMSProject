@@ -1,23 +1,21 @@
-package arcanegolem.yms.transactions.data.remote.api
+package arcanegolem.yms.core.data.remote.api
 
 import io.ktor.resources.Resource
-import arcanegolem.yms.transactions.data.remote.models.Transaction
-import arcanegolem.yms.transactions.data.remote.models.TransactionResponse
 
 /**
  * Эндпоинт транзакций
  *
- * - при обращении через POST создает [Transaction]
+ * - при обращении через POST создает транзакцию
  */
 @Resource("/transactions")
-internal class Transactions {
+class Transactions {
   /**
    * Эндпоинт для взаимодейстия с транзакцией по идентификатору
    *
-   * - при обращении через GET возвращает [TransactionResponse] с соответствующим
+   * - при обращении через GET возвращает [arcanegolem.yms.core.data.remote.models.TransactionResponse] с соответствующим
    * идентификатором
-   * - при обращении через PUT обновляет [Transaction]
-   * - при обращении через DELETE удаляет [Transaction]
+   * - при обращении через PUT обновляет транзакцию
+   * - при обращении через DELETE удаляет транзакцию
    *
    * @param parent родительский элемент ссылки
    * @param id идентификатор транзакции
@@ -44,7 +42,7 @@ internal class Transactions {
        * Эндпоинт для получения транзакций для определенного идентификатором счета за определенный
        * период времени
        *
-       * - при обращении через GET возвращает список [TransactionResponse]
+       * - при обращении через GET возвращает список [arcanegolem.yms.core.data.remote.models.TransactionResponse]
        *
        * @param parent родительский элемент ссылки см. [Transactions.Account.ById]
        * @param startDate дата в формате YYYY-MM-DD начала периода

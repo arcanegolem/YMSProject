@@ -72,6 +72,7 @@ dependencies {
   implementation(project(":core:ui"))
   implementation(project(":core:utils"))
   implementation(project(":core:di"))
+  implementation(project(":core:domain"))
   
   implementation(project(":graph"))
 }

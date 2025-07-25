@@ -1,7 +1,7 @@
 package arcanegolem.yms.transactions.domain.repos
 
 import arcanegolem.yms.transactions.domain.models.TransactionInfoModel
-import arcanegolem.yms.transactions.domain.models.TransactionsTotaledModel
+import arcanegolem.yms.core.domain.models.TransactionsTotaledModel
 import kotlinx.coroutines.flow.Flow
 
 interface TransactionsRepository {
