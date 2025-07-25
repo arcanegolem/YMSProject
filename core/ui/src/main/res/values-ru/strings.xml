@@ -39,6 +39,19 @@
     <string name="connection_unavailable_text">Подключение не доступно!</string>
     <string name="account_name_text">Название счета</string>
     <string name="other_text">Другие</string>
+    <string name="version_text">Версия приложения</string>
+    <string name="last_updated_text">Последнее обновление</string>
+
+    <string name="money_green_text">Денежный зеленый</string>
+    <string name="classy_purple_text">Модный пурпурный</string>
+    <string name="eldorado_text">Эльдорадо</string>
+
+    <string name="bee_buzz">Пчёлка</string>
+    <string name="fly_buzz">Мушка</string>
+    <string name="mosquito_squeak">Комарик</string>
+
+    <string name="lang_name_russian">Русский</string>
+    <string name="lang_name_english">Английский</string>
 
     <string name="ruble_text">Российский рубль ₽</string>
     <string name="dollar_text">Американский доллар $</string>

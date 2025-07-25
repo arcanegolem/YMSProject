@@ -38,6 +38,19 @@
     <string name="connection_unavailable_text">Network not available!</string>
     <string name="account_name_text">Account name</string>
     <string name="other_text">Other</string>
+    <string name="version_text">App version</string>
+    <string name="last_updated_text">Last updated</string>
+
+    <string name="money_green_text">Money green</string>
+    <string name="classy_purple_text">Classy purple</string>
+    <string name="eldorado_text">Eldorado</string>
+
+    <string name="bee_buzz">Bee buzz</string>
+    <string name="fly_buzz">Fly buzz</string>
+    <string name="mosquito_squeak">Mosquito squeak</string>
+
+    <string name="lang_name_russian">Russian</string>
+    <string name="lang_name_english">English</string>
 
     <string name="ruble_text">Russian ruble ₽</string>
     <string name="dollar_text">United states\' dollar $</string>

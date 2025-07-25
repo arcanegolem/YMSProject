@@ -64,6 +64,8 @@ dependencies {
   implementation(libs.ktor.client.resources)
 
   implementation(libs.androidx.navigation.compose)
+  
+  implementation(libs.androidx.appcompat)
 
   implementation(project(":core:data"))
   implementation(project(":core:ui"))

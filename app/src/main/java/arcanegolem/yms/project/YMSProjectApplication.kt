@@ -39,7 +39,7 @@ class YMSProjectApplication
 
   val applicationComponent : ApplicationComponent by lazy {
     DaggerApplicationComponent.factory()
-      .create(this, BuildConfig.TOKEN)
+      .create(this, BuildConfig.TOKEN, BuildConfig.VERSION_NAME)
   }
 
   override fun resolveTransactionsDependencies(): TransactionsDependencies {

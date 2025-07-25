@@ -7,11 +7,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -24,6 +23,7 @@ import arcanegolem.yms.core.ui.components.YMSConnectionDisplay
 import arcanegolem.yms.core.ui.components.bottom_bar.YMSNavBar
 import arcanegolem.yms.core.ui.components.top_bar.YMSTopAppBar
 import arcanegolem.yms.core.utils.NetworkMonitor
+import arcanegolem.yms.project.applicationComponent
 import arcanegolem.yms.project.navigation.navigationGraph
 import arcanegolem.yms.settings.navigation.SettingsDestinationModel
 import arcanegolem.yms.transactions.navigation.Analysis
@@ -36,25 +36,26 @@ fun YMSProjectRoot() {
   val navController = rememberNavController()
   val networkAvailable by NetworkMonitor.networkAvailable.collectAsStateWithLifecycle()
   val backStackEntry = navController.currentBackStackEntryAsState()
-
-  val altTopAppBarColor = MaterialTheme.colorScheme.onSecondary
-  val mainTopAppBarColor = MaterialTheme.colorScheme.primary
-
-  val topAppBarColor by remember {
-    derivedStateOf {
-      if (backStackEntry.value?.destination?.hasRoute(Analysis::class) == true) {
-        altTopAppBarColor
-      } else {
-        mainTopAppBarColor
-      }
-    }
-  }
+  
+  val hapticEnabled by LocalContext.current.applicationComponent
+    .getHapticEnabledUseCase()
+    .execute()
+    .collectAsStateWithLifecycle(false)
+  
+  val hapticPattern by LocalContext.current.applicationComponent
+    .getHapticPatternUseCase()
+    .execute()
+    .collectAsStateWithLifecycle(longArrayOf())
 
   Scaffold(
     topBar = {
       YMSTopAppBar(
         backStackEntry = backStackEntry.value,
-        color = topAppBarColor
+        color = if (backStackEntry.value?.destination?.hasRoute(Analysis::class) == true) {
+          MaterialTheme.colorScheme.onSecondary
+        } else {
+          MaterialTheme.colorScheme.primary
+        }
       )
     },
     bottomBar = {
@@ -66,7 +67,9 @@ fun YMSProjectRoot() {
           AccountDestinationModel(),
           CategoriesDestinationModel(),
           SettingsDestinationModel()
-        )
+        ),
+        hapticEnabled = hapticEnabled,
+        hapticPattern = hapticPattern
       )
     }
   ) { paddingValues ->
